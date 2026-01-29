@@ -1,0 +1,6 @@
+app:
+  acl-service:
+    enabled: ${ACL_SERVICE_ENABLE:true}
+    internal:
+      url: ${ACL_SERVICE_INTERNAL_URL:http://skylens-mock-application-dev:1080/}
+

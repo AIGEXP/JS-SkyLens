@@ -1,0 +1,241 @@
+[
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/api/applications"
+    },
+    "httpResponse": {
+      "body": {
+        "id": 1,
+        "name": "User Name",
+        "code": "googleId_170eb4997dd1",
+        "version": "jumiaId_a0a33a595dcb",
+        "authProviderRealm": "ACL"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/api/target-types"
+    },
+    "httpResponse": {
+      "body": {
+        "name": "type-name"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/api/permissions"
+    },
+    "httpResponse": {
+      "body": {
+        "id": 1,
+        "name": "User Name",
+        "code": "googleId_170eb4997dd1",
+        "version": "jumiaId_a0a33a595dcb",
+        "authProviderRealm": "ACL"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/applications/code/{code}",
+      "pathParameters": {
+        "code": [
+          ".*"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "id": 1,
+        "name": "User Name",
+        "code": "googleId_170eb4997dd1",
+        "version": "jumiaId_a0a33a595dcb",
+        "authProviderRealm": "ACL"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/auth/tokens/{token}/decode",
+      "pathParameters": {
+        "token": [
+          "eyJhbGciOiJIUzI1NiJ9.eyJnb29nbGVJZCI6IjExMTExOTQ0MjgwMTYyNjQ3NDk0NyIsInN1YiI6InRlc3QiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODMiLCJuYW1lIjoiVXNlciBOYW1lIiwiZXhwIjoxNzIzNTc5MTAzMCwidHlwZSI6IkxPR0lOIiwiZW1haWwiOiJpbnRlcm5hbC5hZG1pbkBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FMVi1ValV6a0ZQN0RfYnAwNzhFOXFtZUR4a1NxMTF5c3RrYkdRbVdfVmprR1dKNl9nb19Ddy12PXM5Ni1jIiwic2lkIjoiZjhmMTlkMTItODcyNS00M2RiLThhNmEtMmQzYjlmZDM1MTJlIiwidXNlcm5hbWUiOiJ1c2VybmFtZSJ9.0CTiSlPDCxKsb9omi6S7CkANfZVXCsTX6TIKFYCIcCY"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "claims": {
+          "name": "User Name",
+          "sid": "f8f19d12-8725-43db-8a6a-2d3b9fd3512e",
+          "email": "internal.admin@gmail.com",
+          "username": "internal.admin@gmail.com",
+          "googleId": "googleId_170eb4997dd1",
+          "jumiaId": "jumiaId_a0a33a595dcb",
+          "picture": "",
+          "sub": "test",
+          "iss": "http://localhost:8083",
+          "exp": 0
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/auth/tokens/{token}/decode",
+      "pathParameters": {
+        "token": [
+          "eyJhbGciOiJIUzI1NiJ9.eyJnb29nbGVJZCI6IjExMTExOTQ0MjgwMTYyNjQ3NDk0NyIsInN1YiI6InRlc3QiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODMiLCJuYW1lIjoiVXNlciBOYW1lIiwiZXhwIjoxNzIzNTc5MTAzMCwidHlwZSI6IkxPR0lOIiwiZW1haWwiOiJleHRlcm5hbC51c2VyQGdtYWlsLmNvbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQUxWLVVqVXprRlA3RF9icDA3OEU5cW1lRHhrU3ExMXlzdGtiR1FtV19WamtHV0o2X2dvX0N3LXY9czk2LWMiLCJzaWQiOiJmOGYxOWQxMi04NzI1LTQzZGItOGE2YS0yZDNiOWZkMzUxMmIiLCJ1c2VybmFtZSI6InVzZXJuYW1lIn0.Vbk1gVp8akbpXz-_HkTMymFBeNqt8MvGhIPkQC9UUN8"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "claims": {
+          "name": "User Name",
+          "sid": "f8f19d12-8725-43db-8a6a-2d3b9fd3512e",
+          "email": "external.user@gmail.com",
+          "username": "external.user@gmail.com",
+          "googleId": "googleId_170eb4997dd1",
+          "jumiaId": "jumiaId_a0a33a595dcb",
+          "picture": "",
+          "sub": "sub_6e990f8fc525",
+          "iss": "localhost:8083",
+          "exp": 0
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/users/{user}/applications/{appCode}/permissions",
+      "pathParameters": {
+        "user": [
+          "internal.admin@gmail.com"
+        ],
+        "appCode": [
+          ".*"
+        ]
+      },
+      "queryStringParameters": {
+        "compressed": [
+          "true"
+        ],
+        "compressedHierarchy": [
+          "true"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "MEMBER": {
+          "*": [
+            "stops_list_packages"
+          ]
+        },
+        "APPLICATION": {
+          "LogisticPartners": [
+            "stops_admin"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/users/{user}/applications/{appCode}/permissions",
+      "pathParameters": {
+        "user": [
+          "external.user@gmail.com"
+        ],
+        "appCode": [
+          ".*"
+        ]
+      },
+      "queryStringParameters": {
+        "compressed": [
+          "true"
+        ],
+        "compressedHierarchy": [
+          "true"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "NODE": {
+          "d434f8d3-330b-4193-ab3c-be26bc4d9084": [
+            "DUMMY_NODE_RESOURCE"
+          ]
+        },
+        "NETWORK": {
+          "ng": [
+            "IS_NOT_MAPPED_IN_THE_APP"
+          ]
+        },
+        "MEMBER": {
+          "2f7466ab-1b20-4e60-928e-4676e545622f": [
+            "IS_NOT_MAPPED_IN_THE_APP"
+          ]
+        },
+        "APPLICATION": {
+          "skylens": [
+          ]
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/users/{userName}/applications/{application}/targets",
+      "pathParameters": {
+        "userName": [
+          ".*"
+        ],
+        "application": [
+          "LogisticPartners"
+        ]
+      },
+      "queryStringParameters": {
+        "compressed": [
+          "true"
+        ],
+        "compressedHierarchy": [
+          "true"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "APPLICATION": {
+          "LogisticPartners": {}
+        },
+        "COUNTRY": {
+          "NG": {}
+        },
+        "NETWORK": {
+          "NG": {
+            "MEMBER": {
+              "2f7466ab-1b20-4e60-928e-4676e545622f": {
+                "NODE": {
+                  "d434f8d3-330b-4193-ab3c-be26bc4d9084": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

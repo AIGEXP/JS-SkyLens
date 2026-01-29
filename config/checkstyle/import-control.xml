@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE import-control PUBLIC
+        "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
+        "https://checkstyle.org/dtds/import_control_1_4.dtd">
+
+<!--Example: https://github.com/checkstyle/checkstyle/blob/master/config/import-control.xml-->
+<import-control pkg="(com\.jumia\.skylens\.[a-z]+|db\.migration)"
+                regex="true"
+                strategyOnMismatch="allowed">
+
+</import-control>

@@ -1,0 +1,30 @@
+server:
+  port: 7777
+
+management:
+  server:
+    port: 7778
+
+spring:
+  flyway:
+    enabled: true
+    fail-on-missing-locations: true
+    locations: filesystem:${PROJECT_HOME}/driven-adapters/infrastructure/persistence/migrations-jpa/src/main/resources/db
+    baseline-version: 0
+    baseline-on-migrate: true
+    defaultSchema: public
+    out-of-order: true
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+app:
+  acl-service:
+    enabled: false
+    cache:
+      in-memory:
+        expire-duration: PT100H
+      type: in_memory

@@ -1,0 +1,93 @@
+[versions]
+spring-boot = "4.0.2"
+
+commons-collections4 = "4.5.0"
+commons-text = "1.14.0"
+cucumber = "7.33.0"
+datafaker = "2.5.2"
+hypersistence-utils = "3.14.1"
+mapstruct = "1.6.3"
+mockserver = "5.15.0"
+resilience4j = "2.3.0"
+spotbugs = "4.8.6"
+springdoc = "3.0.0"
+
+acl-lib = "2.9.1-RELEASE"
+logging-context = "1.0.5-RELEASE"
+
+spotbugs-gradle-plugin = "6.4.8"
+flyway-plugin = "11.19.0"
+gradle-git-properties = "2.5.4"
+openapi-generator = "7.18.0"
+
+[libraries]
+spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot-devtools" }
+spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
+spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter" }
+spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
+spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
+spring-boot-starter-flyway = { group = "org.springframework.boot", name = "spring-boot-starter-flyway" }
+spring-boot-starter-json = { group = "org.springframework.boot", name = "spring-boot-starter-json" }
+spring-boot-starter-kafka = { group = "org.springframework.boot", name = "spring-boot-starter-kafka" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
+spring-boot-starter-webmvc-test = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc-test" }
+spring-jdbc = { group = "org.springframework", name = "spring-jdbc" }
+spring-rabbit = { group = "org.springframework.amqp", name = "spring-rabbit" }
+spring-test = { group = "org.springframework", name = "spring-test" }
+spring-tx = { group = "org.springframework", name = "spring-tx" }
+spring-web = { group = "org.springframework", name = "spring-web" }
+
+assertj = { group = "org.assertj", name = "assertj-core" }
+awaitility = { group = "org.awaitility", name = "awaitility" }
+commons-collections4 = { group = "org.apache.commons", name = "commons-collections4", version.ref = "commons-collections4" }
+commons-lang3 = { group = "org.apache.commons", name = "commons-lang3" }
+commons-text = { group = "org.apache.commons", name = "commons-text", version.ref = "commons-text" }
+cucumber-bom = { group = "io.cucumber", name = "cucumber-bom", version.ref = "cucumber" }
+cucumber-java = { group = "io.cucumber", name = "cucumber-java" }
+cucumber-junit-platform-engine = { group = "io.cucumber", name = "cucumber-junit-platform-engine" }
+cucumber-spring = { group = "io.cucumber", name = "cucumber-spring" }
+datafaker = { group = "net.datafaker", name = "datafaker", version.ref = "datafaker" }
+flyway = { group = "org.flywaydb", name = "flyway-core" }
+flyway-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
+hibernate-core = { group = "org.hibernate.orm", name = "hibernate-core" }
+hibernate-micrometer = { group = "org.hibernate.orm", name = "hibernate-micrometer" }
+hibernate-validator = { group = "org.hibernate.validator", name = "hibernate-validator" }
+hikari = { group = "com.zaxxer", name = "HikariCP" }
+hypersistence-utils = { group = "io.hypersistence", name = "hypersistence-utils-hibernate-71", version.ref = "hypersistence-utils" }
+jackson-databind = { group = "tools.jackson.core", name = "jackson-databind" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+junit-platform-suite = { group = "org.junit.platform", name = "junit-platform-suite" }
+lombok = { group = "org.projectlombok", name = "lombok" }
+spotbugs-gradle-plugin = { group = "com.github.spotbugs.snom", name = "spotbugs-gradle-plugin", version.ref = "spotbugs-gradle-plugin" }
+mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
+micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
+mockito = { group = "org.mockito", name = "mockito-core" }
+mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter" }
+mockserver-client-java = { group = "org.mock-server", name = "mockserver-client-java", version.ref = "mockserver" }
+postgresql = { group = "org.postgresql", name = "postgresql" }
+querydsl-apt = { group = "com.querydsl", name = "querydsl-apt" }
+querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa" }
+resilience4j = { group = "io.github.resilience4j", name = "resilience4j-spring-boot3", version.ref = "resilience4j" }
+slf4j-api = { group = "org.slf4j", name = "slf4j-api" }
+spotbugs-annotations = { group = "com.github.spotbugs", name = "spotbugs-annotations", version.ref = "spotbugs" }
+springdoc-openapi-starter-webmvc-api = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "testcontainers-junit-jupiter" }
+testcontainers-mockserver = { group = "org.testcontainers", name = "testcontainers-mockserver" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "testcontainers-postgresql" }
+testcontainers-kafka = { group = "org.testcontainers", name = "testcontainers-kafka" }
+testcontainers-rabbitmq = { group = "org.testcontainers", name = "testcontainers-rabbitmq" }
+testcontainers = { group = "org.testcontainers", name = "testcontainers" }
+
+acl-lib = { group = "com.jumia.services", name = "acl-lib", version.ref = "acl-lib" }
+logging-context = { group = "pt.aig.aigx", name = "logging-context", version.ref = "logging-context" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway-plugin" }
+gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version.ref = "gradle-git-properties" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }

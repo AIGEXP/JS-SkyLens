@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <property name="LOG_HOME" value="./logs"/>
+    <property name="OUT_PATTERN"
+              value="skylens-%X{system:-api}-%X{communicationType:-server} tests %X{tenant:-default} [%d{yyyy-MM-dd'T'HH:mm:ss}] %X{web-context-CF-RAY:--} %-5p [%t] [%c] %msg%n%throwable"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${OUT_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

@@ -1,0 +1,166 @@
+services:
+
+  # Used to create a depends_on skylens-api and make sure API is ready when docker-compose finishes
+  # Same as calling it with --wait: 'docker compose up -d -wait'
+  busybox:
+    image: busybox
+    container_name: busybox
+    entrypoint: echo Ready
+    restart: "no"
+    depends_on:
+      skylens-api:
+        condition: service_healthy
+
+  skylens-api:
+    image: skylens:local
+    container_name: skylens-api-${ENVIRONMENT}
+    build:
+      context: ../../../
+      dockerfile: infrastructure/skylens/Dockerfile
+      target: production
+    ports:
+      - ${APP_API_PORT:-8080}:8080
+      - ${APP_MANAGEMENT_PORT:-8081}:8081
+      - "5006:5005"
+    healthcheck:
+      test: "curl --fail --silent localhost:${APP_MANAGEMENT_PORT:-8081}/actuator/health/readiness | grep UP || exit 1"
+      interval: 3s
+      timeout: 3s
+      retries: 80
+      start_period: 10s
+    environment:
+      APP_OPTS: ${APP_OPTS}
+      JAVA_OPTS: ${JAVA_OPTS}
+    volumes:
+      - ${PROJECT_HOME}/driven-adapters/infrastructure/persistence/migrations-jpa/src/main/resources:/opt/app/migrations/postgresql
+    depends_on:
+      skylens-rabbitmq:
+        condition: service_healthy
+      skylens-database:
+        condition: service_healthy
+      skylens-kafka:
+        condition: service_healthy
+      skylens-postgresql-migrations:
+        condition: service_completed_successfully
+      skylens-mock-application:
+        condition: service_started
+    restart: "no"
+
+  skylens-zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.1
+    container_name: skylens-zookeeper-${ENVIRONMENT}
+    ports:
+      - "2181:2181"
+    healthcheck:
+      test: nc -z localhost 2181 || exit 1
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    restart: "no"
+
+# In case we need to play with different configuration on a given cluster (test security variations for example) we can use:
+# https://github.com/vdesabou/kafka-docker-playground/blob/master/environment/sasl-scram/docker-compose.yml
+  skylens-kafka:
+    image: confluentinc/cp-kafka:5.5.1
+    container_name: skylens-kafka-${ENVIRONMENT}
+    depends_on:
+      skylens-zookeeper:
+        condition: service_healthy
+    healthcheck:
+      test: nc -z localhost 9092 || exit 1
+      interval: 3s
+      timeout: 2s
+      retries: 20
+      start_period: 5s
+    ports:
+      - ${INTERNAL_KAFKA_BROKER_PORT:-9093}:9093
+      - ${EXTERNAL_KAFKA_BROKER_PORT:-9092}:9092
+      - "29093:29093"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'skylens-zookeeper-${ENVIRONMENT}:2181'
+      KAFKA_LISTENERS: EXTERNAL://:9092,INTERNAL://:29092
+      KAFKA_ADVERTISED_LISTENERS: EXTERNAL://localhost:9092,INTERNAL://skylens-kafka-${ENVIRONMENT}:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: EXTERNAL:PLAINTEXT,INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    restart: "no"
+
+  skylens-init-kafka:
+    image: confluentinc/cp-kafka:5.5.1
+    container_name: init-kafka-${ENVIRONMENT}
+    depends_on:
+      skylens-kafka:
+        condition: service_healthy
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server skylens-kafka-${ENVIRONMENT}:29092 --list
+
+      echo -e 'Creating kafka topics'
+      kafka-topics --create --if-not-exists --zookeeper skylens-zookeeper-${ENVIRONMENT}:2181 --topic services_ng_hmt_topic_3pl-lastmile --replication-factor 1 --partitions 1
+
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server skylens-kafka-${ENVIRONMENT}:29092 --list
+      "
+
+  skylens-postgresql-migrations:
+    container_name: skylens-postgresql-migrations-${ENVIRONMENT}
+    image: skylens-postgresql-migrations:local
+    build:
+      context: ../../../
+      dockerfile: infrastructure/skylens/Dockerfile
+      target: postgresql-migrations
+    command: ["migrate", "-X"]
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://skylens-database-${ENVIRONMENT}:5432/hmt_stops
+      - FLYWAY_USER=postgres
+      - FLYWAY_PASSWORD=postgres
+      - FLYWAY_DRIVER=org.postgresql.Driver
+      - FLYWAY_INIT_SQL=SELECT 'CREATE DATABASE hmt_stops' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'hmt_stops')
+      - FLYWAY_TABLE=flyway_schema_history
+      - FLYWAY_SCHEMAS=public
+      - FLYWAY_OUT_OF_ORDER=true
+      - FLYWAY_BASELINE=0
+      - FLYWAY_BASELINE_ON_MIGRATE=true
+    restart: "no"
+    depends_on:
+      skylens-database:
+        condition: service_healthy
+
+  skylens-database:
+    container_name: skylens-database-${ENVIRONMENT}
+    build: postgresql/
+    ports:
+      - "${DATABASE_PORT}:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    command: ["postgres", "-c", "log_statement=${DATABASE_LOGS:-none}"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+    restart: "no"
+
+  skylens-mock-application:
+    image: mockserver/mockserver:5.15.0
+    container_name: skylens-mock-application-${ENVIRONMENT}
+    ports:
+      - ${MOCKS_PORT:-8083}:1080
+    environment:
+      MOCKSERVER_WATCH_INITIALIZATION_JSON: "true"
+      MOCKSERVER_PROPERTY_FILE: /mockserver/configs/mockserver.properties
+    volumes:
+      - ./mockserver:/mockserver

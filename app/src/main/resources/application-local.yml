@@ -1,0 +1,31 @@
+server:
+  port: ${APP_MANAGEMENT_PORT:8080}
+
+management:
+  server:
+    port: ${APP_MANAGEMENT_PORT:8081}
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+app:
+  acl-service:
+    enabled: ${ACL_SERVICE_ENABLE:false}
+    internal:
+      url: ${ACL_SERVICE_INTERNAL_URL:http://localhost:8083}

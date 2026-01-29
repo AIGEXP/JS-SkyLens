@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--https://spotbugs.readthedocs.io/en/stable/filter.html-->
+<FindBugsFilter>
+    <!-- Most of these "bugs" in tests are due to mockito methods -->
+    <Match>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/>
+    </Match>
+    <Match>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
+    </Match>
+    <Match>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+        <Or>
+            <Class name="~com\.jumia\.\.http\.out\.hmt\.impl\.PackageOperationsFetcherImplTest.*"/>
+        </Or>
+    </Match>
+    <Match>
+        <Or>
+            <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
+            <Bug pattern="MF_CLASS_MASKS_FIELD"/>
+            <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+        </Or>
+        <Or>
+            <Class name="~com\.jumia\.\.*\.fakers.*"/>
+        </Or>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Or>
+            <Class name="com.jumia.skylens.kafka.out.utils.KafkaConsumerIT"/>
+            <Class name="com.jumia.skylens.rabbit.out.utils.RabbitConsumerIT"/>
+            <Package name="com.jumia.skylens.test.testcontainers.*"/>
+            <Class name="providers.com.jumia.skylens.acceptance.LogisticEventDTO"/>
+            <Class name="providers.com.jumia.skylens.acceptance.LogisticEventDTO$SubRequest"/>
+            <Class name="dto.com.jumia.skylens.acceptance.PackageResponseDTO"/>
+        </Or>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+        <Or>
+            <Class name="providers.com.jumia.skylens.acceptance.LogisticEventDTO"/>
+            <Class name="providers.com.jumia.skylens.acceptance.LogisticEventDTO$SubRequest"/>
+            <Class name="dto.com.jumia.skylens.acceptance.PackageResponseDTO"/>
+        </Or>
+    </Match>
+    <Match>
+        <Bug pattern="MS_EXPOSE_REP"/>
+        <Or>
+            <Package name="com.jumia.skylens.test.testcontainers.*"/>
+        </Or>
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,19 @@
+server:
+  port: ${APP_MANAGEMENT_PORT:8080}
+
+management:
+  server:
+    port: ${APP_MANAGEMENT_PORT:8081}
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  kafka:
+    bootstrap-servers: skylens-kafka-dev:29092

@@ -1,0 +1,521 @@
+openapi: 3.0.3
+info:
+  title: Skylens API
+  description: |
+    Performance dashboard microservice for hub metrics.
+  version: 1.0.0
+  contact:
+    name: API Support
+
+servers:
+  - url: /api/v1
+    description: Base API path
+
+tags:
+  - name: Service Providers
+    description: Service provider level metrics
+  - name: Configuration
+    description: Thresholds and boundaries management
+  - name: Reference Data
+    description: Endpoints for static or reference data
+
+paths:
+  /service-providers/{serviceProviderSid}/metrics/deliveries:
+    get:
+      tags:
+        - Service Providers
+      summary: Get delivery metrics
+      operationId: getPackageDeliveries
+      parameters:
+        - $ref: '#/components/parameters/serviceProviderSidPath'
+        - $ref: '#/components/parameters/hubSid'
+        - $ref: '#/components/parameters/dateRange'
+        - $ref: '#/components/parameters/paymentType'
+        - $ref: '#/components/parameters/movementType'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryMetricsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /service-providers/{serviceProviderSid}/metrics/success-rate:
+    get:
+      tags:
+        - Service Providers
+      summary: Get success rate metrics
+      operationId: getSuccessRate
+      parameters:
+        - $ref: '#/components/parameters/serviceProviderSidPath'
+        - $ref: '#/components/parameters/hubSid'
+        - $ref: '#/components/parameters/dateRange'
+        - $ref: '#/components/parameters/paymentType'
+        - $ref: '#/components/parameters/movementType'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateMetricsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /service-providers/{serviceProviderSid}/metrics/loss-rate:
+    get:
+      tags:
+        - Service Providers
+      summary: Get loss rate metrics
+      operationId: getLossRate
+      parameters:
+        - $ref: '#/components/parameters/serviceProviderSidPath'
+        - $ref: '#/components/parameters/hubSid'
+        - $ref: '#/components/parameters/dateRange'
+        - $ref: '#/components/parameters/paymentType'
+        - $ref: '#/components/parameters/movementType'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LossRateMetricsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /service-providers/{serviceProviderSid}/metrics/no-attempts:
+    get:
+      tags:
+        - Service Providers
+      summary: Get no attempts metrics
+      operationId: getNoAttempts
+      parameters:
+        - $ref: '#/components/parameters/serviceProviderSidPath'
+        - $ref: '#/components/parameters/hubSid'
+        - $ref: '#/components/parameters/dateRange'
+        - $ref: '#/components/parameters/paymentType'
+        - $ref: '#/components/parameters/movementType'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoAttemptsMetricsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /countries/{country}/thresholds/success-rate:
+    get:
+      tags:
+        - Configuration
+      summary: Get success rate target for a country
+      operationId: getSuccessRateTarget
+      parameters:
+        - $ref: '#/components/parameters/countryPath'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateTarget'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Configuration
+      summary: Update success rate target for a country
+      operationId: setSuccessRateTarget
+      parameters:
+        - $ref: '#/components/parameters/countryPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuccessRateTargetRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateTarget'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /countries/{country}/boundaries/success-rate:
+    get:
+      tags:
+        - Configuration
+      summary: Get success rate boundaries
+      operationId: getMetricBoundaries
+      parameters:
+        - $ref: '#/components/parameters/countryPath'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateBoundary'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Configuration
+      summary: Update success rate boundaries
+      operationId: setMetricBoundaries
+      parameters:
+        - $ref: '#/components/parameters/countryPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuccessRateBoundaryRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateBoundary'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /date-ranges:
+    get:
+      tags:
+        - Reference Data
+      summary: Get available date rages
+      operationId: getDateRanges
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DateRangesResponse'
+
+components:
+  parameters:
+    serviceProviderSidPath:
+      name: serviceProviderSid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Service provider sid
+      example: "38b41222-1528-4231-896d-3788a3a9d8d8"
+
+    hubSid:
+      name: hubSid
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Hub sid
+      example: "38b41222-1528-4231-896d-3788a3a9d8d8"
+
+    countryPath:
+      name: country
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+      description: ISO country code
+      example: "CI"
+
+    dateRange:
+      name: dateRange
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/DateRange'
+
+    paymentType:
+      name: paymentType
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PaymentType'
+
+    movementType:
+      name: movementType
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/MovementType'
+
+  schemas:
+    DateRange:
+      type: string
+      enum:
+        - CURRENT_WEEK
+        - LAST_WEEK
+        - LAST_FOUR_WEEKS
+        - LAST_THREE_MONTHS
+      description: |
+        Date range selection affects response array size and date granularity:
+        
+        | Value             | Array Size | Granularity | Date Represents     |
+        |-------------------|------------|-------------|---------------------|
+        | CURRENT_WEEK      | 7          | Daily       | Each day            |
+        | LAST_WEEK         | 7          | Daily       | Each day            |
+        | LAST_FOUR_WEEKS   | 4          | Weekly      | Week start (Monday) |
+        | LAST_THREE_MONTHS | 3          | Monthly     | Month start (1st)   |
+
+    PaymentType:
+      type: string
+      enum:
+        - PRE
+        - POS
+      description: |
+        - PRE: Prepaid
+        - POS: Pospaid
+
+    MovementType:
+      type: string
+      enum:
+        - DOOR
+        - PUS
+      description: |
+        - DOOR: Door delivery
+        - PUS: Pick up deliverey
+
+    DeliveryMetricsResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - packagesDelivered
+        properties:
+          date:
+            type: string
+            format: date
+            description: |
+              - DAILY: The day
+              - WEEKLY: Week start (Monday)
+              - MONTHLY: Month start (1st)
+          packagesDelivered:
+            type: integer
+
+    SuccessRateMetricsResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - packagesDelivered
+          - packagesClosed
+        properties:
+          date:
+            type: string
+            format: date
+          packagesDelivered:
+            type: integer
+          packagesClosed:
+            type: integer
+          successRate:
+            type: number
+            format: double
+            nullable: true
+
+    LossRateMetricsResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - packagesLost
+          - packagesReceived
+        properties:
+          date:
+            type: string
+            format: date
+          packagesLost:
+            type: integer
+          packagesReceived:
+            type: integer
+          lossRate:
+            type: number
+            format: double
+            nullable: true
+
+    NoAttemptsMetricsResponse:
+      type: object
+      required:
+        - oneDay
+        - twoDays
+        - threeDays
+        - overThreeDays
+      properties:
+        oneDay:
+          type: integer
+          description: Packages with 1 working day without attempt
+        twoDays:
+          type: integer
+          description: Packages with 2 working days without attempt
+        threeDays:
+          type: integer
+          description: Packages with 3 working days without attempt
+        overThreeDays:
+          type: integer
+          description: Packages with >3 working days without attempt
+
+    SuccessRateTarget:
+      type: object
+      required:
+        - targetRate
+        - updatedAt
+      properties:
+        targetRate:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        updatedAt:
+          type: string
+          format: date-time
+
+    SuccessRateTargetRequest:
+      type: object
+      required:
+        - targetRate
+      properties:
+        targetRate:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          example: 0.95
+
+    SuccessRateBoundary:
+      type: object
+      required:
+        - metricType
+        - warningThreshold
+        - criticalThreshold
+        - updatedAt
+      properties:
+        warningThreshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        criticalThreshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        updatedAt:
+          type: string
+          format: date-time
+
+    SuccessRateBoundaryRequest:
+      type: object
+      required:
+        - warningThreshold
+        - criticalThreshold
+      properties:
+        warningThreshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          example: 0.90
+        criticalThreshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          example: 0.80
+    DateRangeOption:
+      type: object
+      required:
+        - value
+        - description
+      properties:
+        value:
+          $ref: '#/components/schemas/DateRange'
+        description:
+          type: string
+          description: Human-readable label for display
+      example:
+        value: CURRENT_WEEK
+        description: Current Week
+
+    DateRangesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/DateRangeOption'
+      example:
+        - value: CURRENT_WEEK
+          description: Current Week
+        - value: LAST_WEEK
+          description: Last Week
+        - value: LAST_FOUR_WEEKS
+          description: Last 4 Weeks
+        - value: LAST_THREE_MONTHS
+          description: Last 3 Months
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: 1
+        message:
+          type: string
+        codeName:
+          type: string
+        errors:
+          type: string
+      required:
+        - code
+        - message

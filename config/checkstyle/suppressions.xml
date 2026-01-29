@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionXpathFilter Experimental Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2_xpath_experimental.dtd">
+
+<suppressions>
+    <suppress checks="TypeName" files=".*[\\/]db[\\/]migration.*"/>
+    <suppress checks="PackageName" files=".*[\\/]db[\\/]migration.*"/>
+    <suppress checks="HideUtilityClassConstructor" files="Application.java"/>
+    <suppress checks="ClassDataAbstractionCoupling" files="SwaggerConfiguration.java"/>
+
+    <suppress-xpath checks="VisibilityModifier" query="//*[MODIFIERS//*[@text = 'Value']]/descendant-or-self::node()"/>
+    <suppress-xpath checks="VisibilityModifier" query="//*[MODIFIERS//*[@text = 'Data']]/descendant-or-self::node()"/>
+    <suppress-xpath checks="HideUtilityClassConstructor" query="//CLASS_DEF[.//ANNOTATION/IDENT[@text='Getter']]"/>
+    <suppress-xpath checks="HideUtilityClassConstructor" query="//CLASS_DEF[.//ANNOTATION/IDENT[@text='Setter']]"/>
+
+    <!-- Tests suppression's -->
+    <suppress checks="MagicNumber" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+    <suppress checks="VisibilityModifier" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+    <suppress checks="CyclomaticComplexity" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+    <suppress checks="ParameterNumber" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+    <suppress checks="MethodLength" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+
+    <suppress checks="ClassDataAbstractionCoupling" files="KafkaConfiguration.java"/>
+    <suppress checks="ClassFanOutComplexity" files="KafkaConfiguration.java"/>
+    <suppress checks="ClassDataAbstractionCoupling" files="UseCaseConfiguration.java"/>
+    <suppress checks="ClassFanOutComplexity" files="UseCaseConfiguration.java"/>
+    <suppress checks="ClassFanOutComplexity" files="LogisticEventsMessageListenerTestIT.java"/>
+    <suppress checks="ClassFanOutComplexity" files="DomainFaker.java"/>
+    <suppress checks="MagicNumber" files="DomainFaker.java"/>
+    <suppress checks="LineLength" files="AclTokens.java"/>
+
+    <suppress files=".*[\\/]http-in[\\/]build[\\/]generated[\\/].*" checks="[a-zA-Z0-9]*"/>
+</suppressions>

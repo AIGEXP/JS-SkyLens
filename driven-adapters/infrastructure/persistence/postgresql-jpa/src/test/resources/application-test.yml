@@ -1,0 +1,16 @@
+logging:
+  level:
+    root: info
+    web: info
+    sql: info
+    org.hibernate.SQL: info
+    org.hibernate.type.descriptor.sql.BasicBinder: info
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  flyway:
+    mixed: true

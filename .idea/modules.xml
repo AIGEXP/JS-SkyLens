@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/skylens.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/skylens.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commons/skylens.commons.main.iml" filepath="$PROJECT_DIR$/.idea/modules/commons/skylens.commons.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/catalog/skylens.domain.catalog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/catalog/skylens.domain.catalog.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/ports/telemetry-api/skylens.domain.ports.telemetry-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/ports/telemetry-api/skylens.domain.ports.telemetry-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/driven-adapters/infrastructure/persistence/postgresql-jpa/skylens.driven-adapters.infrastructure.persistence.postgresql-jpa.main.iml" filepath="$PROJECT_DIR$/.idea/modules/driven-adapters/infrastructure/persistence/postgresql-jpa/skylens.driven-adapters.infrastructure.persistence.postgresql-jpa.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/driven-adapters/micrometer/skylens.driven-adapters.micrometer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/driven-adapters/micrometer/skylens.driven-adapters.micrometer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/driver-adapters/http-in/acl/skylens.driver-adapters.http-in.acl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/driver-adapters/http-in/acl/skylens.driver-adapters.http-in.acl.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/driver-adapters/http-in/skylens.driver-adapters.http-in.main.iml" filepath="$PROJECT_DIR$/.idea/modules/driver-adapters/http-in/skylens.driver-adapters.http-in.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/driver-adapters/kafka-in/skylens.driver-adapters.kafka-in.main.iml" filepath="$PROJECT_DIR$/.idea/modules/driver-adapters/kafka-in/skylens.driver-adapters.kafka-in.main.iml" />
+    </modules>
+  </component>
+</project>

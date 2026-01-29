@@ -1,0 +1,123 @@
+server:
+  port: ${APP_MANAGEMENT_PORT:8080}
+management:
+  server:
+    port: ${APP_MANAGEMENT_PORT:8081}
+    address: 0.0.0.0
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    enable:
+      tomcat: true
+      jvm: true
+      process: true
+      system: true
+      jdbc: true
+      hibernate: true
+      hikaricp: true
+      logback: true
+      spring: true
+      http:
+        server: true
+    tags:
+      application: skylens
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+  health:
+    rabbit:
+      enabled: false
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          use_get_generated_keys: true
+        show_sql: false
+        connection:
+          handling_mode: DELAYED_ACQUISITION_AND_RELEASE_AFTER_TRANSACTION
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        format_sql: false
+        use_sql_comments: false
+        generate_statistics: true
+    database-platform: org.hibernate.dialect.PostgresPlusDialect
+    defer-datasource-initialization: false
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      client-id: skylens
+      group-id: skylens
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: ${KAFKA_AUTO_OFFSET_RESET:earliest}
+      enable-auto-commit: false
+      max-poll-records: ${KAFKA_MAX_POLL_RECORDS:500}
+      properties:
+        max.poll.interval.ms: ${KAFKA_MAX_POLL_INTERVAL_MS:300000}
+        session.timeout.ms: ${KAFKA_SESSION_TIMEOUT_MS:45000}
+    listener:
+      ack-mode: manual_immediate
+      concurrency: ${KAFKA_LISTENER_CONCURRENCY:1}
+    security:
+      protocol: ${KAFKA_SECURITY_PROTOCOL:PLAINTEXT}
+    properties:
+      sasl.mechanism: ${KAFKA_SASL_MECHANISM:PLAIN}
+      sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:}
+app:
+  logging:
+    web:
+      context:
+        headers: CF-RAY
+  acl-service:
+    enabled: ${ACL_SERVICE_ENABLE:true}
+    internal:
+      url: ${ACL_SERVICE_INTERNAL_URL:https://api-acl-staging.jumia.services/}
+      read-timeout: ${ACL_SERVICE_INTERNAL_READ_TIMEOUT:2000}
+      issuer: ${ACL_SERVICE_INTERNAL_ISSUER:internal}
+      default-instance: true
+    cache:
+      expire-duration: PT100H
+
+  kafka:
+    in:
+      topic: services_all_skylens_topic_bi-reports
+
+  cors: # can be configured in kong
+    enabled: true
+    web-mapping: /**
+    allowed-origins:
+      - http://localhost:9000
+      - http://localhost:4300
+      - http://localhost:4200
+    allowed-methods: GET, POST, PATCH, DELETE, PUT, OPTIONS
+    allowed-headers:
+      - authorization
+      - content-type
+      - cache-control
+      - x-requested-with
+    max-age: 1800
+
+  pagination:
+    max-limit: ${PAGINATION_MAX_LIMIT:100}
+    max-export-limit: ${PAGINATION_MAX_EXPORT_LIMIT:10000}
+    default-limit: ${PAGINATION_DEFAULT_LIMIT:50}
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: true
+    path: "/api/documentation/swagger-ui.html"
+    url: /api/openapi.yaml
