@@ -27,7 +27,7 @@ public class DatasourceConfiguration {
     public DataSource dataSource() {
 
         final HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/hmt_stops");
+        dataSource.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/skylens");
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         dataSource.setMaximumPoolSize(3);
