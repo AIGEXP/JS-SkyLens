@@ -32,6 +32,10 @@ management:
         enabled: true
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/skylens
+    username: postgres
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: validate

@@ -25,31 +25,43 @@ public class HubDailyMetricEntity {
     @EmbeddedId
     private HubDailyMetricEntityId id;
 
+    @Column(nullable = false)
     private String country;
 
-    @Column(name = "is_3pl")
+    @Column(name = "is_3pl", nullable = false)
     private boolean is3PL;
 
-    private Integer packagesDelivered;
+    @Column(nullable = false)
+    private int packagesDelivered;
 
-    private Integer packagesClosed;
+    @Column(nullable = false)
+    private int packagesClosed;
 
-    private Integer packagesReceived;
+    @Column(nullable = false)
+    private int packagesReceived;
 
-    private Integer packagesLostAtHub;
+    @Column(nullable = false)
+    private int packagesLostAtHub;
 
-    private Integer packagesNoAttempts;
+    @Column(nullable = false)
+    private int packagesNoAttempts;
 
-    private Integer packagesNoAttemptsOneDay;
+    @Column(nullable = false)
+    private int packagesNoAttemptsOneDay;
 
-    private Integer packagesNoAttemptsTwoDays;
+    @Column(nullable = false)
+    private int packagesNoAttemptsTwoDays;
 
-    private Integer packagesNoAttemptsThreeDays;
+    @Column(nullable = false)
+    private int packagesNoAttemptsThreeDays;
 
-    private Integer packagesNoAttemptsFourDays;
+    @Column(nullable = false)
+    private int packagesNoAttemptsFourDays;
 
-    private Integer packagesNoAttemptsOverFourDays;
+    @Column(nullable = false)
+    private int packagesNoAttemptsOverFourDays;
 
     @CreationTimestamp
+    @Column(nullable = false)
     private OffsetDateTime createdAt;
 }

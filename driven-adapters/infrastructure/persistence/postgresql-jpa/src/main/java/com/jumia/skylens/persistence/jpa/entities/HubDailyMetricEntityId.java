@@ -26,16 +26,21 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class HubDailyMetricEntityId implements Serializable {
 
+    @Column(nullable = false)
     private UUID serviceProviderSid;
 
+    @Column(nullable = false)
     private UUID hubSid;
 
+    @Column(nullable = false)
     private LocalDate day;
 
-    private Boolean prePaid;
+    @Column(nullable = false)
+    private boolean prePaid;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(nullable = false)
     private MovementType movementType;
 
     public enum MovementType {
