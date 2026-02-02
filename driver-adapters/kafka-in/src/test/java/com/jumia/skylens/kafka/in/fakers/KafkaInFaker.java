@@ -1,6 +1,6 @@
 package com.jumia.skylens.kafka.in.fakers;
 
-import com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos.HubDailyMetricDTO;
+import com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos.HubDailyMetricDTO;
 import net.datafaker.Faker;
 
 import java.util.UUID;

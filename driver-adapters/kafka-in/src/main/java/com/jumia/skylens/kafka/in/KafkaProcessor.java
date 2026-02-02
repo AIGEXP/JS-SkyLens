@@ -6,7 +6,7 @@ public interface KafkaProcessor<T, C extends KafkaProcessorContext<T>> {
 
     void execute(C context);
 
-    T convertPayload(final String payload, final JsonMapper jsonMapper);
+    T convertPayload(String payload, JsonMapper jsonMapper);
 
     KafkaReceiveSystem getSystem();
 }

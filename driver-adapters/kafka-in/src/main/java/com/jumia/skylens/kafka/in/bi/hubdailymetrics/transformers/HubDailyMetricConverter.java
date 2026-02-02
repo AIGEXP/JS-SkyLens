@@ -1,8 +1,8 @@
-package com.jumia.skylens.kafka.in.skydrivers.driverupdated.transformers;
+package com.jumia.skylens.kafka.in.bi.hubdailymetrics.transformers;
 
 import com.jumia.skylens.commons.converters.Converter;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
-import com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos.HubDailyMetricDTO;
+import com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos.HubDailyMetricDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

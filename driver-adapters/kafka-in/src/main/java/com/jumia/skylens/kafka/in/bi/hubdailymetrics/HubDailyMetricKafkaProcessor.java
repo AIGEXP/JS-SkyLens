@@ -1,17 +1,17 @@
-package com.jumia.skylens.kafka.in.skydrivers.driverupdated;
+package com.jumia.skylens.kafka.in.bi.hubdailymetrics;
 
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.kafka.in.AbstractKafkaProcessor;
 import com.jumia.skylens.kafka.in.KafkaReceiveSystem;
-import com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos.HubDailyMetricDTO;
-import com.jumia.skylens.kafka.in.skydrivers.driverupdated.transformers.HubDailyMetricConverter;
+import com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos.HubDailyMetricDTO;
+import com.jumia.skylens.kafka.in.bi.hubdailymetrics.transformers.HubDailyMetricConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DriverUpdatedKafkaProcessor extends AbstractKafkaProcessor<HubDailyMetricDTO> {
+public class HubDailyMetricKafkaProcessor extends AbstractKafkaProcessor<HubDailyMetricDTO> {
 
     private final HubDailyMetricConverter hubDailyMetricConverter;
 

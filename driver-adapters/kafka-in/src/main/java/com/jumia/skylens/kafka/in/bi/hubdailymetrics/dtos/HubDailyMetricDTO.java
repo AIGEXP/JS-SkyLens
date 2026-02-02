@@ -1,4 +1,4 @@
-package com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos;
+package com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

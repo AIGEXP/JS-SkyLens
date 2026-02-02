@@ -1,4 +1,4 @@
-package com.jumia.skylens.kafka.in.skydrivers.driverupdated;
+package com.jumia.skylens.kafka.in.bi.hubdailymetrics;
 
 import com.jumia.skylens.kafka.in.AbstractMessageListener;
 import com.jumia.skylens.kafka.in.KafkaMessageConsumer;
@@ -8,12 +8,12 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DriverUpdatedKafkaListenerImpl extends AbstractMessageListener implements DriverUpdatedKafkaListener {
+public class HubDailyMetricKafkaListenerImpl extends AbstractMessageListener implements HubDailyMetricKafkaListener {
 
-    public DriverUpdatedKafkaListenerImpl(final DriverUpdatedKafkaProcessor driverUpdatedKafkaProcessor,
-                                          final KafkaMessageConsumer kafkaMessageConsumer) {
+    public HubDailyMetricKafkaListenerImpl(final HubDailyMetricKafkaProcessor hubDailyMetricKafkaProcessor,
+                                           final KafkaMessageConsumer kafkaMessageConsumer) {
 
-        super(driverUpdatedKafkaProcessor, kafkaMessageConsumer);
+        super(hubDailyMetricKafkaProcessor, kafkaMessageConsumer);
     }
 
     @KafkaListener(
