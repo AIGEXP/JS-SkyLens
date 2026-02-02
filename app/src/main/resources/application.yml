@@ -26,9 +26,6 @@ management:
     distribution:
       percentiles-histogram:
         http.server.requests: true
-  health:
-    rabbit:
-      enabled: false
   endpoint:
     health:
       probes:

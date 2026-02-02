@@ -1,6 +1,5 @@
 package com.jumia.skylens.kafka.in;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.skylens.kafka.in.exceptions.EmptyBodyException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +10,6 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -52,20 +50,6 @@ public class KafkaMessageConsumer {
             throw new EmptyBodyException();
         }
 
-        setTenant(consumerRecord);
-
         consumer.accept(processor.convertPayload(message, jsonMapper));
-    }
-
-    private void setTenant(final ConsumerRecord<String, String> consumerRecord) {
-
-        final String tenantId = getTenantForMessage(consumerRecord);
-    }
-
-    private String getTenantForMessage(final ConsumerRecord<String, String> consumerRecord) {
-
-        return Optional.ofNullable(consumerRecord.headers().lastHeader(MessageHeaders.NETWORK_HEADER_NAME))
-                .map(header -> new String(header.value(), StandardCharsets.UTF_8))
-                .orElseThrow(() -> new RuntimeException());
     }
 }

@@ -1,0 +1,10 @@
+/.idea/
+/.gradle/
+/build-logic/.gradle/
+/logs
+/build/
+/**/build/
+/app/src/main/resources/api/rev.txt
+/gradle.properties
+/.env
+/aws

@@ -1,0 +1,15 @@
+.dockerignore
+# Git is necessary to the git plugin in gragle
+#.git
+.gitignore
+.idea
+
+**/*.log
+**/build
+**/Dockerfile
+
+infrastructure/
+tools/
+
+
+!**/build/libs/*.jar

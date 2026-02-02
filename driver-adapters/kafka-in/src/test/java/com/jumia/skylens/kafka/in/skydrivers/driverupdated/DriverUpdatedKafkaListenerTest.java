@@ -1,14 +1,13 @@
 package com.jumia.skylens.kafka.in.skydrivers.driverupdated;
 
 import com.jumia.skylens.kafka.in.configuration.BaseTestKafkaIn;
-import com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos.HubPerformanceMetricsDTO;
+import com.jumia.skylens.kafka.in.skydrivers.driverupdated.dtos.HubDailyMetricDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
@@ -28,23 +27,23 @@ class DriverUpdatedKafkaListenerTest extends BaseTestKafkaIn {
 
         registry.add("app.kafka.in.topic", () -> TOPIC);
         registry.add("spring.kafka.listener.concurrency", () -> 1);
-        registry.add("spring.kafka.consumer.group-id", () -> "skylens-test");
+        registry.add("spring.kafka.consumer.group-id", () -> "skylens");
     }
 
     @Test
     void onMessage_whenMessageIsReceived_thenProcessItCorrectly() {
 
         // Given
-        final HubPerformanceMetricsDTO hubPerformanceMetricsDTO = faker.hubPerformanceMetricsDTO().build();
+        final HubDailyMetricDTO hubDailyMetricDTO = faker.hubDailyMetricDTO().build();
         //final SaveExternalDriverCommand saveExternalDriverCommand = Mockito.mock(SaveExternalDriverCommand.class);
         //final Map<String, String> headers = Map.of(MessageHeaders.NETWORK_HEADER_NAME, BASE_TENANT);
 
         //when(saveExternalDriverCommandTransformer.transform(any())).thenReturn(saveExternalDriverCommand);
 
         // When
-        publishMessage(TOPIC, hubPerformanceMetricsDTO, Map.of());
+        publishMessage(TOPIC, hubDailyMetricDTO);
 
-        // Then
+        // Then.
         await()
                 .atMost(5, TimeUnit.SECONDS)
                 .untilAsserted(() -> verify(driverUpdatedKafkaProcessor).process(any()));

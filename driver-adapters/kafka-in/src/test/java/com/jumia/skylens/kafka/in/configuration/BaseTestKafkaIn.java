@@ -1,10 +1,8 @@
 package com.jumia.skylens.kafka.in.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.skylens.kafka.in.fakers.KafkaInFaker;
 import com.jumia.skylens.test.testcontainers.KafkaContainerSingleton;
 import jakarta.annotation.Resource;
-import lombok.SneakyThrows;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,8 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.util.Map;
+import tools.jackson.databind.json.JsonMapper;
 
 @ExtendWith(SpringExtension.class)
 @Testcontainers
@@ -32,25 +29,24 @@ public abstract class BaseTestKafkaIn {
     static void overrideProperties(DynamicPropertyRegistry registry) {
 
         registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
+        registry.add("spring.kafka.consumer.auto-offset-reset", () -> "earliest");
+        registry.add("spring.kafka.listener.ack-mode", () -> "manual_immediate");
     }
 
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Resource
-    private ObjectMapper kafkaObjectMapperProvider;
+    private JsonMapper jsonMapper;
 
-    @SneakyThrows
-    protected void publishMessage(String topic, Object payload, Map<String, String> headers) {
+    protected void publishMessage(String topic, Object payload) {
 
-        publishMessage(topic, kafkaObjectMapperProvider.writeValueAsString(payload), headers);
+        sedMessage(topic, jsonMapper.writeValueAsString(payload));
     }
 
-    protected void publishMessage(String topic, String payload, Map<String, String> headers) {
+    protected void sedMessage(String topic, String payload) {
 
         final ProducerRecord<String, Object> producerRecord = new ProducerRecord<>(topic, payload);
-
-        headers.forEach((key, value) -> producerRecord.headers().add(key, value.getBytes()));
 
         kafkaTemplate.send(producerRecord);
     }

@@ -7,8 +7,6 @@ cucumber = "7.33.0"
 datafaker = "2.5.2"
 hypersistence-utils = "3.14.1"
 mapstruct = "1.6.3"
-mockserver = "5.15.0"
-resilience4j = "2.3.0"
 spotbugs = "4.8.6"
 springdoc = "3.0.0"
 
@@ -68,11 +66,9 @@ mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", v
 micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
 mockito = { group = "org.mockito", name = "mockito-core" }
 mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter" }
-mockserver-client-java = { group = "org.mock-server", name = "mockserver-client-java", version.ref = "mockserver" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
 querydsl-apt = { group = "com.querydsl", name = "querydsl-apt" }
 querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa" }
-resilience4j = { group = "io.github.resilience4j", name = "resilience4j-spring-boot3", version.ref = "resilience4j" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api" }
 spotbugs-annotations = { group = "com.github.spotbugs", name = "spotbugs-annotations", version.ref = "spotbugs" }
 springdoc-openapi-starter-webmvc-api = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }

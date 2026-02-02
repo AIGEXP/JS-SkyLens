@@ -34,8 +34,6 @@ services:
     volumes:
       - ${PROJECT_HOME}/driven-adapters/infrastructure/persistence/migrations-jpa/src/main/resources:/opt/app/migrations/postgresql
     depends_on:
-      skylens-rabbitmq:
-        condition: service_healthy
       skylens-database:
         condition: service_healthy
       skylens-kafka:

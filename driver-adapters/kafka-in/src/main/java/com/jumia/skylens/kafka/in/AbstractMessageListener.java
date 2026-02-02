@@ -28,10 +28,8 @@ public abstract class AbstractMessageListener {
 
         final KafkaMessageLogDTO logDTO = buildLoggingDTO(consumerRecord);
 
-        final String network = getNetwork(consumerRecord);
-
-        LoggingUtils.setLogContext(LogContext.of(network,
-                                                 network,
+        LoggingUtils.setLogContext(LogContext.of(kafkaProcessor.getSystem().getInternalName(),
+                                                 null,
                                                  CommunicationTypeEnum.KAFKA_IN.getCommunicationTypeValue()));
         try {
 
@@ -65,12 +63,6 @@ public abstract class AbstractMessageListener {
         kafkaMessageConsumer.processMessage(kafkaProcessor, consumerRecord);
 
         logMessage(KafkaMessageLogDTO.KafkaLogMessage.PROCESSED.getMessage(), logDTO);
-    }
-
-    private String getNetwork(final ConsumerRecord<String, String> consumerRecord) {
-
-        final Header header = consumerRecord.headers().lastHeader(MessageHeaders.NETWORK_HEADER_NAME);
-        return Objects.isNull(header) ? null : new String(header.value(), StandardCharsets.UTF_8);
     }
 
     private void logMessage(final String message, final KafkaMessageLogDTO logDTO) {
