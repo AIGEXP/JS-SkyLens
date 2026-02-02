@@ -5,7 +5,7 @@ import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.kafka.in.AbstractKafkaProcessor;
 import com.jumia.skylens.kafka.in.KafkaReceiveSystem;
 import com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos.HubDailyMetricDTO;
-import com.jumia.skylens.kafka.in.bi.hubdailymetrics.transformers.HubDailyMetricConverter;
+import com.jumia.skylens.kafka.in.bi.hubdailymetrics.converters.HubDailyMetricConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

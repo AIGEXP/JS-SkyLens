@@ -32,4 +32,6 @@ CREATE INDEX idx_hub_daily_metrics_day ON hub_daily_metrics(day);
 
 CREATE INDEX idx_hub_daily_metrics_service_provider_day ON hub_daily_metrics(service_provider_sid, day);
 
+CREATE INDEX idx_hub_daily_metrics_service_provider_hub_day ON hub_daily_metrics(service_provider_sid, hub_sid, day);
+
 CREATE INDEX idx_hub_daily_metrics_hub_day ON hub_daily_metrics(hub_sid, day);

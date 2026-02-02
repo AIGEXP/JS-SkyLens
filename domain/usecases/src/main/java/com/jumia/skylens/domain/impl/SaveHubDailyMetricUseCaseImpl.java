@@ -11,7 +11,7 @@ public class SaveHubDailyMetricUseCaseImpl implements SaveHubDailyMetricUseCase 
     private final HubDailyMetricDAO hubDailyMetricDAO;
 
     @Override
-    public void run(HubDailyMetric hubDailyMetric) {
+    public void run(final HubDailyMetric hubDailyMetric) {
 
         hubDailyMetricDAO.save(hubDailyMetric);
     }

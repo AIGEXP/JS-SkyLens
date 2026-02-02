@@ -1,4 +1,4 @@
-package com.jumia.skylens.kafka.in.bi.hubdailymetrics.transformers;
+package com.jumia.skylens.kafka.in.bi.hubdailymetrics.converters;
 
 import com.jumia.skylens.commons.converters.Converter;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;

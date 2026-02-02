@@ -353,7 +353,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        build(job: "Sky/deploy/staging/skylens",
+                        build(job: "Sky/deploy/staging/SkyLens",
                                 parameters: [string(name: "appName", value: appImage.getAppName()),
                                              string(name: "version", value: "${ECR_PATH}/${appImage.getAppName()}:${appImage.getVersion()}"),
                                              string(name: "namespaces", value: "glb"),
@@ -363,7 +363,7 @@ pipeline {
                                 wait: true,
                                 propagate: true)
                     } catch (hudson.AbortException ignore) {
-                        unstable "Not building the job 'Sky/deploy/staging/skylens' as it doesn't exist"
+                        unstable "Not building the job 'Sky/deploy/staging/SkyLens' as it doesn't exist"
                     }
                 }
             }
