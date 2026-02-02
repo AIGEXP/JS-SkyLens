@@ -11,12 +11,10 @@ public class DomainFaker extends Faker {
     public HubDailyMetric.Builder hubDailyMetric() {
 
         return HubDailyMetric.builder()
-                .country(country().countryCode2())
                 .hubSid(UUID.randomUUID())
                 .serviceProviderSid(UUID.randomUUID())
                 .day(LocalDate.now())
-                .is3PL(bool().bool())
-                .prePaid(bool().bool())
+                .paymentType(options().option(HubDailyMetric.PaymentType.class))
                 .movementType(options().option(HubDailyMetric.MovementType.class))
                 .packagesDelivered(number().positive())
                 .packagesClosed(number().positive())

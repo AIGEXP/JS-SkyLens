@@ -35,7 +35,7 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                 .serviceProviderSid(hubDailyMetric.serviceProviderSid())
                 .hubSid(hubDailyMetric.hubSid())
                 .day(hubDailyMetric.day())
-                .prePaid(hubDailyMetric.prePaid())
+                .paymentType(HubDailyMetricEntityId.PaymentType.valueOf(hubDailyMetric.paymentType().name()))
                 .movementType(HubDailyMetricEntityId.MovementType.valueOf(hubDailyMetric.movementType().name()))
                 .build();
 

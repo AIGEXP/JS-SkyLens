@@ -35,13 +35,20 @@ public class HubDailyMetricEntityId implements Serializable {
     @Column(nullable = false)
     private LocalDate day;
 
+    @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(nullable = false)
-    private boolean prePaid;
+    private PaymentType paymentType;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(nullable = false)
     private MovementType movementType;
+
+    public enum PaymentType {
+        PRE,
+        POST
+    }
 
     public enum MovementType {
         DD,

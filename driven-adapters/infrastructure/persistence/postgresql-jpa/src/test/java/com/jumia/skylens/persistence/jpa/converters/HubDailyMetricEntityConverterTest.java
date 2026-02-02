@@ -31,13 +31,13 @@ class HubDailyMetricEntityConverterTest {
                                                .hubSid(hubDailyMetric.hubSid())
                                                .serviceProviderSid(hubDailyMetric.serviceProviderSid())
                                                .day(hubDailyMetric.day())
+                                               .paymentType(HubDailyMetricEntityId.PaymentType.valueOf(hubDailyMetric
+                                                                                                               .paymentType()
+                                                                                                               .name()))
                                                .movementType(HubDailyMetricEntityId.MovementType.valueOf(hubDailyMetric
-                                                                                                            .movementType()
-                                                                                                            .name()))
-                                               .prePaid(hubDailyMetric.prePaid())
+                                                                                                                 .movementType()
+                                                                                                                 .name()))
                                                .build())
-                                   .country(hubDailyMetric.country())
-                                   .is3PL(hubDailyMetric.is3PL())
                                    .packagesDelivered(hubDailyMetric.packagesDelivered())
                                    .packagesClosed(hubDailyMetric.packagesClosed())
                                    .packagesReceived(hubDailyMetric.packagesReceived())

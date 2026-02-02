@@ -12,5 +12,11 @@ public interface HubDailyMetricConverter extends Converter<HubDailyMetricDTO, Hu
 
     @Override
     @Mapping(target = "day", source = "day", dateFormat = "yyyyMMdd")
+    @Mapping(target = "paymentType", source = "prePaid")
     HubDailyMetric convert(HubDailyMetricDTO source);
+
+    default HubDailyMetric.PaymentType convertPaymentType(boolean isPrePaid) {
+
+        return isPrePaid ? HubDailyMetric.PaymentType.PRE : HubDailyMetric.PaymentType.POST;
+    }
 }

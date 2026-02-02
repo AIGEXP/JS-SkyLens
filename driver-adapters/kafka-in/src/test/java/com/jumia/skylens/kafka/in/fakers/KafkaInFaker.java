@@ -10,10 +10,8 @@ public class KafkaInFaker extends Faker {
     public HubDailyMetricDTO.Builder hubDailyMetricDTO() {
 
         return HubDailyMetricDTO.builder()
-                .country(country().countryCode2())
                 .hubSid(UUID.randomUUID())
                 .serviceProviderSid(UUID.randomUUID())
-                .is3PL(bool().bool())
                 .day("20250101")
                 .prePaid(bool().bool())
                 .movementType(options().option(HubDailyMetricDTO.MovementType.class))

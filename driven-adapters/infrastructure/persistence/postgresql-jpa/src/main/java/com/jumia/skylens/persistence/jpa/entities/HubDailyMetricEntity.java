@@ -26,12 +26,6 @@ public class HubDailyMetricEntity {
     private HubDailyMetricEntityId id;
 
     @Column(nullable = false)
-    private String country;
-
-    @Column(name = "is_3pl", nullable = false)
-    private boolean is3PL;
-
-    @Column(nullable = false)
     private int packagesDelivered;
 
     @Column(nullable = false)
