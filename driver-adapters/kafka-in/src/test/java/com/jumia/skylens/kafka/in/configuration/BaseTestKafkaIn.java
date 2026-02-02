@@ -20,24 +20,24 @@ import tools.jackson.databind.json.JsonMapper;
 @ContextConfiguration(classes = KafkaConfiguration.class, loader = AnnotationConfigContextLoader.class)
 public abstract class BaseTestKafkaIn {
 
-    protected final KafkaInFaker faker = new KafkaInFaker();
-
     @Container
-    public static KafkaContainerSingleton kafka = KafkaContainerSingleton.getInstance();
+    static final KafkaContainerSingleton KAFKA_CONTAINER = KafkaContainerSingleton.getInstance();
 
-    @DynamicPropertySource
-    static void overrideProperties(DynamicPropertyRegistry registry) {
-
-        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-        registry.add("spring.kafka.consumer.auto-offset-reset", () -> "earliest");
-        registry.add("spring.kafka.listener.ack-mode", () -> "manual_immediate");
-    }
+    protected final KafkaInFaker faker = new KafkaInFaker();
 
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Resource
     private JsonMapper jsonMapper;
+
+    @DynamicPropertySource
+    static void baseKafkaProperties(DynamicPropertyRegistry registry) {
+
+        registry.add("spring.kafka.bootstrap-servers", KAFKA_CONTAINER::getBootstrapServers);
+        registry.add("spring.kafka.consumer.auto-offset-reset", () -> "earliest");
+        registry.add("spring.kafka.listener.ack-mode", () -> "manual_immediate");
+    }
 
     protected void publishMessage(String topic, Object payload) {
 

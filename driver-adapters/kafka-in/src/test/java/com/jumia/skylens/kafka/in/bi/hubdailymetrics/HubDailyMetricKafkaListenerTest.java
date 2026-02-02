@@ -37,7 +37,7 @@ class HubDailyMetricKafkaListenerTest extends BaseTestKafkaIn {
     private SaveHubDailyMetricUseCase saveHubDailyMetricUseCase;
 
     @DynamicPropertySource
-    static void overrideProperties(DynamicPropertyRegistry registry) {
+    static void setProperties(DynamicPropertyRegistry registry) {
 
         registry.add("app.kafka.in.topic", () -> TOPIC);
         registry.add("spring.kafka.listener.concurrency", () -> 1);
