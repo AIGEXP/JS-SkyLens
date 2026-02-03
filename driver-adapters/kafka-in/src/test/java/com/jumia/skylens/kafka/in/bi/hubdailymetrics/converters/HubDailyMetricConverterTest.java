@@ -41,7 +41,8 @@ class HubDailyMetricConverterTest {
                                    .packagesNoAttemptsOneDay(hubDailyMetricDTO.packagesNoAttemptsOneDay())
                                    .packagesNoAttemptsTwoDays(hubDailyMetricDTO.packagesNoAttemptsTwoDays())
                                    .packagesNoAttemptsThreeDays(hubDailyMetricDTO.packagesNoAttemptsThreeDays())
-                                   .packagesNoAttemptsOverThreeDays(hubDailyMetricDTO.packagesNoAttemptsFourDays() + hubDailyMetricDTO.packagesNoAttemptsOverFourDays()));
+                                   .packagesNoAttemptsOverThreeDays(hubDailyMetricDTO.packagesNoAttemptsFourDays()
+                                                                            + hubDailyMetricDTO.packagesNoAttemptsOverFourDays()));
     }
 
     @Test
