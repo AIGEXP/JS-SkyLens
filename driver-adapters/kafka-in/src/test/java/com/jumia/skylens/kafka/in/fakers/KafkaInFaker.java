@@ -19,7 +19,6 @@ public class KafkaInFaker extends Faker {
                 .packagesClosed(number().positive())
                 .packagesReceived(number().positive())
                 .packagesLostAtHub(number().positive())
-                .packagesNoAttempts(number().positive())
                 .packagesNoAttemptsOneDay(number().positive())
                 .packagesNoAttemptsTwoDays(number().positive())
                 .packagesNoAttemptsThreeDays(number().positive())

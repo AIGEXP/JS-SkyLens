@@ -38,12 +38,10 @@ class HubDailyMetricConverterTest {
                                    .packagesClosed(hubDailyMetricDTO.packagesClosed())
                                    .packagesReceived(hubDailyMetricDTO.packagesReceived())
                                    .packagesLostAtHub(hubDailyMetricDTO.packagesLostAtHub())
-                                   .packagesNoAttempts(hubDailyMetricDTO.packagesNoAttempts())
                                    .packagesNoAttemptsOneDay(hubDailyMetricDTO.packagesNoAttemptsOneDay())
                                    .packagesNoAttemptsTwoDays(hubDailyMetricDTO.packagesNoAttemptsTwoDays())
                                    .packagesNoAttemptsThreeDays(hubDailyMetricDTO.packagesNoAttemptsThreeDays())
-                                   .packagesNoAttemptsFourDays(hubDailyMetricDTO.packagesNoAttemptsFourDays())
-                                   .packagesNoAttemptsOverFourDays(hubDailyMetricDTO.packagesNoAttemptsOverFourDays()));
+                                   .packagesNoAttemptsOverThreeDays(hubDailyMetricDTO.packagesNoAttemptsFourDays() + hubDailyMetricDTO.packagesNoAttemptsOverFourDays()));
     }
 
     @Test

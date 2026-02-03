@@ -20,11 +20,9 @@ public class DomainFaker extends Faker {
                 .packagesClosed(number().positive())
                 .packagesReceived(number().positive())
                 .packagesLostAtHub(number().positive())
-                .packagesNoAttempts(number().positive())
                 .packagesNoAttemptsOneDay(number().positive())
                 .packagesNoAttemptsTwoDays(number().positive())
                 .packagesNoAttemptsThreeDays(number().positive())
-                .packagesNoAttemptsFourDays(number().positive())
-                .packagesNoAttemptsOverFourDays(number().positive());
+                .packagesNoAttemptsOverThreeDays(number().positive());
     }
 }

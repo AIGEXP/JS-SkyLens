@@ -12,6 +12,7 @@ public interface HubDailyMetricConverter extends Converter<HubDailyMetricDTO, Hu
 
     @Override
     @Mapping(target = "day", source = "day", dateFormat = "yyyyMMdd")
+    @Mapping(target = "packagesNoAttemptsOverThreeDays", expression = "java(source.packagesNoAttemptsFourDays() + source.packagesNoAttemptsOverFourDays())")
     @Mapping(target = "paymentType", source = "prePaid")
     HubDailyMetric convert(HubDailyMetricDTO source);
 

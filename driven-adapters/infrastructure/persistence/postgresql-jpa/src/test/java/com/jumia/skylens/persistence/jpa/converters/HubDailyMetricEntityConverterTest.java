@@ -42,12 +42,10 @@ class HubDailyMetricEntityConverterTest {
                                    .packagesClosed(hubDailyMetric.packagesClosed())
                                    .packagesReceived(hubDailyMetric.packagesReceived())
                                    .packagesLostAtHub(hubDailyMetric.packagesLostAtHub())
-                                   .packagesNoAttempts(hubDailyMetric.packagesNoAttempts())
                                    .packagesNoAttemptsOneDay(hubDailyMetric.packagesNoAttemptsOneDay())
                                    .packagesNoAttemptsTwoDays(hubDailyMetric.packagesNoAttemptsTwoDays())
                                    .packagesNoAttemptsThreeDays(hubDailyMetric.packagesNoAttemptsThreeDays())
-                                   .packagesNoAttemptsFourDays(hubDailyMetric.packagesNoAttemptsFourDays())
-                                   .packagesNoAttemptsOverFourDays(hubDailyMetric.packagesNoAttemptsOverFourDays())
+                                   .packagesNoAttemptsOverThreeDays(hubDailyMetric.packagesNoAttemptsOverThreeDays())
                                    .build());
     }
 }

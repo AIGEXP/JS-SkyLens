@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "hub_daily_metrics")
@@ -38,9 +38,6 @@ public class HubDailyMetricEntity {
     private int packagesLostAtHub;
 
     @Column(nullable = false)
-    private int packagesNoAttempts;
-
-    @Column(nullable = false)
     private int packagesNoAttemptsOneDay;
 
     @Column(nullable = false)
@@ -50,12 +47,9 @@ public class HubDailyMetricEntity {
     private int packagesNoAttemptsThreeDays;
 
     @Column(nullable = false)
-    private int packagesNoAttemptsFourDays;
-
-    @Column(nullable = false)
-    private int packagesNoAttemptsOverFourDays;
+    private int packagesNoAttemptsOverThreeDays;
 
     @CreationTimestamp
     @Column(nullable = false)
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 }

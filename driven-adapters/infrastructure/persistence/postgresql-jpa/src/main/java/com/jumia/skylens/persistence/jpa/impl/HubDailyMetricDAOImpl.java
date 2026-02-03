@@ -17,7 +17,7 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
     private final HubDailyMetricEntityConverter hubDailyMetricEntityConverter;
 
     @Override
-    public void save(HubDailyMetric hubDailyMetric) {
+    public void save(final HubDailyMetric hubDailyMetric) {
 
         final HubDailyMetricEntity entity = hubDailyMetricEntityConverter.convert(hubDailyMetric);
 

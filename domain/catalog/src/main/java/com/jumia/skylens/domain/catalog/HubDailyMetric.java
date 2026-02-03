@@ -15,12 +15,10 @@ public record HubDailyMetric(UUID hubSid,
                              Integer packagesClosed,
                              Integer packagesReceived,
                              Integer packagesLostAtHub,
-                             Integer packagesNoAttempts,
                              Integer packagesNoAttemptsOneDay,
                              Integer packagesNoAttemptsTwoDays,
                              Integer packagesNoAttemptsThreeDays,
-                             Integer packagesNoAttemptsFourDays,
-                             Integer packagesNoAttemptsOverFourDays) {
+                             Integer packagesNoAttemptsOverThreeDays) {
 
     public enum PaymentType {
         PRE,
