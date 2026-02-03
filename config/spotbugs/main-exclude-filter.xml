@@ -14,6 +14,7 @@
             <Class name="com.jumia.skylens.http.in.requests.pagination.sort.Sort"/>
             <Class name="com.jumia.skylens.persistence.jpa.entities.LogisticEventPayload"/>
             <Class name="projections.com.jumia.skylens.persistence.jpa.PackageProjection"/>
+            <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
             <Class name="com.jumia.skylens.kafka.out.publishers.PublishingContext"/>
             <Class name="com.jumia.skylens.rabbit.out.HeadersPostProcessor"/>
 
@@ -33,6 +34,7 @@
             <Class name="com.jumia.skylens.telemetry.micrometer.DistributionSummaryRecorderImpl"/>
             <Class name="com.jumia.skylens.persistence.jpa.entities.LogisticEventPayload"/>
             <Class name="projections.com.jumia.skylens.persistence.jpa.PackageProjection"/>
+            <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
             <Class name="com.jumia.skylens.kafka.out.publishers.PublishingContext"/>
             <Class name="com.jumia.skylens.rabbit.out.HeadersPostProcessor"/>
 

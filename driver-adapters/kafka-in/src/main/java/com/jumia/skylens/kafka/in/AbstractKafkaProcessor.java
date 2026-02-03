@@ -24,7 +24,7 @@ public abstract class AbstractKafkaProcessor<T> implements KafkaProcessor<T, Kaf
     @Override
     public T convertPayload(final String payload, final JsonMapper jsonMapper) {
 
-        T convertedPayload;
+        final T convertedPayload;
         try {
             convertedPayload = jsonMapper.readValue(payload, payloadClass);
         } catch (final JacksonException ioException) {

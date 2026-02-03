@@ -1,6 +1,5 @@
 package com.jumia.skylens.kafka.in;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.skylens.kafka.in.exceptions.EmptyBodyException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -59,13 +58,13 @@ public class KafkaMessageConsumer {
 
     private void setTenant(final ConsumerRecord<String, String> consumerRecord) {
 
-        final String tenantId = getTenantForMessage(consumerRecord);
+        getTenantForMessage(consumerRecord);
     }
 
-    private String getTenantForMessage(final ConsumerRecord<String, String> consumerRecord) {
+    private void getTenantForMessage(final ConsumerRecord<String, String> consumerRecord) {
 
-        return Optional.ofNullable(consumerRecord.headers().lastHeader(MessageHeaders.NETWORK_HEADER_NAME))
+        Optional.ofNullable(consumerRecord.headers().lastHeader(MessageHeaders.NETWORK_HEADER_NAME))
                 .map(header -> new String(header.value(), StandardCharsets.UTF_8))
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(RuntimeException::new);
     }
 }

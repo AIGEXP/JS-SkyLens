@@ -49,4 +49,3 @@ tasks.jacocoTestCoverageVerification {
         }
     }
 }
-

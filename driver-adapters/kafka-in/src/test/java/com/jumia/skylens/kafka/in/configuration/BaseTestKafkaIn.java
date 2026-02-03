@@ -16,6 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
@@ -23,22 +24,22 @@ import java.util.Map;
 @ContextConfiguration(classes = KafkaConfiguration.class, loader = AnnotationConfigContextLoader.class)
 public abstract class BaseTestKafkaIn {
 
-    protected final KafkaInFaker faker = new KafkaInFaker();
-
     @Container
-    public static KafkaContainerSingleton kafka = KafkaContainerSingleton.getInstance();
+    public static final KafkaContainerSingleton KAFKA = KafkaContainerSingleton.getInstance();
 
-    @DynamicPropertySource
-    static void overrideProperties(DynamicPropertyRegistry registry) {
-
-        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-    }
+    protected final KafkaInFaker faker = new KafkaInFaker();
 
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Resource
     private ObjectMapper kafkaObjectMapperProvider;
+
+    @DynamicPropertySource
+    static void overrideProperties(DynamicPropertyRegistry registry) {
+
+        registry.add("spring.kafka.bootstrap-servers", KAFKA::getBootstrapServers);
+    }
 
     @SneakyThrows
     protected void publishMessage(String topic, Object payload, Map<String, String> headers) {
@@ -50,7 +51,7 @@ public abstract class BaseTestKafkaIn {
 
         final ProducerRecord<String, Object> producerRecord = new ProducerRecord<>(topic, payload);
 
-        headers.forEach((key, value) -> producerRecord.headers().add(key, value.getBytes()));
+        headers.forEach((key, value) -> producerRecord.headers().add(key, value.getBytes(StandardCharsets.UTF_8)));
 
         kafkaTemplate.send(producerRecord);
     }

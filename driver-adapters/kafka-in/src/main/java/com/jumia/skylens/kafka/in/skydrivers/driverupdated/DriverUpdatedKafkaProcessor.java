@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DriverUpdatedKafkaProcessor extends AbstractKafkaProcessor<HubPerformanceMetricsDTO> {
 
-   /* private final SaveExternalDriverCommandTransformer saveExternalDriverCommandTransformer;
+    /*private final SaveExternalDriverCommandTransformer saveExternalDriverCommandTransformer;
 
     private final SaveExternalDriverUseCase saveExternalDriverUseCase;*/
 
