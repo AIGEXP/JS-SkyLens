@@ -5,13 +5,8 @@ import com.jumia.skylens.commons.exceptions.ErrorCoded;
 
 public abstract class NotFoundException extends CodedException {
 
-    public NotFoundException(ErrorCoded errorCode, String message, Throwable throwable) {
+    protected NotFoundException(ErrorCoded errorCode, String message, Throwable throwable) {
 
         super(errorCode, message, throwable);
-    }
-
-    public NotFoundException(ErrorCoded errorCode, String message) {
-
-        super(errorCode, message);
     }
 }

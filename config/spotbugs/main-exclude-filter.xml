@@ -9,34 +9,18 @@
     <Match>
         <Bug pattern="EI_EXPOSE_REP"/>
         <Or>
-            <Class name="com.jumia.skylens.domain.catalog.PackageSummary"/>
             <Class name="interceptors.com.jumia.skylens.http.in.WebHeadersLogContextImpl"/>
-            <Class name="com.jumia.skylens.http.in.requests.pagination.sort.Sort"/>
-            <Class name="com.jumia.skylens.persistence.jpa.entities.LogisticEventPayload"/>
-            <Class name="projections.com.jumia.skylens.persistence.jpa.PackageProjection"/>
             <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
-            <Class name="com.jumia.skylens.kafka.out.publishers.PublishingContext"/>
-            <Class name="com.jumia.skylens.rabbit.out.HeadersPostProcessor"/>
 
             <Package name="com.jumia.skylens.app.configurations.properties.*"/>
             <Package name="com.jumia.skylens.commons.logging.*"/>
-            <Package name="com.jumia.skylens.http.out.configuration.*"/>
-
         </Or>
     </Match>
     <Match>
         <Bug pattern="EI_EXPOSE_REP2"/>
         <Or>
-            <Class name="com.jumia.skylens.domain.catalog.PackageSummary"/>
             <Class name="interceptors.com.jumia.skylens.http.in.WebHeadersLogContextImpl"/>
-            <Class name="com.jumia.skylens.kafka.out.publishers.PublishingContext$Builder"/>
-            <Class name="utils.com.jumia.skylens.persistence.jpa.CopyManagerUtil"/>
-            <Class name="com.jumia.skylens.telemetry.micrometer.DistributionSummaryRecorderImpl"/>
-            <Class name="com.jumia.skylens.persistence.jpa.entities.LogisticEventPayload"/>
-            <Class name="projections.com.jumia.skylens.persistence.jpa.PackageProjection"/>
             <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
-            <Class name="com.jumia.skylens.kafka.out.publishers.PublishingContext"/>
-            <Class name="com.jumia.skylens.rabbit.out.HeadersPostProcessor"/>
 
             <Package name="com.jumia.skylens.domain.impl.*"/>
             <Package name="com.jumia.skylens.app.configurations.kafka.*"/>
@@ -46,9 +30,6 @@
     </Match>
     <Match>
         <Or>
-            <Class name="com.jumia.skylens.http.in.controllers.ApiUtil"/>
-            <Class name="com.jumia.skylens.http.in.controllers.StopManagementApi"/>
-
             <Package name="com.jumia.skylens.http.in.model.*"/>
             <Source name="~.*?ConverterImpl.*"/>
         </Or>

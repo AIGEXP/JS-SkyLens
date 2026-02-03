@@ -15,5 +15,7 @@ management:
       show-details: always
 
 spring:
+  datasource:
+    url: jdbc:postgresql://skylens-database-dev:5432/skylens
   kafka:
     bootstrap-servers: skylens-kafka-dev:29092

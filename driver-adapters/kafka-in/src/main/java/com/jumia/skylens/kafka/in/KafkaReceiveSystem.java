@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum KafkaReceiveSystem {
-    SKY_DRIVERS("skyDrivers");
+    BI("BI");
 
     private final String internalName;
 }

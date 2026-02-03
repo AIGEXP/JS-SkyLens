@@ -27,22 +27,7 @@
     <Match>
         <Bug pattern="EI_EXPOSE_REP"/>
         <Or>
-            <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
-            <Class name="com.jumia.skylens.kafka.out.utils.KafkaConsumerIT"/>
-            <Class name="com.jumia.skylens.rabbit.out.utils.RabbitConsumerIT"/>
             <Package name="com.jumia.skylens.test.testcontainers.*"/>
-            <Class name="com.jumia.skylens.acceptance.providers.LogisticEventDTO"/>
-            <Class name="com.jumia.skylens.acceptance.providers.LogisticEventDTO$SubRequest"/>
-            <Class name="com.jumia.skylens.acceptance.dto.PackageResponseDTO"/>
-        </Or>
-    </Match>
-    <Match>
-        <Bug pattern="EI_EXPOSE_REP2"/>
-        <Or>
-            <Class name="com.jumia.skylens.kafka.in.KafkaProcessorContext"/>
-            <Class name="com.jumia.skylens.acceptance.providers.LogisticEventDTO"/>
-            <Class name="com.jumia.skylens.acceptance.providers.LogisticEventDTO$SubRequest"/>
-            <Class name="com.jumia.skylens.acceptance.dto.PackageResponseDTO"/>
         </Or>
     </Match>
     <Match>

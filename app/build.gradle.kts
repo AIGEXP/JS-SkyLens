@@ -2,7 +2,7 @@ plugins {
     id("conventions.spring-java")
 
     alias(libs.plugins.spring.boot)
-    //alias(libs.plugins.gradle.git.properties)
+    alias(libs.plugins.gradle.git.properties)
 }
 
 tasks.bootJar {
@@ -75,7 +75,7 @@ listOf(configurations["apiElements"], configurations["runtimeElements"]).forEach
     config.outgoing.artifact(tasks.named("bootJar").get())
 }
 
-/*tasks.processResources {
+tasks.processResources {
     dependsOn("generateGitProperties")
 }
 
@@ -84,4 +84,4 @@ gitProperties {
     gitPropertiesResourceDir = file("${project.rootDir}/app/src/main/resources/public/api")
 
     customProperty("version", { project.version })
-}*/
+}

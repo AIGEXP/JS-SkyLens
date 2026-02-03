@@ -42,8 +42,8 @@ public class PostgreSqlContainerExtension implements BeforeAllCallback, AfterEac
 
     private void setDatasourceProperties() {
 
-        System.setProperty("app.data-sources.rw.jdbc-url", postgreSQLContainer.getJdbcUrl());
-        System.setProperty("app.data-sources.rw.username", postgreSQLContainer.getUsername());
-        System.setProperty("app.data-sources.rw.password", postgreSQLContainer.getPassword());
+        System.setProperty("spring.datasource.url", postgreSQLContainer.getJdbcUrl());
+        System.setProperty("spring.datasource.username", postgreSQLContainer.getUsername());
+        System.setProperty("spring.datasource.password", postgreSQLContainer.getPassword());
     }
 }

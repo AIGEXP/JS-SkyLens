@@ -32,28 +32,4 @@ public class PersistenceConfiguration {
 
         return Flyway::migrate;
     }
-
-    /*@Bean
-    PersistenceProperties persistenceProperties() {
-
-        return new PersistenceProperties() {
-
-            @Override
-            public HikariConfig getDataSource() {
-
-                final HikariConfig hikariConfig = new HikariConfig();
-                hikariConfig.setJdbcUrl(System.getProperty("app.data-sources.rw.jdbc-url"));
-                hikariConfig.setUsername(System.getProperty("app.data-sources.rw.username"));
-                hikariConfig.setPassword(System.getProperty("app.data-sources.rw.password"));
-
-                return hikariConfig;
-            }
-
-            @Override
-            public HikariConfig getReplicaDataSource() {
-
-                return getDataSource();
-            }
-        };
-    }*/
 }

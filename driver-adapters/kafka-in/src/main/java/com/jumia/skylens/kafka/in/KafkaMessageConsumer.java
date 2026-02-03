@@ -10,7 +10,6 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -51,20 +50,6 @@ public class KafkaMessageConsumer {
             throw new EmptyBodyException();
         }
 
-        setTenant(consumerRecord);
-
         consumer.accept(processor.convertPayload(message, jsonMapper));
-    }
-
-    private void setTenant(final ConsumerRecord<String, String> consumerRecord) {
-
-        getTenantForMessage(consumerRecord);
-    }
-
-    private void getTenantForMessage(final ConsumerRecord<String, String> consumerRecord) {
-
-        Optional.ofNullable(consumerRecord.headers().lastHeader(MessageHeaders.NETWORK_HEADER_NAME))
-                .map(header -> new String(header.value(), StandardCharsets.UTF_8))
-                .orElseThrow(RuntimeException::new);
     }
 }

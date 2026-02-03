@@ -4,7 +4,7 @@ services:
   # Same as calling it with --wait: 'docker compose up -d -wait'
   busybox:
     image: busybox
-    container_name: busybox
+    container_name: skylens-busybox
     entrypoint: echo Ready
     restart: "no"
     depends_on:
@@ -34,8 +34,6 @@ services:
     volumes:
       - ${PROJECT_HOME}/driven-adapters/infrastructure/persistence/migrations-jpa/src/main/resources:/opt/app/migrations/postgresql
     depends_on:
-      skylens-rabbitmq:
-        condition: service_healthy
       skylens-database:
         condition: service_healthy
       skylens-kafka:
@@ -96,7 +94,7 @@ services:
 
   skylens-init-kafka:
     image: confluentinc/cp-kafka:5.5.1
-    container_name: init-kafka-${ENVIRONMENT}
+    container_name: skylens-init-kafka-${ENVIRONMENT}
     depends_on:
       skylens-kafka:
         condition: service_healthy
@@ -122,11 +120,11 @@ services:
       target: postgresql-migrations
     command: ["migrate", "-X"]
     environment:
-      - FLYWAY_URL=jdbc:postgresql://skylens-database-${ENVIRONMENT}:5432/hmt_stops
+      - FLYWAY_URL=jdbc:postgresql://skylens-database-${ENVIRONMENT}:5432/skylens
       - FLYWAY_USER=postgres
       - FLYWAY_PASSWORD=postgres
       - FLYWAY_DRIVER=org.postgresql.Driver
-      - FLYWAY_INIT_SQL=SELECT 'CREATE DATABASE hmt_stops' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'hmt_stops')
+      - FLYWAY_INIT_SQL=SELECT 'CREATE DATABASE skylens' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'skylens')
       - FLYWAY_TABLE=flyway_schema_history
       - FLYWAY_SCHEMAS=public
       - FLYWAY_OUT_OF_ORDER=true

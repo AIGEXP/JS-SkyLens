@@ -22,13 +22,6 @@
     <suppress checks="ParameterNumber" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
     <suppress checks="MethodLength" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
 
-    <suppress checks="ClassDataAbstractionCoupling" files="KafkaConfiguration.java"/>
-    <suppress checks="ClassFanOutComplexity" files="KafkaConfiguration.java"/>
-    <suppress checks="ClassDataAbstractionCoupling" files="UseCaseConfiguration.java"/>
-    <suppress checks="ClassFanOutComplexity" files="UseCaseConfiguration.java"/>
-    <suppress checks="ClassFanOutComplexity" files="LogisticEventsMessageListenerTestIT.java"/>
-    <suppress checks="ClassFanOutComplexity" files="DomainFaker.java"/>
-    <suppress checks="MagicNumber" files="DomainFaker.java"/>
     <suppress checks="LineLength" files="AclTokens.java"/>
 
     <suppress files=".*[\\/]http-in[\\/]build[\\/]generated[\\/].*" checks="[a-zA-Z0-9]*"/>

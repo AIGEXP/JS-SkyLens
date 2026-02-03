@@ -6,7 +6,6 @@ import com.jumia.skylens.commons.validations.exceptions.ConstraintValidationExce
 import com.jumia.skylens.commons.validations.exceptions.Error;
 import com.jumia.skylens.domain.catalog.exceptions.InternalErrorException;
 import com.jumia.skylens.domain.catalog.exceptions.InvalidInputException;
-import com.jumia.skylens.domain.catalog.exceptions.NotAcceptableException;
 import com.jumia.skylens.domain.catalog.exceptions.NotFoundException;
 import com.jumia.skylens.http.in.acl.exceptions.ForbiddenException;
 import com.jumia.skylens.http.in.acl.exceptions.UnauthorizedException;
@@ -82,7 +81,7 @@ public class RestErrorHandler {
 
         log.info("Resource not found: {}", exception.getMessage());
         return new ResponseEntity<>(ErrorResponseFactory.create(ErrorCode.UNEXPECTED_ERROR, exception.getMessage()),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                                    HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ForbiddenException.class)
@@ -146,13 +145,6 @@ public class RestErrorHandler {
 
         log.warn("Unauthorized exception", exception);
         return new ResponseEntity<>(ErrorResponseFactory.create(exception), HttpStatus.UNAUTHORIZED);
-    }
-
-    @ExceptionHandler(NotAcceptableException.class)
-    protected ResponseEntity<ErrorResponse> handleNotAcceptableException(NotAcceptableException exception) {
-
-        log.warn("Not acceptable exception", exception);
-        return new ResponseEntity<>(ErrorResponseFactory.create(exception), HttpStatus.NOT_ACCEPTABLE);
     }
 
     private Set<Error> getErrorsFromViolations(BindException exception) {
