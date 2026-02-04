@@ -13,7 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ReferenceDataController.class)
 class ReferenceDataControllerTest extends BaseControllerTest {
 
-    private static final String DATE_RANGES_API = "/api/v1/date-ranges";
+    private static final String DATE_RANGES_API = ReferenceDataApi.PATH_GET_DATE_RANGES;
+    private static final String PAYMENT_TYPES_API = ReferenceDataApi.PATH_GET_PAYMENT_TYPES;
 
     @MockitoBean
     private ReferenceDataService referenceDataService;
@@ -28,5 +29,17 @@ class ReferenceDataControllerTest extends BaseControllerTest {
         // Then
         resultActions.andExpect(status().isOk());
         verify(referenceDataService).listDateRangeTypes();
+    }
+
+    @Test
+    void getPaymentTypes_whenCalled_thenReturns200AndPaymentTypes() throws Exception {
+
+        // Given
+        // When
+        final ResultActions resultActions = mvc.perform(get(PAYMENT_TYPES_API));
+
+        // Then
+        resultActions.andExpect(status().isOk());
+        verify(referenceDataService).listPaymentTypes();
     }
 }
