@@ -1,7 +1,7 @@
 package com.jumia.skylens.http.in.controllers;
 
 import com.jumia.skylens.http.in.model.DateRangeOption;
-import com.jumia.skylens.http.in.model.PaymentType;
+import com.jumia.skylens.http.in.model.PaymentTypeOption;
 import com.jumia.skylens.http.in.services.ReferenceDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class ReferenceDataController implements ReferenceDataApi {
     }
 
     @Override
-    public List<PaymentType> getPaymentTypes() {
+    public List<PaymentTypeOption> getPaymentTypes() {
 
         return referenceDataService.listPaymentTypes();
     }

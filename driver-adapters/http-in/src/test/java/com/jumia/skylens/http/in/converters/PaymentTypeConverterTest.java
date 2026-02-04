@@ -1,7 +1,7 @@
 package com.jumia.skylens.http.in.converters;
 
-import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
-import com.jumia.skylens.http.in.model.PaymentType;
+import com.jumia.skylens.domain.catalog.PaymentType;
+import com.jumia.skylens.http.in.model.PaymentTypeOption;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,12 +14,27 @@ class PaymentTypeConverterTest {
     void convert_whenCalled_thenConvertSuccessfully() {
 
         // Given
-        final PaymentMethodType paymentMethodType = PaymentMethodType.PRE;
+        final PaymentType paymentType = PaymentType.PRE;
 
         // When
-        final PaymentType paymentType = subject.convert(paymentMethodType);
+        final PaymentTypeOption paymentTypeOption = subject.convert(paymentType);
 
         // Then
-        assertThat(paymentType).isEqualTo(PaymentType.PRE);
+        assertThat(paymentTypeOption.getValue()).isEqualTo(com.jumia.skylens.http.in.model.PaymentType.PRE);
+        assertThat(paymentTypeOption.getDescription()).isEqualTo("Pre Paid");
+    }
+
+    @Test
+    void convert_whenCalledWithPost_thenConvertSuccessfully() {
+
+        // Given
+        final PaymentType paymentType = PaymentType.POST;
+
+        // When
+        final PaymentTypeOption paymentTypeOption = subject.convert(paymentType);
+
+        // Then
+        assertThat(paymentTypeOption.getValue()).isEqualTo(com.jumia.skylens.http.in.model.PaymentType.POST);
+        assertThat(paymentTypeOption.getDescription()).isEqualTo("Post Paid");
     }
 }

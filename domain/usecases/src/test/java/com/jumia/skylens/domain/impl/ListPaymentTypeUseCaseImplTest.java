@@ -1,7 +1,7 @@
 package com.jumia.skylens.domain.impl;
 
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
-import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,11 +17,11 @@ class ListPaymentTypeUseCaseImplTest {
 
         // Given
         // When
-        final List<PaymentMethodType> paymentMethodTypes = subject.run();
+        final List<PaymentType> paymentTypes = subject.run();
 
         // Then
-        assertThat(paymentMethodTypes)
+        assertThat(paymentTypes)
                 .isNotEmpty()
-                .isEqualTo(List.of(PaymentMethodType.values()));
+                .isEqualTo(List.of(PaymentType.values()));
     }
 }

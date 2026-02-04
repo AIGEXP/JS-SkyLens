@@ -1,13 +1,13 @@
 package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.ListDateRangeUseCase;
-import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
-import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
+import com.jumia.skylens.domain.catalog.DateRange;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
 import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
 import com.jumia.skylens.http.in.model.DateRangeOption;
-import com.jumia.skylens.http.in.model.PaymentType;
+import com.jumia.skylens.http.in.model.PaymentTypeOption;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +31,11 @@ public class ReferenceDataService {
         return listDateRangeConverter.convert(dateRanges);
     }
 
-    public List<PaymentType> listPaymentTypes() {
+    public List<PaymentTypeOption> listPaymentTypes() {
 
-        final List<PaymentMethodType> paymentMethodTypes = listPaymentTypeUseCase.run();
+        final List<PaymentType> paymentTypes = listPaymentTypeUseCase.run();
 
-        return paymentMethodTypes.stream()
+        return paymentTypes.stream()
                 .map(paymentTypeConverter::convert)
                 .toList();
     }

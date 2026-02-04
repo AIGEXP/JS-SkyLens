@@ -7,6 +7,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.jumia.skylens.http.in.controllers.ReferenceDataApi.PATH_GET_DATE_RANGES;
+import static com.jumia.skylens.http.in.controllers.ReferenceDataApi.PATH_GET_PAYMENT_TYPES;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +35,7 @@ class ReferenceDataControllerTest extends BaseControllerTest {
 
         // Given
         // When
-        final ResultActions resultActions = mvc.perform(get(PAYMENT_TYPES_API));
+        final ResultActions resultActions = mvc.perform(get(PATH_GET_PAYMENT_TYPES));
 
         // Then
         resultActions.andExpect(status().isOk());

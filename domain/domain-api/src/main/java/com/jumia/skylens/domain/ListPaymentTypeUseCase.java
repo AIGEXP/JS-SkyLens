@@ -1,10 +1,10 @@
 package com.jumia.skylens.domain;
 
-import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
+import com.jumia.skylens.domain.catalog.PaymentType;
 
 import java.util.List;
 
 public interface ListPaymentTypeUseCase {
 
-    List<PaymentMethodType> run();
+    List<PaymentType> run();
 }
