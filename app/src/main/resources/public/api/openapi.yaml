@@ -222,7 +222,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /date-ranges:
+  /api/v1/date-ranges:
     get:
       tags:
         - Reference Data
