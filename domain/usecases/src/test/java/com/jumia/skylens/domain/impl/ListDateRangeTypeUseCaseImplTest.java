@@ -1,6 +1,6 @@
 package com.jumia.skylens.domain.impl;
 
-import com.jumia.skylens.domain.catalog.enums.DateRangeType;
+import com.jumia.skylens.domain.catalog.DateRange;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class ListDateRangeTypeUseCaseImplTest {
+class ListDateRangeTypeUseCaseImplTest {
 
     @InjectMocks
     private ListDateRangeUseCaseImpl subject;
@@ -21,11 +21,11 @@ public class ListDateRangeTypeUseCaseImplTest {
 
         // Given
         // When
-        final List<DateRangeType> dateRangeTypes = subject.run();
+        final List<DateRange> dateRanges = subject.run();
 
         // Then
-        assertThat(dateRangeTypes)
+        assertThat(dateRanges)
                 .isNotEmpty()
-                .isEqualTo(List.of(DateRangeType.values()));
+                .isEqualTo(List.of(DateRange.values()));
     }
 }

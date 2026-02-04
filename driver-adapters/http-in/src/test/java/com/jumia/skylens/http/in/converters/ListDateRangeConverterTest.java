@@ -1,7 +1,6 @@
 package com.jumia.skylens.http.in.converters;
 
-import com.jumia.skylens.domain.catalog.enums.DateRangeType;
-import com.jumia.skylens.http.in.model.DateRange;
+import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.http.in.model.DateRangeOption;
 import org.junit.jupiter.api.Test;
 
@@ -17,19 +16,19 @@ class ListDateRangeConverterTest {
     void convert_whenCalled_thenConvertSuccessfully() {
 
         // Given
-        final List<DateRangeType> dateRangeTypes = List.of(DateRangeType.values());
+        final List<DateRange> dateRanges = List.of(DateRange.values());
 
         // When
-        final List<DateRangeOption> dateRangeOptions = subject.convert(dateRangeTypes);
+        final List<DateRangeOption> dateRangeOptions = subject.convert(dateRanges);
 
         // Then
         assertThat(dateRangeOptions)
-                .hasSize(dateRangeTypes.size())
+                .hasSize(dateRanges.size())
                 .usingRecursiveComparison()
-                .isEqualTo(dateRangeTypes.stream()
-                        .map(dateRangeType -> DateRangeOption.builder()
-                                .value(DateRange.fromValue(dateRangeType.name()))
-                                .description(dateRangeType.getDescription())
+                .isEqualTo(dateRanges.stream()
+                        .map(dateRange -> DateRangeOption.builder()
+                                .value(com.jumia.skylens.http.in.model.DateRange.fromValue(dateRange.name()))
+                                .description(subject.toDescription(dateRange))
                                 .build())
                         .toList());
     }
