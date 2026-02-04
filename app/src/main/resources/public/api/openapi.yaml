@@ -8,7 +8,7 @@ info:
     name: API Support
 
 servers:
-  - url: /api/v1
+  - url: https://api-staging-services.jumia.com/skylens
     description: Base API path
 
 tags:
@@ -20,7 +20,7 @@ tags:
     description: Endpoints for static or reference data
 
 paths:
-  /service-providers/{serviceProviderSid}/metrics/deliveries:
+  /api/v1/service-providers/{serviceProviderSid}/metrics/deliveries:
     get:
       tags:
         - Metrics
@@ -46,7 +46,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /service-providers/{serviceProviderSid}/metrics/success-rate:
+  /api/v1/service-providers/{serviceProviderSid}/metrics/success-rate:
     get:
       tags:
         - Metrics
@@ -72,7 +72,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /service-providers/{serviceProviderSid}/metrics/loss-rate:
+  /api/v1/service-providers/{serviceProviderSid}/metrics/loss-rate:
     get:
       tags:
         - Metrics
@@ -98,7 +98,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /service-providers/{serviceProviderSid}/metrics/no-attempts:
+  /api/v1/service-providers/{serviceProviderSid}/metrics/no-attempts:
     get:
       tags:
         - Metrics
@@ -123,7 +123,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /countries/{country}/thresholds/success-rate:
+  /api/v1/countries/{country}/thresholds/success-rate:
     get:
       tags:
         - Configuration
@@ -172,7 +172,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /countries/{country}/boundaries/success-rate:
+  /api/v1/countries/{country}/boundaries/success-rate:
     get:
       tags:
         - Configuration
@@ -234,6 +234,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DateRangesResponse'
+
+  /api/v1/payment-types:
+    get:
+      tags:
+        - Reference Data
+      summary: Get available payment types
+      operationId: getPaymentTypes
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentTypesResponse'
 
 components:
   parameters:
@@ -501,6 +515,31 @@ components:
           description: Last 4 Weeks
         - value: LAST_THREE_MONTHS
           description: Last 3 Months
+
+    PaymentTypeOption:
+      type: object
+      required:
+        - value
+        - description
+      properties:
+        value:
+          $ref: '#/components/schemas/PaymentType'
+        description:
+          type: string
+          description: Human-readable label for display
+      example:
+        value: POST
+        description: Post Paid
+
+    PaymentTypesResponse:
+        type: array
+        items:
+            $ref: '#/components/schemas/PaymentTypeOption'
+        example:
+          - value: PRE
+            description: Pre Paid
+          - value: POST
+            description: Post Paid
 
     Error:
       type: object
