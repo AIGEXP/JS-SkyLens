@@ -1,7 +1,7 @@
 package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.ListDateRangeUseCase;
-import com.jumia.skylens.domain.catalog.enums.DateRangeType;
+import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
 import com.jumia.skylens.http.in.model.DateRangeOption;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,9 @@ public class ReferenceDataService {
 
     private final ListDateRangeConverter listDateRangeConverter;
 
-    public List<DateRangeOption> listDateRangeTypes() {
+    public List<DateRangeOption> listDateRanges() {
 
-        final List<DateRangeType> dateRangeTypes = listDateRangeUseCase.run();
-        return listDateRangeConverter.convert(dateRangeTypes);
+        final List<DateRange> dateRanges = listDateRangeUseCase.run();
+        return listDateRangeConverter.convert(dateRanges);
     }
 }

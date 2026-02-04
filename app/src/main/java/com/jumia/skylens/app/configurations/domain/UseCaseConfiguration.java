@@ -1,7 +1,11 @@
 package com.jumia.skylens.app.configurations.domain;
 
+import com.jumia.skylens.domain.GetCurrentPackageAttemptsMetricsUseCase;
+import com.jumia.skylens.domain.GetPackageMetricsUseCase;
 import com.jumia.skylens.domain.ListDateRangeUseCase;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
+import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
+import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListDateRangeUseCaseImpl;
 import com.jumia.skylens.domain.impl.SaveHubDailyMetricUseCaseImpl;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
@@ -15,6 +19,18 @@ public class UseCaseConfiguration {
     public SaveHubDailyMetricUseCase saveHubDailyMetricUseCase(final HubDailyMetricDAO hubDailyMetricDAO) {
 
         return new SaveHubDailyMetricUseCaseImpl(hubDailyMetricDAO);
+    }
+
+    @Bean
+    public GetPackageMetricsUseCase getPackageStatisticsUseCase(final HubDailyMetricDAO hubDailyMetricDAO) {
+
+        return new GetPackageMetricsUseCaseImpl(hubDailyMetricDAO);
+    }
+
+    @Bean
+    public GetCurrentPackageAttemptsMetricsUseCase getCurrentPackageAttemptsMetricsUseCase(final HubDailyMetricDAO hubDailyMetricDAO) {
+
+        return new GetCurrentPackageAttemptsMetricsUseCaseImpl(hubDailyMetricDAO);
     }
 
     @Bean
