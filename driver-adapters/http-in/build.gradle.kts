@@ -9,15 +9,17 @@ openApiGenerate {
     outputDir.set("${layout.buildDirectory.get().asFile}/generated")
     apiPackage.set("com.jumia.skylens.http.in.controllers")
     modelPackage.set("com.jumia.skylens.http.in.model")
-    configOptions.set(mapOf(
-        "interfaceOnly" to "true",
-        "useSpringBoot3" to "true",
-        "generateBuilders" to "true",
-        "useTags" to "true",
-        "useResponseEntity" to "false",
-        "unhandledException" to "true",
-        "openApiNullable" to "false"
-    ))
+    configOptions.set(
+        mapOf(
+            "interfaceOnly" to "true",
+            "useSpringBoot3" to "true",
+            "generateBuilders" to "true",
+            "useTags" to "true",
+            "useResponseEntity" to "false",
+            "unhandledException" to "true",
+            "openApiNullable" to "false"
+        )
+    )
 }
 
 tasks.compileJava {
@@ -84,21 +86,21 @@ tasks.jacocoTestCoverageVerification {
                 minimum = "0.9".toBigDecimal()
             }
             excludes = listOf(
-                    "com.jumia.skylens.http.in.responses.*",
-                    "com.jumia.skylens.http.in.requests.*",
-                    "com.jumia.skylens.http.in.exceptions.*",
-                    "com.jumia.skylens.http.in.constants.*",
-                    "com.jumia.skylens.http.in.configurations.*",
-                    "com.jumia.skylens.http.in.interceptors.*",
-                    "com.jumia.skylens.http.in.handlers.RestErrorHandler",
-                    "com.jumia.skylens.http.in.management.responses.*",
-                    "com.jumia.skylens.http.in.controllers.ApiUtil",
-                    "com.jumia.skylens.http.in.controllers.ConfigurationApi",
-                    "com.jumia.skylens.http.in.controllers.ReferenceDataApi",
-                    "com.jumia.skylens.http.in.controllers.ServiceProvidersApi",
-                    "com.jumia.skylens.http.in.model.*",
-                    "org.openapitools.configuration.*",
-                    "*ConverterImpl",
+                "com.jumia.skylens.http.in.responses.*",
+                "com.jumia.skylens.http.in.requests.*",
+                "com.jumia.skylens.http.in.exceptions.*",
+                "com.jumia.skylens.http.in.constants.*",
+                "com.jumia.skylens.http.in.configurations.*",
+                "com.jumia.skylens.http.in.interceptors.*",
+                "com.jumia.skylens.http.in.handlers.RestErrorHandler",
+                "com.jumia.skylens.http.in.management.responses.*",
+                "com.jumia.skylens.http.in.controllers.ApiUtil",
+                "com.jumia.skylens.http.in.controllers.ConfigurationApi",
+                "com.jumia.skylens.http.in.controllers.MetricsApi",
+                "com.jumia.skylens.http.in.controllers.ReferenceDataApi",
+                "com.jumia.skylens.http.in.model.*",
+                "org.openapitools.configuration.*",
+                "*ConverterImpl",
             )
         }
     }

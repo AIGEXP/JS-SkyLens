@@ -12,7 +12,7 @@ servers:
     description: Base API path
 
 tags:
-  - name: Service Providers
+  - name: Metrics
     description: Service provider level metrics
   - name: Configuration
     description: Thresholds and boundaries management
@@ -23,7 +23,7 @@ paths:
   /service-providers/{serviceProviderSid}/metrics/deliveries:
     get:
       tags:
-        - Service Providers
+        - Metrics
       summary: Get delivery metrics
       operationId: getPackageDeliveries
       parameters:
@@ -49,7 +49,7 @@ paths:
   /service-providers/{serviceProviderSid}/metrics/success-rate:
     get:
       tags:
-        - Service Providers
+        - Metrics
       summary: Get success rate metrics
       operationId: getSuccessRate
       parameters:
@@ -75,7 +75,7 @@ paths:
   /service-providers/{serviceProviderSid}/metrics/loss-rate:
     get:
       tags:
-        - Service Providers
+        - Metrics
       summary: Get loss rate metrics
       operationId: getLossRate
       parameters:
@@ -101,13 +101,12 @@ paths:
   /service-providers/{serviceProviderSid}/metrics/no-attempts:
     get:
       tags:
-        - Service Providers
+        - Metrics
       summary: Get no attempts metrics
       operationId: getNoAttempts
       parameters:
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'
-        - $ref: '#/components/parameters/dateRange'
         - $ref: '#/components/parameters/paymentType'
         - $ref: '#/components/parameters/movementType'
       responses:
@@ -325,10 +324,10 @@ components:
       type: string
       enum:
         - PRE
-        - POS
+        - POST
       description: |
         - PRE: Prepaid
-        - POS: Pospaid
+        - POST: Postpaid
 
     MovementType:
       type: string
@@ -337,7 +336,7 @@ components:
         - PUS
       description: |
         - DOOR: Door delivery
-        - PUS: Pick up deliverey
+        - PUS: Pick up delivery
 
     DeliveryMetricsResponse:
       type: array
@@ -409,7 +408,7 @@ components:
       properties:
         oneDay:
           type: integer
-          description: Packages with 1 working day without attempt
+          description: Packages with 1 working date without attempt
         twoDays:
           type: integer
           description: Packages with 2 working days without attempt

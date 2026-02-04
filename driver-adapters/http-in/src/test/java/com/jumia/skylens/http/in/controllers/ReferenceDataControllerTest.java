@@ -6,15 +6,13 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static com.jumia.skylens.http.in.controllers.ReferenceDataApi.PATH_GET_DATE_RANGES;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ReferenceDataController.class)
 class ReferenceDataControllerTest extends BaseControllerTest {
-
-    private static final String DATE_RANGES_API = ReferenceDataApi.PATH_GET_DATE_RANGES;
-    private static final String PAYMENT_TYPES_API = ReferenceDataApi.PATH_GET_PAYMENT_TYPES;
 
     @MockitoBean
     private ReferenceDataService referenceDataService;
@@ -24,11 +22,11 @@ class ReferenceDataControllerTest extends BaseControllerTest {
 
         // Given
         // When
-        final ResultActions resultActions = mvc.perform(get(DATE_RANGES_API));
+        final ResultActions resultActions = mvc.perform(get(PATH_GET_DATE_RANGES));
 
         // Then
         resultActions.andExpect(status().isOk());
-        verify(referenceDataService).listDateRangeTypes();
+        verify(referenceDataService).listDateRanges();
     }
 
     @Test

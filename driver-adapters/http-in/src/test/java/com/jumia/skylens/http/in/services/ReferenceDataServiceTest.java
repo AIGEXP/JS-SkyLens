@@ -1,12 +1,8 @@
 package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.ListDateRangeUseCase;
-import com.jumia.skylens.domain.ListPaymentTypeUseCase;
-import com.jumia.skylens.domain.catalog.enums.DateRangeType;
-import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
+import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
-import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
-import com.jumia.skylens.http.in.model.DateRange;
 import com.jumia.skylens.http.in.model.DateRangeOption;
 import com.jumia.skylens.http.in.model.PaymentType;
 import org.junit.jupiter.api.Test;
@@ -16,13 +12,20 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ReferenceDataServiceTest {
+
+    private static final Map<DateRange, String> DESCRIPTIONS = Map.of(
+            DateRange.CURRENT_WEEK, "Current Week",
+            DateRange.LAST_WEEK, "Last Week",
+            DateRange.LAST_FOUR_WEEKS, "Last 4 Weeks",
+            DateRange.LAST_THREE_MONTHS, "Last 3 Months"
+    );
 
     @Mock
     private ListDateRangeUseCase listDateRangeUseCase;
@@ -40,21 +43,23 @@ class ReferenceDataServiceTest {
     private ReferenceDataService subject;
 
     @Test
-    void listDateRange_whenCalled_thenReturnAllDateRangeTypes() {
+    void listDateRanges_whenCalled_thenReturnAllDateRanges() {
 
         // Given
-        final List<DateRangeType> dateRangeTypes = List.of(DateRangeType.values());
-        final List<DateRangeOption> expectedDateRange = Stream.of(DateRangeType.values())
-                .map(dateRange -> new DateRangeOption(DateRange.valueOf(dateRange.name()), dateRange.getDescription()))
+        final List<DateRange> dateRanges = List.of(DateRange.values());
+        final List<DateRangeOption> expectedDateRanges = dateRanges.stream()
+                .map(dateRange -> new DateRangeOption(
+                        com.jumia.skylens.http.in.model.DateRange.valueOf(dateRange.name()),
+                        DESCRIPTIONS.get(dateRange)))
                 .toList();
 
         // When
-        when(listDateRangeUseCase.run()).thenReturn(dateRangeTypes);
-        when(listDateRangeConverter.convert(dateRangeTypes)).thenReturn(expectedDateRange);
-        final List<DateRangeOption> actualDateRanges = subject.listDateRangeTypes();
+        when(listDateRangeUseCase.run()).thenReturn(dateRanges);
+        when(listDateRangeConverter.convert(dateRanges)).thenReturn(expectedDateRanges);
+        final List<DateRangeOption> actualDateRanges = subject.listDateRanges();
 
         // Then
-        assertEquals(expectedDateRange, actualDateRanges);
+        assertEquals(expectedDateRanges, actualDateRanges);
     }
 
     @Test

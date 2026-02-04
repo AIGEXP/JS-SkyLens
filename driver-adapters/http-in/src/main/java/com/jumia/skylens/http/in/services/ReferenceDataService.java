@@ -1,8 +1,8 @@
 package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.ListDateRangeUseCase;
+import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
-import com.jumia.skylens.domain.catalog.enums.DateRangeType;
 import com.jumia.skylens.domain.catalog.enums.PaymentMethodType;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
 import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
@@ -25,10 +25,10 @@ public class ReferenceDataService {
 
     private final PaymentTypeConverter paymentTypeConverter;
 
-    public List<DateRangeOption> listDateRangeTypes() {
+    public List<DateRangeOption> listDateRanges() {
 
-        final List<DateRangeType> dateRangeTypes = listDateRangeUseCase.run();
-        return listDateRangeConverter.convert(dateRangeTypes);
+        final List<DateRange> dateRanges = listDateRangeUseCase.run();
+        return listDateRangeConverter.convert(dateRanges);
     }
 
     public List<PaymentType> listPaymentTypes() {

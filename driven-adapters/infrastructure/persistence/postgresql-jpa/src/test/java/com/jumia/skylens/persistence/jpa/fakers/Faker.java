@@ -4,5 +4,7 @@ import com.jumia.skylens.test.fakers.DomainFaker;
 
 public class Faker extends net.datafaker.Faker {
 
+    public final EntityFaker entity = new EntityFaker();
+
     public final DomainFaker domain = new DomainFaker();
 }

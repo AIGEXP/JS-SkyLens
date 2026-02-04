@@ -17,7 +17,7 @@ public class ReferenceDataController implements ReferenceDataApi {
     @Override
     public List<DateRangeOption> getDateRanges() {
 
-        return referenceDataService.listDateRangeTypes();
+        return referenceDataService.listDateRanges();
     }
 
     @Override
