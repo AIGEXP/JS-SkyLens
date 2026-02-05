@@ -20,6 +20,7 @@ public class GetPackageMetricsUseCaseImpl implements GetPackageMetricsUseCase {
         final List<PackageStatistics> metricsByDay = hubDailyMetricDAO.getPackageStatistics(metricsFilter.serviceProviderSid(),
                                                                                             metricsFilter.hubSid(),
                                                                                             metricsFilter.dateRange().startDate(),
+                                                                                            metricsFilter.dateRange().endDate(),
                                                                                             metricsFilter.paymentType(),
                                                                                             metricsFilter.movementType(),
                                                                                             metricsFilter.dateRange().granularity());

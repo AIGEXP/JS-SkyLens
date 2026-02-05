@@ -36,7 +36,7 @@ class GetPackageMetricsUseCaseImplTest {
         final MetricsFilter metricsFilter = faker.metricsFilter().build();
         final PackageStatistics packageStatistics = faker.packageStatistics().build();
 
-        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
+        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
 
         // When
         final List<PackageMetrics> packageMetrics = subject.run(metricsFilter);
@@ -58,6 +58,7 @@ class GetPackageMetricsUseCaseImplTest {
         verify(hubDailyMetricDAO).getPackageStatistics(metricsFilter.serviceProviderSid(),
                                                        metricsFilter.hubSid(),
                                                        metricsFilter.dateRange().startDate(),
+                                                       metricsFilter.dateRange().endDate(),
                                                        metricsFilter.paymentType(),
                                                        metricsFilter.movementType(),
                                                        metricsFilter.dateRange().granularity());
@@ -70,7 +71,7 @@ class GetPackageMetricsUseCaseImplTest {
         final MetricsFilter metricsFilter = faker.metricsFilter().build();
         final PackageStatistics packageStatistics = faker.packageStatistics().packagesClosed(0).build();
 
-        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
+        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
 
         // When
         final List<PackageMetrics> packageMetrics = subject.run(metricsFilter);
@@ -84,6 +85,7 @@ class GetPackageMetricsUseCaseImplTest {
         verify(hubDailyMetricDAO).getPackageStatistics(metricsFilter.serviceProviderSid(),
                                                        metricsFilter.hubSid(),
                                                        metricsFilter.dateRange().startDate(),
+                                                       metricsFilter.dateRange().endDate(),
                                                        metricsFilter.paymentType(),
                                                        metricsFilter.movementType(),
                                                        metricsFilter.dateRange().granularity());
@@ -96,7 +98,7 @@ class GetPackageMetricsUseCaseImplTest {
         final MetricsFilter metricsFilter = faker.metricsFilter().build();
         final PackageStatistics packageStatistics = faker.packageStatistics().packagesReceived(0).build();
 
-        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
+        when(hubDailyMetricDAO.getPackageStatistics(any(), any(), any(), any(), any(), any(), any())).thenReturn(List.of(packageStatistics));
 
         // When
         final List<PackageMetrics> packageMetrics = subject.run(metricsFilter);
@@ -110,6 +112,7 @@ class GetPackageMetricsUseCaseImplTest {
         verify(hubDailyMetricDAO).getPackageStatistics(metricsFilter.serviceProviderSid(),
                                                        metricsFilter.hubSid(),
                                                        metricsFilter.dateRange().startDate(),
+                                                       metricsFilter.dateRange().endDate(),
                                                        metricsFilter.paymentType(),
                                                        metricsFilter.movementType(),
                                                        metricsFilter.dateRange().granularity());

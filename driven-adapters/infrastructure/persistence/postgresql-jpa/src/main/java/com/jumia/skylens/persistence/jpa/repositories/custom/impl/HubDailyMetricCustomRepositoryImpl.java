@@ -10,8 +10,8 @@ import com.jumia.skylens.persistence.jpa.repositories.custom.HubDailyMetricCusto
 import com.jumia.skylens.persistence.jpa.repositories.custom.utils.OptionalBooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.SimpleTemplate;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -33,6 +33,7 @@ public class HubDailyMetricCustomRepositoryImpl extends QuerydslRepositorySuppor
     public List<PackageStatistics> findByFilters(final UUID serviceProviderSid,
                                                  final UUID hubSid,
                                                  final LocalDate startDate,
+                                                 final LocalDate endDate,
                                                  final HubDailyMetricEntityId.PaymentType paymentType,
                                                  final HubDailyMetricEntityId.MovementType movementType,
                                                  final Granularity granularity) {
@@ -43,12 +44,13 @@ public class HubDailyMetricCustomRepositoryImpl extends QuerydslRepositorySuppor
                 .optionalAnd(serviceProviderSid, qHubDailyMetricEntity.id.serviceProviderSid::eq)
                 .optionalAnd(hubSid, qHubDailyMetricEntity.id.hubSid::eq)
                 .optionalAnd(startDate, qHubDailyMetricEntity.id.day::goe)
+                .optionalAnd(endDate, qHubDailyMetricEntity.id.day::loe)
                 .optionalAnd(paymentType, qHubDailyMetricEntity.id.paymentType::eq)
                 .optionalAnd(movementType, qHubDailyMetricEntity.id.movementType::eq);
 
-        final SimpleTemplate<LocalDate> date = Expressions.template(LocalDate.class, "date_trunc({0}, {1})",
-                                                                    getDateTruncFormat(granularity),
-                                                                    qHubDailyMetricEntity.id.day);
+        final DateTemplate<LocalDate> date = Expressions.dateTemplate(LocalDate.class,
+                                                                      "date_trunc('" + getDateTruncFormat(granularity) + "', {0})",
+                                                                      qHubDailyMetricEntity.id.day);
 
         return from(qHubDailyMetricEntity)
                 .select(Projections.constructor(PackageStatistics.class,
@@ -58,8 +60,8 @@ public class HubDailyMetricCustomRepositoryImpl extends QuerydslRepositorySuppor
                                                 qHubDailyMetricEntity.packagesReceived.sum(),
                                                 qHubDailyMetricEntity.packagesLostAtHub.sum()))
                 .where(predicate)
-                .groupBy(qHubDailyMetricEntity.id.day)
-                .orderBy(qHubDailyMetricEntity.id.day.desc())
+                .groupBy(date)
+                .orderBy(date.asc())
                 .fetch();
     }
 

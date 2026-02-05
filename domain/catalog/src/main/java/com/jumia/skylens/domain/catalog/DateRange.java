@@ -8,6 +8,7 @@ public enum DateRange {
     CURRENT_WEEK,
     LAST_WEEK,
     LAST_FOUR_WEEKS,
+    CURRENT_MONTH,
     LAST_THREE_MONTHS;
 
     public LocalDate startDate() {
@@ -17,9 +18,20 @@ public enum DateRange {
         return switch (this) {
             case CURRENT_WEEK -> today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             case LAST_WEEK -> today.with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusWeeks(1);
-            case LAST_FOUR_WEEKS -> today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).minusWeeks(4);
-            case LAST_THREE_MONTHS -> today.withDayOfMonth(1).minusMonths(3);
+            case LAST_FOUR_WEEKS -> today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).minusWeeks(3);
+            case CURRENT_MONTH -> today.withDayOfMonth(1);
+            case LAST_THREE_MONTHS -> today.withDayOfMonth(1).minusMonths(2);
         };
+    }
+
+    public LocalDate endDate() {
+
+        if (this == LAST_WEEK) {
+
+            return startDate().plusDays(6);
+        }
+
+        return LocalDate.now();
     }
 
     public Granularity granularity() {
@@ -27,7 +39,7 @@ public enum DateRange {
         return switch (this) {
             case CURRENT_WEEK, LAST_WEEK -> Granularity.DAILY;
             case LAST_FOUR_WEEKS -> Granularity.WEEKLY;
-            case LAST_THREE_MONTHS -> Granularity.MONTHLY;
+            case CURRENT_MONTH, LAST_THREE_MONTHS -> Granularity.MONTHLY;
         };
     }
 }

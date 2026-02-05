@@ -25,6 +25,7 @@ public interface ListDateRangeConverter extends Converter<List<DateRange>, List<
             case CURRENT_WEEK -> "Current Week";
             case LAST_WEEK -> "Last Week";
             case LAST_FOUR_WEEKS -> "Last 4 Weeks";
+            case CURRENT_MONTH -> "Current Month";
             case LAST_THREE_MONTHS -> "Last 3 Months";
         };
     }

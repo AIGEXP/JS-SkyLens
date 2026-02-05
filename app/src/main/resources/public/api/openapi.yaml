@@ -310,6 +310,7 @@ components:
         - CURRENT_WEEK
         - LAST_WEEK
         - LAST_FOUR_WEEKS
+        - CURRENT_MONTH
         - LAST_THREE_MONTHS
       description: |
         Date range selection affects response array size and date granularity:
@@ -319,6 +320,7 @@ components:
         | CURRENT_WEEK      | 7          | Daily       | Each day            |
         | LAST_WEEK         | 7          | Daily       | Each day            |
         | LAST_FOUR_WEEKS   | 4          | Weekly      | Week start (Monday) |
+        | CURRENT_MONTH     | 1          | Monthly     | Month start (1st)   |
         | LAST_THREE_MONTHS | 3          | Monthly     | Month start (1st)   |
 
     PaymentType:
@@ -513,6 +515,8 @@ components:
           description: Last Week
         - value: LAST_FOUR_WEEKS
           description: Last 4 Weeks
+        - value: CURRENT_MONTH
+          description: Current Month
         - value: LAST_THREE_MONTHS
           description: Last 3 Months
 
