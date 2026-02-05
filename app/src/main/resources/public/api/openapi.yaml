@@ -26,6 +26,7 @@ paths:
         - Metrics
       summary: Get delivery metrics
       operationId: getPackageDeliveries
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'
@@ -52,6 +53,7 @@ paths:
         - Metrics
       summary: Get success rate metrics
       operationId: getSuccessRate
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'
@@ -78,6 +80,7 @@ paths:
         - Metrics
       summary: Get loss rate metrics
       operationId: getLossRate
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'
@@ -104,6 +107,7 @@ paths:
         - Metrics
       summary: Get no attempts metrics
       operationId: getNoAttempts
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'

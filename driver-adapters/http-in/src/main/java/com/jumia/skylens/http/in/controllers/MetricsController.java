@@ -1,5 +1,7 @@
 package com.jumia.skylens.http.in.controllers;
 
+import com.jumia.skylens.http.in.acl.authentication.AuthToken;
+import com.jumia.skylens.http.in.acl.resources.PartnerResource;
 import com.jumia.skylens.http.in.model.DateRange;
 import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
@@ -25,7 +27,10 @@ public class MetricsController implements MetricsApi {
                                                                    final DateRange dateRange,
                                                                    final UUID hubSid,
                                                                    final PaymentType paymentType,
-                                                                   final MovementType movementType) {
+                                                                   final MovementType movementType,
+                                                                   final AuthToken authToken) {
+
+        authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
 
         return metricsService.getPackageDeliveries(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
     }
@@ -35,7 +40,10 @@ public class MetricsController implements MetricsApi {
                                                                 final DateRange dateRange,
                                                                 final UUID hubSid,
                                                                 final PaymentType paymentType,
-                                                                final MovementType movementType) {
+                                                                final MovementType movementType,
+                                                                final AuthToken authToken) {
+
+        authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
 
         return metricsService.getSuccessRate(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
     }
@@ -45,7 +53,10 @@ public class MetricsController implements MetricsApi {
                                                           final DateRange dateRange,
                                                           final UUID hubSid,
                                                           final PaymentType paymentType,
-                                                          final MovementType movementType) {
+                                                          final MovementType movementType,
+                                                          final AuthToken authToken) {
+
+        authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
 
         return metricsService.getLossRate(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
     }
@@ -54,7 +65,10 @@ public class MetricsController implements MetricsApi {
     public NoAttemptsMetricsResponse getNoAttempts(final UUID serviceProviderSid,
                                                    final UUID hubSid,
                                                    final PaymentType paymentType,
-                                                   final MovementType movementType) {
+                                                   final MovementType movementType,
+                                                   final AuthToken authToken) {
+
+        authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
 
         return metricsService.getNoAttempts(serviceProviderSid, hubSid, paymentType, movementType);
     }

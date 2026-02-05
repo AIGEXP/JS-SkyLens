@@ -25,9 +25,9 @@ public class AclApiBuilder {
 
     private final CacheStrategy cacheStrategy;
 
-    public AclConnectApiClient<HierarchicalAuthorizationClient> buildAclConnectApiClient() {
+    public AclConnectApiClient<HierarchicalAuthorizationClient> buildAclConnectApiClient(final String applicationCode) {
 
-        final AclConnectApiClientBuilder aclConnectApiClientBuilder = getAclConnectApiClientBuilder();
+        final AclConnectApiClientBuilder aclConnectApiClientBuilder = getAclConnectApiClientBuilder(applicationCode);
 
         addAclInstances(aclConnectApiClientBuilder);
 
@@ -42,10 +42,10 @@ public class AclApiBuilder {
                         authInstance.isDefault()));
     }
 
-    private AclConnectApiClientBuilder getAclConnectApiClientBuilder() {
+    private AclConnectApiClientBuilder getAclConnectApiClientBuilder(final String applicationCode) {
 
         return new AclConnectApiClientBuilder()
-                .setApplicationCode("LogisticPartners")
+                .setApplicationCode(applicationCode)
                 .setLogger(new AclLogger())
                 .setCacheStrategy(cacheStrategy);
     }
