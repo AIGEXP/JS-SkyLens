@@ -16,6 +16,7 @@ public interface HubDailyMetricDAO {
     List<PackageStatistics> getPackageStatistics(UUID serviceProviderSid,
                                                  UUID hubSid,
                                                  LocalDate startDate,
+                                                 LocalDate endDate,
                                                  HubDailyMetric.PaymentType paymentType,
                                                  HubDailyMetric.MovementType movementType,
                                                  Granularity granularity);

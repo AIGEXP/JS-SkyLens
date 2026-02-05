@@ -37,6 +37,7 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
     public List<PackageStatistics> getPackageStatistics(final UUID serviceProviderSid,
                                                         final UUID hubSid,
                                                         final LocalDate startDate,
+                                                        final LocalDate endDate,
                                                         final HubDailyMetric.PaymentType paymentType,
                                                         final HubDailyMetric.MovementType movementType,
                                                         final Granularity granularity) {
@@ -44,6 +45,7 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
         return hubDailyMetricRepository.findByFilters(serviceProviderSid,
                                                       hubSid,
                                                       startDate,
+                                                      endDate,
                                                       Optional.ofNullable(paymentType)
                                                               .map(pt -> HubDailyMetricEntityId.PaymentType.valueOf(pt.name()))
                                                               .orElse(null),

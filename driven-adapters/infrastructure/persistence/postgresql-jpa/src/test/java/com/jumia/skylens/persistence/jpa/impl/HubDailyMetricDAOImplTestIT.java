@@ -95,10 +95,18 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                                        day.minusDays(10),
                                                                                        null,
                                                                                        null,
+                                                                                       null,
                                                                                        Granularity.DAILY);
 
         assertThat(packageStatistics)
                 .containsExactly(PackageStatistics.builder()
+                                         .date(otherDay)
+                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
+                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
+                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
+                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
+                                         .build(),
+                                 PackageStatistics.builder()
                                          .date(day)
                                          .packagesDelivered(hubDailyMetricEntity1.getPackagesDelivered()
                                                                     + hubDailyMetricEntity2.getPackagesDelivered())
@@ -108,13 +116,6 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                    + hubDailyMetricEntity2.getPackagesReceived())
                                          .packagesLostAtHub(hubDailyMetricEntity1.getPackagesLostAtHub()
                                                                     + hubDailyMetricEntity2.getPackagesLostAtHub())
-                                         .build(),
-                                 PackageStatistics.builder()
-                                         .date(otherDay)
-                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
-                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
-                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
-                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
                                          .build());
     }
 
@@ -160,10 +161,18 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                                        LocalDate.now().minusMonths(4),
                                                                                        null,
                                                                                        null,
+                                                                                       null,
                                                                                        Granularity.WEEKLY);
 
         assertThat(packageStatistics)
                 .containsExactly(PackageStatistics.builder()
+                                         .date(dayFromPreviousWeek.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)))
+                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
+                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
+                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
+                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
+                                         .build(),
+                                 PackageStatistics.builder()
                                          .date(dayFromThisWeek.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)))
                                          .packagesDelivered(hubDailyMetricEntity1.getPackagesDelivered()
                                                                     + hubDailyMetricEntity2.getPackagesDelivered())
@@ -173,13 +182,6 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                    + hubDailyMetricEntity2.getPackagesReceived())
                                          .packagesLostAtHub(hubDailyMetricEntity1.getPackagesLostAtHub()
                                                                     + hubDailyMetricEntity2.getPackagesLostAtHub())
-                                         .build(),
-                                 PackageStatistics.builder()
-                                         .date(dayFromPreviousWeek.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)))
-                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
-                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
-                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
-                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
                                          .build());
     }
 
@@ -225,10 +227,18 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                                        LocalDate.now().minusMonths(4),
                                                                                        null,
                                                                                        null,
+                                                                                       null,
                                                                                        Granularity.MONTHLY);
 
         assertThat(packageStatistics)
                 .containsExactly(PackageStatistics.builder()
+                                         .date(dayFromPreviousMonth.withDayOfMonth(1))
+                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
+                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
+                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
+                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
+                                         .build(),
+                                 PackageStatistics.builder()
                                          .date(dayFromThisMonth.withDayOfMonth(1))
                                          .packagesDelivered(hubDailyMetricEntity1.getPackagesDelivered()
                                                                     + hubDailyMetricEntity2.getPackagesDelivered())
@@ -238,13 +248,6 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
                                                                    + hubDailyMetricEntity2.getPackagesReceived())
                                          .packagesLostAtHub(hubDailyMetricEntity1.getPackagesLostAtHub()
                                                                     + hubDailyMetricEntity2.getPackagesLostAtHub())
-                                         .build(),
-                                 PackageStatistics.builder()
-                                         .date(dayFromPreviousMonth.withDayOfMonth(1))
-                                         .packagesDelivered(hubDailyMetricEntity3.getPackagesDelivered())
-                                         .packagesClosed(hubDailyMetricEntity3.getPackagesClosed())
-                                         .packagesReceived(hubDailyMetricEntity3.getPackagesReceived())
-                                         .packagesLostAtHub(hubDailyMetricEntity3.getPackagesLostAtHub())
                                          .build());
     }
 

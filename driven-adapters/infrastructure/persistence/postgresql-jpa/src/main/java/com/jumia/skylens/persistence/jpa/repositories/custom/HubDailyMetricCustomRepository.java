@@ -14,6 +14,7 @@ public interface HubDailyMetricCustomRepository {
     List<PackageStatistics> findByFilters(UUID serviceProviderSid,
                                           UUID hubSid,
                                           LocalDate startDate,
+                                          LocalDate endDate,
                                           HubDailyMetricEntityId.PaymentType paymentType,
                                           HubDailyMetricEntityId.MovementType movementType,
                                           Granularity granularity);
