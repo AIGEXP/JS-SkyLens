@@ -1,12 +1,16 @@
 package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.ListDateRangeUseCase;
+import com.jumia.skylens.domain.ListMovementTypeUseCase;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
 import com.jumia.skylens.domain.catalog.DateRange;
+import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
+import com.jumia.skylens.http.in.converters.MovementTypeConverter;
 import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
 import com.jumia.skylens.http.in.model.DateRangeOption;
+import com.jumia.skylens.http.in.model.MovementTypeOption;
 import com.jumia.skylens.http.in.model.PaymentTypeOption;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,10 +41,16 @@ class ReferenceDataServiceTest {
     private ListPaymentTypeUseCase listPaymentTypeUseCase;
 
     @Mock
+    private ListMovementTypeUseCase listMovementTypeUseCase;
+
+    @Mock
     private ListDateRangeConverter listDateRangeConverter;
 
     @Mock
     private PaymentTypeConverter paymentTypeConverter;
+
+    @Mock
+    private MovementTypeConverter movementTypeConverter;
 
     @InjectMocks
     private ReferenceDataService subject;
@@ -83,5 +93,25 @@ class ReferenceDataServiceTest {
 
         // Then
         assertEquals(expectedPaymentTypes, actualPaymentTypes);
+    }
+
+    @Test
+    void listMovementTypes_whenCalled_thenReturnAllMovementTypes() {
+
+        // Given
+        final List<MovementType> movementTypes = List.of(MovementType.values());
+        final MovementTypeOption doorOption = new MovementTypeOption(com.jumia.skylens.http.in.model.MovementType.DOOR, "Door Delivery");
+        final MovementTypeOption pusOption = new MovementTypeOption(com.jumia.skylens.http.in.model.MovementType.PUS, "Pick Up Delivery");
+        final List<MovementTypeOption> expectedMovementTypes = List.of(doorOption, pusOption);
+
+        // When
+        when(listMovementTypeUseCase.run()).thenReturn(movementTypes);
+        when(movementTypeConverter.convert(MovementType.DOOR)).thenReturn(doorOption);
+        when(movementTypeConverter.convert(MovementType.PUS)).thenReturn(pusOption);
+
+        final List<MovementTypeOption> actualMovementTypes = subject.listMovementTypes();
+
+        // Then
+        assertEquals(expectedMovementTypes, actualMovementTypes);
     }
 }

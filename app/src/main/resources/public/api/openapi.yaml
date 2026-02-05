@@ -249,6 +249,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaymentTypesResponse'
 
+  /api/v1/movement-types:
+    get:
+      tags:
+        - Reference Data
+      summary: Get available movement types
+      operationId: getMovementTypes
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementTypesResponse'
+
 components:
   parameters:
     serviceProviderSidPath:
@@ -544,6 +558,33 @@ components:
             description: Pre Paid
           - value: POST
             description: Post Paid
+
+    MovementTypeOption:
+      type: object
+      required:
+        - value
+        - description
+      properties:
+        value:
+          $ref: '#/components/schemas/MovementType'
+        description:
+          type: string
+          description: Human-readable label for display
+      example:
+        - value: DOOR
+          description: Door Delivery
+        - value: PUS
+          description: Pick Up Delivery
+
+    MovementTypesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/MovementTypeOption'
+      example:
+        - value: DOOR
+          description: Door Delivery
+        - value: PUS
+          description: Pick Up Delivery
 
     Error:
       type: object
