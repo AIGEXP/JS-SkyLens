@@ -20,13 +20,4 @@ public record HubDailyMetric(UUID hubSid,
                              Integer packagesNoAttemptsThreeDays,
                              Integer packagesNoAttemptsOverThreeDays) {
 
-    public enum PaymentType {
-        PRE,
-        POST
-    }
-
-    public enum MovementType {
-        DD,
-        PUS
-    }
 }

@@ -3,7 +3,9 @@ package com.jumia.skylens.test.fakers;
 import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
+import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import net.datafaker.Faker;
 
 import java.time.LocalDate;
@@ -17,8 +19,8 @@ public class DomainFaker extends Faker {
                 .hubSid(UUID.randomUUID())
                 .serviceProviderSid(UUID.randomUUID())
                 .day(LocalDate.now())
-                .paymentType(options().option(HubDailyMetric.PaymentType.class))
-                .movementType(options().option(HubDailyMetric.MovementType.class))
+                .paymentType(options().option(PaymentType.class))
+                .movementType(options().option(MovementType.class))
                 .packagesDelivered(number().positive())
                 .packagesClosed(number().positive())
                 .packagesReceived(number().positive())
@@ -35,8 +37,8 @@ public class DomainFaker extends Faker {
                 .serviceProviderSid(UUID.randomUUID())
                 .hubSid(UUID.randomUUID())
                 .dateRange(options().option(DateRange.class))
-                .paymentType(options().option(HubDailyMetric.PaymentType.class))
-                .movementType(options().option(HubDailyMetric.MovementType.class));
+                .paymentType(options().option(PaymentType.class))
+                .movementType(options().option(MovementType.class));
     }
 
     public PackageStatistics.Builder packageStatistics() {

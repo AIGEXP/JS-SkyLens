@@ -8,7 +8,7 @@ import java.util.UUID;
 public record MetricsFilter(UUID serviceProviderSid,
                             UUID hubSid,
                             DateRange dateRange,
-                            HubDailyMetric.PaymentType paymentType,
-                            HubDailyMetric.MovementType movementType) {
+                            PaymentType paymentType,
+                            MovementType movementType) {
 
 }

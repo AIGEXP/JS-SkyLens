@@ -1,13 +1,11 @@
 package com.jumia.skylens.http.in.converters;
 
 import com.jumia.skylens.domain.catalog.DateRange;
-import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.http.in.model.MovementType;
 import com.jumia.skylens.http.in.model.PaymentType;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.ValueMapping;
 
 import java.util.UUID;
 
@@ -44,8 +42,7 @@ public interface MetricsFilterConverter {
 
     DateRange convertDateRange(com.jumia.skylens.http.in.model.DateRange dateRange);
 
-    HubDailyMetric.PaymentType convertPaymentType(PaymentType paymentType);
+    com.jumia.skylens.domain.catalog.PaymentType convertPaymentType(PaymentType paymentType);
 
-    @ValueMapping(source = "DOOR", target = "DD")
-    HubDailyMetric.MovementType convertMovementType(MovementType movementType);
+    com.jumia.skylens.domain.catalog.MovementType convertMovementType(MovementType movementType);
 }
