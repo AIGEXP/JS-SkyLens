@@ -7,17 +7,19 @@ import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.RequestUser;
 import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
 
+import java.util.List;
+
 public class PermissionBearerCheckerImpl extends PermissionAbstractCheckerImpl implements BearerPermissionChecker {
 
-    public PermissionBearerCheckerImpl(AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient,
+    public PermissionBearerCheckerImpl(List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients,
                                        AclTargetPathBuilder aclTargetPathBuilder) {
 
-        super(aclConnectApiClient, aclTargetPathBuilder);
+        super(aclConnectApiClients, aclTargetPathBuilder);
     }
 
     @Override
     RequestUser createRequestUser(AuthToken authorization) {
 
-        return getAclConnectApiClient().authentication().decodeTokenFromHeader(authorization.getToken());
+        return getAclConnectApiClients().getFirst().authentication().decodeTokenFromHeader(authorization.getToken());
     }
 }

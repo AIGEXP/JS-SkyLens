@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 public enum PartnerResource {
-    LIST_PACKAGES("stops_list_packages");
+    DASHBOARD_READ("lpmt_performance_dashboard_read");
 
     private static final Map<String, PartnerResource> RESOURCES = Arrays.stream(values())
             .collect(Collectors.toMap(countryResource -> countryResource.getValue().toLowerCase(), Function.identity()));
