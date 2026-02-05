@@ -58,7 +58,7 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
         final Path adminPermissionPath = Path.fromTargetsHierarchyAsString(adminPermission.target());
         final Path partnerPermissionPath = Path.fromTargetsHierarchyAsString(partnerPermission.target());
@@ -95,7 +95,7 @@ class PermissionAbstractCheckerImplTest {
 
         // Given
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
 
         doReturn(authorizationClient)
@@ -118,7 +118,7 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
         final Path partnerPermissionPath = Path.fromTargetsHierarchyAsString(partnerPermission.target());
         final Path adminPermissionPath = Path.fromTargetsHierarchyAsString(adminPermission.target());
@@ -155,7 +155,7 @@ class PermissionAbstractCheckerImplTest {
 
         // Given
         final RequestUser requestUser = subject.getRequestUser();
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
         final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
 
@@ -182,7 +182,7 @@ class PermissionAbstractCheckerImplTest {
 
         // Given
         final RequestUser requestUser = subject.getRequestUser();
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
         final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
 
@@ -208,7 +208,7 @@ class PermissionAbstractCheckerImplTest {
 
         // Given
         final RequestUser requestUser = subject.getRequestUser();
-        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.LIST_PACKAGES);
+        final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
         final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
         final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
 

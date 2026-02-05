@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 public enum ApplicationResource {
-    ADMIN("stops_admin"),
-    B2B_EXPORT_PACKAGES("b2b_export_packages");
+    ADMIN("skylens_admin");
 
     private static final Map<String, ApplicationResource> RESOURCES = Arrays.stream(values())
             .collect(Collectors.toMap(countryResource -> countryResource.getValue().toLowerCase(), Function.identity()));
