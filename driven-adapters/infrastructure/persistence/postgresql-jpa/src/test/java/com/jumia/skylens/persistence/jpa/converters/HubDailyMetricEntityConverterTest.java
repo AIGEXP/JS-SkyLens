@@ -1,6 +1,8 @@
 package com.jumia.skylens.persistence.jpa.converters;
 
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
+import com.jumia.skylens.domain.catalog.MovementType;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
 import com.jumia.skylens.persistence.jpa.fakers.Faker;
@@ -18,7 +20,10 @@ class HubDailyMetricEntityConverterTest {
     void convert() {
 
         // Given
-        final HubDailyMetric hubDailyMetric = faker.domain.hubDailyMetric().build();
+        final HubDailyMetric hubDailyMetric = faker.domain.hubDailyMetric()
+                .paymentType(PaymentType.PRE)
+                .movementType(MovementType.DOOR)
+                .build();
 
         // When
         final HubDailyMetricEntity result = subject.convert(hubDailyMetric);
@@ -31,12 +36,8 @@ class HubDailyMetricEntityConverterTest {
                                                .hubSid(hubDailyMetric.hubSid())
                                                .serviceProviderSid(hubDailyMetric.serviceProviderSid())
                                                .day(hubDailyMetric.day())
-                                               .paymentType(HubDailyMetricEntityId.PaymentType.valueOf(hubDailyMetric
-                                                                                                               .paymentType()
-                                                                                                               .name()))
-                                               .movementType(HubDailyMetricEntityId.MovementType.valueOf(hubDailyMetric
-                                                                                                                 .movementType()
-                                                                                                                 .name()))
+                                               .paymentType(HubDailyMetricEntityId.PaymentType.PRE)
+                                               .movementType(HubDailyMetricEntityId.MovementType.DD)
                                                .build())
                                    .packagesDelivered(hubDailyMetric.packagesDelivered())
                                    .packagesClosed(hubDailyMetric.packagesClosed())
