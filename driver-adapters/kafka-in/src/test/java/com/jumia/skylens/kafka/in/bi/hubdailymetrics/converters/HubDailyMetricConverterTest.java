@@ -1,6 +1,8 @@
 package com.jumia.skylens.kafka.in.bi.hubdailymetrics.converters;
 
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
+import com.jumia.skylens.domain.catalog.MovementType;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.kafka.in.bi.hubdailymetrics.dtos.HubDailyMetricDTO;
 import com.jumia.skylens.kafka.in.fakers.KafkaInFaker;
 import org.junit.jupiter.api.Test;
@@ -33,7 +35,7 @@ class HubDailyMetricConverterTest {
                                    .hubSid(hubDailyMetricDTO.hubSid())
                                    .serviceProviderSid(hubDailyMetricDTO.serviceProviderSid())
                                    .day(LocalDate.parse(hubDailyMetricDTO.day(), DateTimeFormatter.ofPattern("yyyyMMdd")))
-                                   .movementType(HubDailyMetric.MovementType.valueOf(hubDailyMetricDTO.movementType().name()))
+                                   .movementType(MovementType.valueOf(hubDailyMetricDTO.movementType().name()))
                                    .packagesDelivered(hubDailyMetricDTO.packagesDelivered())
                                    .packagesClosed(hubDailyMetricDTO.packagesClosed())
                                    .packagesReceived(hubDailyMetricDTO.packagesReceived())
@@ -55,7 +57,7 @@ class HubDailyMetricConverterTest {
         final HubDailyMetric hubDailyMetric = subject.convert(hubDailyMetricDTO);
 
         // Then
-        assertThat(hubDailyMetric.paymentType()).isEqualTo(HubDailyMetric.PaymentType.PRE);
+        assertThat(hubDailyMetric.paymentType()).isEqualTo(PaymentType.PRE);
     }
 
     @Test
@@ -68,6 +70,6 @@ class HubDailyMetricConverterTest {
         final HubDailyMetric hubDailyMetric = subject.convert(hubDailyMetricDTO);
 
         // Then
-        assertThat(hubDailyMetric.paymentType()).isEqualTo(HubDailyMetric.PaymentType.POST);
+        assertThat(hubDailyMetric.paymentType()).isEqualTo(PaymentType.POST);
     }
 }

@@ -2,8 +2,10 @@ package com.jumia.skylens.persistence.jpa.impl;
 
 import com.jumia.skylens.domain.catalog.Granularity;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
+import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageNoAttemptsStatistics;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
+import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import com.jumia.skylens.persistence.jpa.converters.HubDailyMetricEntityConverter;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
@@ -38,8 +40,8 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
                                                         final UUID hubSid,
                                                         final LocalDate startDate,
                                                         final LocalDate endDate,
-                                                        final HubDailyMetric.PaymentType paymentType,
-                                                        final HubDailyMetric.MovementType movementType,
+                                                        final PaymentType paymentType,
+                                                        final MovementType movementType,
                                                         final Granularity granularity) {
 
         return hubDailyMetricRepository.findByFilters(serviceProviderSid,
@@ -58,8 +60,8 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
     @Override
     public PackageNoAttemptsStatistics findCurrentNoAttemptsStatistics(final UUID serviceProviderSid,
                                                                        final UUID hubSid,
-                                                                       final HubDailyMetric.PaymentType paymentType,
-                                                                       final HubDailyMetric.MovementType movementType) {
+                                                                       final PaymentType paymentType,
+                                                                       final MovementType movementType) {
 
         final HubDailyMetricEntityId.PaymentType pType = Optional.ofNullable(paymentType)
                 .map(pt -> HubDailyMetricEntityId.PaymentType.valueOf(pt.name()))

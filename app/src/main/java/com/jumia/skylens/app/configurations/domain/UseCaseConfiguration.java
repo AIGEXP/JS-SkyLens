@@ -3,11 +3,13 @@ package com.jumia.skylens.app.configurations.domain;
 import com.jumia.skylens.domain.GetCurrentPackageAttemptsMetricsUseCase;
 import com.jumia.skylens.domain.GetPackageMetricsUseCase;
 import com.jumia.skylens.domain.ListDateRangeUseCase;
+import com.jumia.skylens.domain.ListMovementTypeUseCase;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListDateRangeUseCaseImpl;
+import com.jumia.skylens.domain.impl.ListMovementTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListPaymentTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.SaveHubDailyMetricUseCaseImpl;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
@@ -45,5 +47,11 @@ public class UseCaseConfiguration {
     public ListPaymentTypeUseCase listPaymentTypeUseCase() {
 
         return new ListPaymentTypeUseCaseImpl();
+    }
+
+    @Bean
+    public ListMovementTypeUseCase listMovementTypeUseCase() {
+
+        return new ListMovementTypeUseCaseImpl();
     }
 }

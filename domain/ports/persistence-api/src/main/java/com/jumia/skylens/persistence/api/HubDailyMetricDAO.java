@@ -2,8 +2,10 @@ package com.jumia.skylens.persistence.api;
 
 import com.jumia.skylens.domain.catalog.Granularity;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
+import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageNoAttemptsStatistics;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
+import com.jumia.skylens.domain.catalog.PaymentType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,12 +19,12 @@ public interface HubDailyMetricDAO {
                                                  UUID hubSid,
                                                  LocalDate startDate,
                                                  LocalDate endDate,
-                                                 HubDailyMetric.PaymentType paymentType,
-                                                 HubDailyMetric.MovementType movementType,
+                                                 PaymentType paymentType,
+                                                 MovementType movementType,
                                                  Granularity granularity);
 
     PackageNoAttemptsStatistics findCurrentNoAttemptsStatistics(UUID serviceProviderSid,
                                                                 UUID hubSid,
-                                                                HubDailyMetric.PaymentType paymentType,
-                                                                HubDailyMetric.MovementType movementType);
+                                                                PaymentType paymentType,
+                                                                MovementType movementType);
 }

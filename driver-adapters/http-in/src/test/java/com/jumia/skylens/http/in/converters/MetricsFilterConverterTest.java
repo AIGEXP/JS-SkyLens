@@ -1,6 +1,5 @@
 package com.jumia.skylens.http.in.converters;
 
-import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.http.in.model.DateRange;
 import com.jumia.skylens.http.in.model.MovementType;
@@ -35,8 +34,8 @@ class MetricsFilterConverterTest {
                                    .serviceProviderSid(serviceProviderSid)
                                    .hubSid(hubSid)
                                    .dateRange(com.jumia.skylens.domain.catalog.DateRange.CURRENT_WEEK)
-                                   .paymentType(HubDailyMetric.PaymentType.PRE)
-                                   .movementType(HubDailyMetric.MovementType.DD)
+                                   .paymentType(com.jumia.skylens.domain.catalog.PaymentType.PRE)
+                                   .movementType(com.jumia.skylens.domain.catalog.MovementType.DOOR)
                                    .build());
     }
 
@@ -58,8 +57,8 @@ class MetricsFilterConverterTest {
                 .isEqualTo(MetricsFilter.builder()
                                    .serviceProviderSid(serviceProviderSid)
                                    .hubSid(hubSid)
-                                   .paymentType(HubDailyMetric.PaymentType.PRE)
-                                   .movementType(HubDailyMetric.MovementType.DD)
+                                   .paymentType(com.jumia.skylens.domain.catalog.PaymentType.PRE)
+                                   .movementType(com.jumia.skylens.domain.catalog.MovementType.DOOR)
                                    .build());
     }
 }

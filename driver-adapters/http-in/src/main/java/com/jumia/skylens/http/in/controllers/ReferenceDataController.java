@@ -1,6 +1,7 @@
 package com.jumia.skylens.http.in.controllers;
 
 import com.jumia.skylens.http.in.model.DateRangeOption;
+import com.jumia.skylens.http.in.model.MovementTypeOption;
 import com.jumia.skylens.http.in.model.PaymentTypeOption;
 import com.jumia.skylens.http.in.services.ReferenceDataService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,11 @@ public class ReferenceDataController implements ReferenceDataApi {
     public List<PaymentTypeOption> getPaymentTypes() {
 
         return referenceDataService.listPaymentTypes();
+    }
+
+    @Override
+    public List<MovementTypeOption> getMovementTypes() {
+
+        return referenceDataService.listMovementTypes();
     }
 }
