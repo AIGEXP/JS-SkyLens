@@ -32,6 +32,7 @@ dependencies {
     testImplementation(libs.datafaker)
 
     testCompileOnly(libs.lombok)
+    testCompileOnly(libs.spotbugs.annotations)
     testAnnotationProcessor(libs.lombok)
 }
 

@@ -3,7 +3,6 @@ package com.jumia.skylens.http.in.configurations;
 import com.jumia.skylens.http.in.acl.AuthInstances;
 import com.jumia.skylens.http.in.acl.authentication.UserAuthenticationType;
 import com.jumia.skylens.http.in.configurations.properties.AclCacheProperties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -21,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 @RequiredArgsConstructor
 @ConditionalOnProperty("app.acl-service.enabled")
-@SuppressFBWarnings(value = {"EI_EXPOSE_REP"}, justification = "I prefer to suppress these FindBugs warnings")
 public class AclApiBuilder {
 
     private final AuthInstances authInstances;

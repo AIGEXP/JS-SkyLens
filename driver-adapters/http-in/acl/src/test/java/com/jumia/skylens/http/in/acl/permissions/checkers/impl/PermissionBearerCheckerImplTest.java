@@ -1,6 +1,7 @@
 package com.jumia.skylens.http.in.acl.permissions.checkers.impl;
 
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
+@SuppressFBWarnings(value = {"URF_UNREAD_FIELD"}, justification = "I prefer to suppress these FindBugs warnings")
 class PermissionBearerCheckerImplTest {
 
     @SuppressWarnings("unchecked")
