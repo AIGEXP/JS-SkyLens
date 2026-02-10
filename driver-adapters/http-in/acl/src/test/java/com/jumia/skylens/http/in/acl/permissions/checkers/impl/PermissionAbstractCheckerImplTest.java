@@ -77,9 +77,9 @@ class PermissionAbstractCheckerImplTest {
         doThrow(AclErrorException.build(0))
                 .when(authorizationClient)
                 .hasPermission(eq(requestUser),
-                        eq(requestUser.getUsername()),
-                        argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                        argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
+                               eq(requestUser.getUsername()),
+                               argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
+                               argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
@@ -137,9 +137,9 @@ class PermissionAbstractCheckerImplTest {
         doReturn(true)
                 .when(authorizationClient)
                 .hasPermission(eq(requestUser),
-                        eq(requestUser.getUsername()),
-                        argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                        argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
+                               eq(requestUser.getUsername()),
+                               argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
+                               argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
@@ -289,9 +289,9 @@ class PermissionAbstractCheckerImplTest {
         RequestUser requestUser = new AclFaker().requestUser().build();
 
         TestPermissionChecker(AclTargetPathBuilder aclTargetPathBuilder,
-                              List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients) {
+                              AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient) {
 
-            super(aclConnectApiClients, aclTargetPathBuilder);
+            super(List.of(aclConnectApiClient), aclTargetPathBuilder);
         }
 
         @Override
