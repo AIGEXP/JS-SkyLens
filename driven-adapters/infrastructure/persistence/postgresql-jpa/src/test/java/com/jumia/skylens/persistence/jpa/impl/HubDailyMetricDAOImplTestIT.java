@@ -2,6 +2,7 @@ package com.jumia.skylens.persistence.jpa.impl;
 
 import com.jumia.skylens.domain.catalog.Granularity;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
+import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageNoAttemptsStatistics;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.persistence.jpa.configuration.BaseTestIT;
@@ -32,7 +33,7 @@ class HubDailyMetricDAOImplTestIT extends BaseTestIT {
     void save_whenSaving_thenSaveItSuccessfully() {
 
         // Given
-        final HubDailyMetric hubDailyMetric = faker.domain.hubDailyMetric().build();
+        final HubDailyMetric hubDailyMetric = faker.domain.hubDailyMetric().movementType(MovementType.PUS).build();
 
         // When
         subject.save(hubDailyMetric);

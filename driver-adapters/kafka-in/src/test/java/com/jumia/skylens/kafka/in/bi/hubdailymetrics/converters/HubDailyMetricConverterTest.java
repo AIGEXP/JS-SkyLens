@@ -22,7 +22,7 @@ class HubDailyMetricConverterTest {
     void convert_whenCalled_thenConvertSuccessfully() {
 
         // Given
-        final HubDailyMetricDTO hubDailyMetricDTO = faker.hubDailyMetricDTO().build();
+        final HubDailyMetricDTO hubDailyMetricDTO = faker.hubDailyMetricDTO().movementType(HubDailyMetricDTO.MovementType.PUS).build();
 
         // When
         final HubDailyMetric hubDailyMetric = subject.convert(hubDailyMetricDTO);
