@@ -9,15 +9,17 @@ import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.RequestUser;
 import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
 
+import java.util.List;
+
 public class PermissionBasicCheckerImpl extends PermissionAbstractCheckerImpl implements BasicPermissionChecker {
 
     private final CredentialBuilder credentialBuilder;
 
-    public PermissionBasicCheckerImpl(AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient,
+    public PermissionBasicCheckerImpl(List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients,
                                       AclTargetPathBuilder aclTargetPathBuilder,
                                       CredentialBuilder credentialBuilder) {
 
-        super(aclConnectApiClient, aclTargetPathBuilder);
+        super(aclConnectApiClients, aclTargetPathBuilder);
         this.credentialBuilder = credentialBuilder;
     }
 

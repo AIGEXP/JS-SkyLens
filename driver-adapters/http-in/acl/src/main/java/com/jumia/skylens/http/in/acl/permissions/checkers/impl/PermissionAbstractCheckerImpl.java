@@ -17,6 +17,7 @@ import pt.jumia.services.acl.lib.RequestUser;
 import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
 import pt.jumia.services.acl.lib.client.authorization.Path;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -24,7 +25,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 abstract class PermissionAbstractCheckerImpl implements PermissionChecker {
 
-    private final AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private final List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients;
 
     private final AclTargetPathBuilder aclTargetPathBuilder;
 
@@ -72,8 +73,9 @@ abstract class PermissionAbstractCheckerImpl implements PermissionChecker {
         try {
             final Path targetPath = aclTargetPathBuilder.buildPath(permission);
 
-            return aclConnectApiClient.authorization()
-                    .hasPermission(requestUser, requestUser.getUsername(), permission.resource(), targetPath);
+            return aclConnectApiClients.stream()
+                    .anyMatch(aclConnectApiClient -> aclConnectApiClient.authorization()
+                            .hasPermission(requestUser, requestUser.getUsername(), permission.resource(), targetPath));
         } catch (AclErrorException aclErrorException) {
 
             log.error("ACL internal error", aclErrorException);
