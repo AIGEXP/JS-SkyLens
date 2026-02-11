@@ -8,6 +8,7 @@ import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import com.jumia.skylens.persistence.jpa.converters.HubDailyMetricEntityConverter;
+import com.jumia.skylens.persistence.jpa.converters.MovementTypeConverter;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
 import com.jumia.skylens.persistence.jpa.repositories.HubDailyMetricRepository;
@@ -26,6 +27,8 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
     private final HubDailyMetricRepository hubDailyMetricRepository;
 
     private final HubDailyMetricEntityConverter hubDailyMetricEntityConverter;
+
+    private final MovementTypeConverter movementTypeConverter;
 
     @Override
     public void save(final HubDailyMetric hubDailyMetric) {
@@ -51,9 +54,7 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
                                                       Optional.ofNullable(paymentType)
                                                               .map(pt -> HubDailyMetricEntityId.PaymentType.valueOf(pt.name()))
                                                               .orElse(null),
-                                                      Optional.ofNullable(movementType)
-                                                              .map(mt -> HubDailyMetricEntityId.MovementType.valueOf(mt.name()))
-                                                              .orElse(null),
+                                                      movementTypeConverter.convert(movementType),
                                                       granularity);
     }
 
@@ -67,13 +68,9 @@ public class HubDailyMetricDAOImpl implements HubDailyMetricDAO {
                 .map(pt -> HubDailyMetricEntityId.PaymentType.valueOf(pt.name()))
                 .orElse(null);
 
-        final HubDailyMetricEntityId.MovementType mType = Optional.ofNullable(movementType)
-                .map(mt -> HubDailyMetricEntityId.MovementType.valueOf(mt.name()))
-                .orElse(null);
-
         return hubDailyMetricRepository.findCurrentNoAttemptsStatistics(serviceProviderSid,
                                                                         hubSid,
                                                                         pType,
-                                                                        mType);
+                                                                        movementTypeConverter.convert(movementType));
     }
 }
