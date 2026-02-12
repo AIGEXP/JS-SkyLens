@@ -4,7 +4,13 @@ import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseInner;
+import com.jumia.skylens.http.in.model.ThresholdResponse;
 import net.datafaker.Faker;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 public class RestFaker extends Faker {
 
@@ -40,5 +46,12 @@ public class RestFaker extends Faker {
                 .twoDays(number().randomDigit())
                 .threeDays(number().randomDigit())
                 .overThreeDays(number().randomDigit());
+    }
+
+    public ThresholdResponse.Builder thresholdResponse() {
+
+        return ThresholdResponse.builder()
+                .targetRate(BigDecimal.valueOf(number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP))
+                .updatedAt(OffsetDateTime.now(ZoneOffset.UTC));
     }
 }
