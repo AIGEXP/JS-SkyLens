@@ -1,7 +1,5 @@
-package com.jumia.skylens.app.debug;
+package com.jumia.hmtstops.cli.in.runner;
 
-import com.jumia.skylens.app.job.HubDailyMetricRowMapper;
-import com.jumia.skylens.app.job.JobProperties;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.zaxxer.hikari.HikariConfig;

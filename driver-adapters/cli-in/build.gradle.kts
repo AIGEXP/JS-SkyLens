@@ -8,6 +8,7 @@ dependencies {
 
     implementation(libs.spring.boot.starter)
     implementation(libs.spring.boot.starter.jdbc)
+    implementation(libs.spring.boot.starter.web)
 
     runtimeOnly(libs.mssql.jdbc)
 
