@@ -24,6 +24,7 @@ spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring
 spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter" }
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
+spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-jdbc" }
 spring-boot-starter-flyway = { group = "org.springframework.boot", name = "spring-boot-starter-flyway" }
 spring-boot-starter-json = { group = "org.springframework.boot", name = "spring-boot-starter-json" }
 spring-boot-starter-kafka = { group = "org.springframework.boot", name = "spring-boot-starter-kafka" }
@@ -66,6 +67,7 @@ mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", v
 micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
 mockito = { group = "org.mockito", name = "mockito-core" }
 mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter" }
+mssql-jdbc = { group = "com.microsoft.sqlserver", name = "mssql-jdbc" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
 querydsl-apt = { group = "com.querydsl", name = "querydsl-apt" }
 querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa" }
