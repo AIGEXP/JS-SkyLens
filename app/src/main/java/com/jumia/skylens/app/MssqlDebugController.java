@@ -1,5 +1,6 @@
-package com.jumia.hmtstops.cli.in.runner;
+package com.jumia.skylens.app;
 
+import com.jumia.hmtstops.cli.in.runner.HubDailyMetricRowMapper;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.zaxxer.hikari.HikariConfig;
@@ -90,11 +91,9 @@ public class MssqlDebugController {
 
     private final SaveHubDailyMetricUseCase saveHubDailyMetricUseCase;
 
-    private final JobProperties jobProperties;
-
     public void runImportFromController(final JdbcTemplate jdbcTemplate, final String query) {
 
-        log.info("Calling BI database with page size: {}", jobProperties.getPageSize());
+        log.info("Calling BI database with page size: {}", 50);
 
         final HubDailyMetricRowMapper rowMapper = new HubDailyMetricRowMapper();
 
@@ -103,7 +102,7 @@ public class MssqlDebugController {
 
         while (true) {
 
-            final List<HubDailyMetric> page = jdbcTemplate.query(query, rowMapper, offset, jobProperties.getPageSize());
+            final List<HubDailyMetric> page = jdbcTemplate.query(query, rowMapper, offset, 50);
 
             if (page.isEmpty()) {
                 break;
@@ -116,11 +115,11 @@ public class MssqlDebugController {
             totalProcessed += page.size();
             log.info("Processed {} records (total: {})", page.size(), totalProcessed);
 
-            if (page.size() < jobProperties.getPageSize()) {
+            if (page.size() < 50) {
                 break;
             }
 
-            offset += jobProperties.getPageSize();
+            offset += 50;
         }
 
         log.info("ImportHubDailyMetrics job completed. Total records processed: {}", totalProcessed);
