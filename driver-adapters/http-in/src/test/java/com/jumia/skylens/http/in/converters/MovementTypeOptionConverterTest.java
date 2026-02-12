@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MovementTypeConverterTest {
+class MovementTypeOptionConverterTest {
 
-    private final MovementTypeConverter subject = new MovementTypeConverterImpl();
+    private final MovementTypeOptionConverter subject = new MovementTypeOptionConverterImpl();
 
     @Test
     void convert_whenCalled_thenConvertSuccessfully() {
