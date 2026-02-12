@@ -41,7 +41,7 @@ public class ImportHubDailyMetricsJob implements ApplicationRunner {
                    Nr_packages_no_attempt_4D,
                    "Nr_packages_no_attempt_+4D"
             FROM [SLRCH].[LPMT_HMT_HUB_PERFORMANCE_KPIS_DATA]
-            WHERE [DAY] >= CONVERT(VARCHAR(8), DATEADD(DAY, -1, GETDATE()), 112)
+            WHERE service_provider_sid = 'e859c764-17d9-327e-a2db-ad4a6513726c' and day = 20251129
             ORDER BY [DAY]
             OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
             """;
