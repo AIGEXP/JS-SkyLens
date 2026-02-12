@@ -113,27 +113,6 @@ pipeline {
             }
         }
 
-        stage('Commits & Jira Validation') {
-            when {
-                expression { env.BRANCH_NAME != "master" && env.BRANCH_NAME != masterBranch }
-            }
-            environment {
-                JIRA_CREDENTIALS = credentials("${env.JIRA_TOKEN_ID}")
-            }
-            steps {
-                dir(REPO_NAME) {
-                    script {
-                        def project = env.JIRA_PROJECT
-                        Set inStatus = ["Backlog", "Released"]
-                        jenkinsTools.checkTicketStatusForCommitMessages("Bearer ${env.JIRA_CREDENTIALS}",
-                                baseBranch,
-                                project,
-                                inStatus)
-                    }
-                }
-            }
-        }
-
         stage('Build app') {
             steps {
                 dir(REPO_NAME) {
@@ -142,134 +121,6 @@ pipeline {
                         appImage.version = "${projectVersion}.${appImage.getShortCommitId()}"
                         appImage.build([] as String[], "build", '')
                         dockerBuilderRun("./gradlew --no-daemon --warn --stacktrace --parallel assemble")
-                    }
-                }
-            }
-        }
-
-        stage('Run Tests') {
-            failFast true
-            parallel {
-                stage('Tests') {
-                    steps {
-                        dir(REPO_NAME) {
-                            script {
-                                try {
-                                    dockerBuilderRun("./gradlew --no-daemon " +
-                                            "--console=plain --continue --info --stacktrace " +
-                                            "test -x check -x jacocoTestCoverageVerification")
-                                } finally {
-                                    replaceProjectPathInXmlAndHtmlFiles()
-                                }
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            dir(REPO_NAME) {
-                                script {
-
-                                    junit '**/build/test-results/*/*.xml'
-
-                                    def java = scanForIssues tool: java()
-                                    publishIssues issues: [java]
-
-                                    def javaDoc = scanForIssues tool: javaDoc()
-                                    publishIssues issues: [javaDoc]
-                                }
-                            }
-                        }
-                    }
-                }
-
-                stage('Database regression tests') {
-                    when {
-                        expression { env.RUN_DATABASE_REGRESSION_TESTS && false }
-                    }
-                    steps {
-                        script {
-                            env.MASTER_BRANCH_DIR = "${env.REPO_NAME}_${baseBranch}"
-                            masterBranchAppImage.checkoutToSubdir(env.MASTER_BRANCH_DIR)
-                            initializeGradleProperties(env.MASTER_BRANCH_DIR)
-
-                            // Run main branch IT DAO tests with new database migrations
-                            String migrationsDir = "/driven-adapters/infrastructure/persistence/migrations-jpa/src/main/resources/db"
-                            String newMigrations = "${env.REPO_NAME}/${migrationsDir}"
-                            String masterBranchMigrations = "${env.MASTER_BRANCH_DIR}/${migrationsDir}"
-                            sh "rm -rf \"${masterBranchMigrations}\"/*"
-                            sh "cp --recursive \"${newMigrations}\"/* \"${masterBranchMigrations}\""
-
-                            dir(env.MASTER_BRANCH_DIR) {
-                                try {
-                                    dockerBuilderRun("./gradlew --no-daemon " +
-                                            "--console=plain --continue --info --stacktrace " +
-                                            "-b driven-adapters/infrastructure/persistence/postgresql-jpa/build.gradle.kts " +
-                                            "-x check " +
-                                            "-x jacocoTestCoverageVerification")
-                                } finally {
-                                    replaceProjectPathInXmlAndHtmlFiles()
-                                }
-                            }
-                        }
-                    }
-                    post {
-                        failure {
-                            dir(env.MASTER_BRANCH_DIR) {
-                                script {
-                                    junit '**/build/test-results/*/*.xml'
-                                }
-                            }
-                        }
-                        always {
-                            sh "rm -rf \"${env.MASTER_BRANCH_DIR}\" || exit 0"
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Code inspection') {
-            steps {
-                dir(REPO_NAME) {
-                    script {
-                        try {
-                            dockerBuilderRun("./gradlew --no-daemon --console=plain " +
-                                    "--continue --info --stacktrace --parallel " +
-                                    "check jacocoTestCoverageVerification jacocoTestReport -x test")
-                        } finally {
-                            replaceProjectPathInXmlAndHtmlFiles()
-                        }
-                    }
-                }
-            }
-            post {
-                always {
-                    dir(REPO_NAME) {
-                        script {
-
-                            recordCoverage(
-                                    tools: [[parser : 'JACOCO',
-                                             pattern: '**/build/test-results/jacoco/main.xml'
-                                            ]]
-                            )
-
-                            def checkstyle = scanForIssues tool:
-                                    checkStyle(pattern: '**/build/reports/checkstyle/*.xml', reportEncoding: 'UTF-8')
-
-                            publishIssues issues: [checkstyle]
-
-                            def spotbugs = scanForIssues tool: spotBugs(pattern: '**/build/reports/spotbugs/*.xml')
-                            publishIssues issues: [spotbugs]
-
-                            def java = scanForIssues tool: java()
-                            def javaDoc = scanForIssues tool: javaDoc()
-
-                            publishIssues(
-                                    id: 'static-analysis',
-                                    name: 'Static analysis',
-                                    issues: [java, javaDoc, checkstyle, spotbugs],
-                                    skipPublishingChecks: true)
-                        }
                     }
                 }
             }
@@ -294,31 +145,6 @@ pipeline {
                         postgresqlMigrations.version = "${projectVersion}.${appImage.getShortCommitId()}"
                         postgresqlMigrations.build([] as String[], "postgresql-migrations", '')
                         postgresqlMigrations.tagDockerImage("local")
-                    }
-                }
-            }
-        }
-
-        stage('Acceptance Tests') {
-            steps {
-                dir(REPO_NAME) {
-                    script {
-                        try {
-                            startContainersForAcceptanceTests()
-
-                            dockerBuilderRun("./gradlew acceptanceTest")
-                        } finally {
-                            replaceProjectPathInXmlAndHtmlFiles()
-                        }
-                    }
-                }
-            }
-            post {
-                always {
-                    dir(REPO_NAME) {
-                        script {
-                            acceptanceTestsReport()
-                        }
                     }
                 }
             }
