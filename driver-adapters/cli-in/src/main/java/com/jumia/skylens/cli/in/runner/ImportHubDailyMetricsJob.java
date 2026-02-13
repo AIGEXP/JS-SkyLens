@@ -105,6 +105,8 @@ public class ImportHubDailyMetricsJob implements ApplicationRunner {
     private HikariDataSource createDataSource() {
 
         final HikariConfig config = new HikariConfig();
+        log.info("ImportHubDailyMetrics url: {} ", jobProperties.getSourceDb().getUrl());
+
         config.setJdbcUrl(jobProperties.getSourceDb().getUrl());
         config.setUsername(jobProperties.getSourceDb().getUsername());
         config.setPassword(jobProperties.getSourceDb().getPassword());
