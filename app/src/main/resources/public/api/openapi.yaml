@@ -133,6 +133,7 @@ paths:
         - Configuration
       summary: Get threshold target for a country by report type
       operationId: getThresholdTarget
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/countryPath'
         - $ref: '#/components/parameters/reportTypePath'
@@ -155,6 +156,7 @@ paths:
         - Configuration
       summary: Update threshold target for a country by report type
       operationId: setThresholdTarget
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/countryPath'
         - $ref: '#/components/parameters/reportTypePath'
