@@ -11,7 +11,6 @@ import com.jumia.skylens.domain.catalog.ReportType;
 import net.datafaker.Faker;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -60,9 +59,7 @@ public class DomainFaker extends Faker {
         return Boundary.builder()
                 .country(country().countryCode2())
                 .reportType(options().option(ReportType.class))
-                .warning(BigDecimal.valueOf(number().randomDouble(2, 0, 0))
-                                 .setScale(2, RoundingMode.HALF_UP))
-                .critical(BigDecimal.valueOf(number().randomDouble(2, 0, 0))
-                                  .setScale(2, RoundingMode.HALF_UP));
+                .warning(new BigDecimal("0.80"))
+                .critical(new BigDecimal("0.20"));
     }
 }

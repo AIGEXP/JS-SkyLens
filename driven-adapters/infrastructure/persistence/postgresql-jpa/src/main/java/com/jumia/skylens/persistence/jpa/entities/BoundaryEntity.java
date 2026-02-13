@@ -12,7 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "boundaries")
@@ -33,6 +33,6 @@ public class BoundaryEntity {
     private BigDecimal critical;
 
     @UpdateTimestamp
-    @Column(updatable = false, nullable = false)
-    private OffsetDateTime updatedAt;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 }

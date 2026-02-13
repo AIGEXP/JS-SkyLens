@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -56,6 +56,6 @@ public class EntityFaker {
                                  .setScale(2, RoundingMode.HALF_UP))
                 .critical(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0))
                                   .setScale(2, RoundingMode.HALF_UP))
-                .updatedAt(OffsetDateTime.now());
+                .updatedAt(LocalDateTime.now());
     }
 }
