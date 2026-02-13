@@ -1,13 +1,17 @@
 package com.jumia.skylens.test.fakers;
 
+import com.jumia.skylens.domain.catalog.Boundary;
 import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.domain.catalog.PaymentType;
+import com.jumia.skylens.domain.catalog.ReportType;
 import net.datafaker.Faker;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -49,5 +53,16 @@ public class DomainFaker extends Faker {
                 .packagesClosed(number().randomDigitNotZero())
                 .packagesReceived(number().randomDigitNotZero())
                 .packagesLostAtHub(number().randomDigitNotZero());
+    }
+
+    public Boundary.Builder boundary() {
+
+        return Boundary.builder()
+                .country(country().countryCode2())
+                .reportType(options().option(ReportType.class))
+                .warning(BigDecimal.valueOf(number().randomDouble(2, 0, 0))
+                                 .setScale(2, RoundingMode.HALF_UP))
+                .critical(BigDecimal.valueOf(number().randomDouble(2, 0, 0))
+                                  .setScale(2, RoundingMode.HALF_UP));
     }
 }

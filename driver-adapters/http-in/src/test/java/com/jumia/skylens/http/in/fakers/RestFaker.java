@@ -1,5 +1,7 @@
 package com.jumia.skylens.http.in.fakers;
 
+import com.jumia.skylens.http.in.model.BoundaryRequest;
+import com.jumia.skylens.http.in.model.BoundaryResponse;
 import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
@@ -40,5 +42,19 @@ public class RestFaker extends Faker {
                 .twoDays(number().randomDigit())
                 .threeDays(number().randomDigit())
                 .overThreeDays(number().randomDigit());
+    }
+
+    public BoundaryRequest.Builder boundaryRequest() {
+
+        return BoundaryRequest.builder()
+                .warning(number().randomDouble(2, 0, 0))
+                .critical(number().randomDouble(2, 0, 0));
+    }
+
+    public BoundaryResponse.Builder boundaryResponse() {
+
+        return BoundaryResponse.builder()
+                .warning(number().randomDouble(2, 0, 0))
+                .critical(number().randomDouble(2, 0, 0));
     }
 }

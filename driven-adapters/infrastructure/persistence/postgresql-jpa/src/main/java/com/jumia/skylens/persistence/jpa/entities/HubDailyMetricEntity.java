@@ -50,6 +50,6 @@ public class HubDailyMetricEntity {
     private int packagesNoAttemptsOverThreeDays;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 }
