@@ -127,21 +127,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /api/v1/countries/{country}/thresholds/success-rate:
+  /api/v1/countries/{country}/thresholds/{reportType}:
     get:
       tags:
         - Configuration
-      summary: Get success rate target for a country
-      operationId: getSuccessRateTarget
+      summary: Get threshold target for a country by report type
+      operationId: getThresholdTarget
       parameters:
         - $ref: '#/components/parameters/countryPath'
+        - $ref: '#/components/parameters/reportTypePath'
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessRateTarget'
+                $ref: '#/components/schemas/ThresholdResponse'
         '404':
           description: Not Found
           content:
@@ -152,23 +153,24 @@ paths:
     put:
       tags:
         - Configuration
-      summary: Update success rate target for a country
-      operationId: setSuccessRateTarget
+      summary: Update threshold target for a country by report type
+      operationId: setThresholdTarget
       parameters:
         - $ref: '#/components/parameters/countryPath'
+        - $ref: '#/components/parameters/reportTypePath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SuccessRateTargetRequest'
+              $ref: '#/components/schemas/ThresholdRequest'
       responses:
         '200':
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessRateTarget'
+                $ref: '#/components/schemas/ThresholdResponse'
         '400':
           description: Bad Request
           content:
@@ -300,6 +302,13 @@ components:
       description: ISO country code
       example: "CI"
 
+    reportTypePath:
+      name: reportType
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/ReportType'
+
     dateRange:
       name: dateRange
       in: query
@@ -358,6 +367,15 @@ components:
       description: |
         - DOOR: Door delivery
         - PUS: Pick up delivery
+
+    ReportType:
+      type: string
+      enum:
+        - SUCCESS_RATE
+        - LOSS_RATE
+      description: |
+        - SUCCESS_RATE: Success rate report
+        - LOSS_RATE: Loss rate report
 
     DeliveryMetricsResponse:
       type: array
@@ -440,7 +458,7 @@ components:
           type: integer
           description: Packages with >3 working days without attempt
 
-    SuccessRateTarget:
+    ThresholdResponse:
       type: object
       required:
         - targetRate
@@ -448,24 +466,24 @@ components:
       properties:
         targetRate:
           type: number
-          format: double
+          format: decimal
           minimum: 0
           maximum: 1
         updatedAt:
           type: string
           format: date-time
 
-    SuccessRateTargetRequest:
+    ThresholdRequest:
       type: object
       required:
         - targetRate
       properties:
         targetRate:
           type: number
-          format: double
+          format: decimal
           minimum: 0
           maximum: 1
-          example: 0.95
+          example: 0.85
 
     SuccessRateBoundary:
       type: object
