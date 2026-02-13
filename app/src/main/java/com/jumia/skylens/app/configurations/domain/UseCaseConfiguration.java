@@ -5,6 +5,7 @@ import com.jumia.skylens.domain.GetPackageMetricsUseCase;
 import com.jumia.skylens.domain.ListDateRangeUseCase;
 import com.jumia.skylens.domain.ListMovementTypeUseCase;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
+import com.jumia.skylens.domain.SaveAlertLevelUseCase;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
 import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
@@ -12,8 +13,10 @@ import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListDateRangeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListMovementTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListPaymentTypeUseCaseImpl;
+import com.jumia.skylens.domain.impl.SaveAlertLevelUseCaseImpl;
 import com.jumia.skylens.domain.impl.SaveHubDailyMetricUseCaseImpl;
 import com.jumia.skylens.domain.impl.UpsertCountryThresholdUseCaseImpl;
+import com.jumia.skylens.persistence.api.AlertLevelDAO;
 import com.jumia.skylens.persistence.api.CountryThresholdDAO;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +24,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class UseCaseConfiguration {
+
+    @Bean
+    public SaveAlertLevelUseCase saveAlertLevelUseCaseImpl(final AlertLevelDAO alertLevelDAO) {
+
+        return new SaveAlertLevelUseCaseImpl(alertLevelDAO);
+    }
 
     @Bean
     public SaveHubDailyMetricUseCase saveHubDailyMetricUseCase(final HubDailyMetricDAO hubDailyMetricDAO) {

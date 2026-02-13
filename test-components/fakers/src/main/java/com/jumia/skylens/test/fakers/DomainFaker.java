@@ -1,5 +1,6 @@
 package com.jumia.skylens.test.fakers;
 
+import com.jumia.skylens.domain.catalog.AlertLevel;
 import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
@@ -62,5 +63,14 @@ public class DomainFaker extends Faker {
                 .country(country().countryCode2())
                 .value(BigDecimal.valueOf(number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP))
                 .build();
+    }
+
+    public AlertLevel.Builder alertLevel() {
+
+        return AlertLevel.builder()
+                .country(country().countryCode2())
+                .reportType(options().option(ReportType.class))
+                .warningValue(new BigDecimal("0.80"))
+                .criticalValue(new BigDecimal("0.20"));
     }
 }

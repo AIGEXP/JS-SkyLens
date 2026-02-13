@@ -1,5 +1,7 @@
 package com.jumia.skylens.persistence.jpa.fakers;
 
+import com.jumia.skylens.persistence.jpa.entities.AlertLevelEntity;
+import com.jumia.skylens.persistence.jpa.entities.AlertLevelEntityId;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,5 +55,23 @@ public class EntityFaker {
         return CountryThresholdEntity.builder()
                 .id(countryThresholdEntityId().build())
                 .value(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP));
+    }
+
+    public AlertLevelEntityId.Builder alertLevelEntityId() {
+
+        return AlertLevelEntityId.builder()
+                .country(faker.country().countryCode2())
+                .reportType(faker.options().option(AlertLevelEntityId.ReportType.class));
+    }
+
+    public AlertLevelEntity.Builder alertLevelEntity() {
+
+        return AlertLevelEntity.builder()
+                .id(alertLevelEntityId().build())
+                .warningValue(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0))
+                                 .setScale(2, RoundingMode.HALF_UP))
+                .criticalValue(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0))
+                                  .setScale(2, RoundingMode.HALF_UP))
+                .updatedAt(LocalDateTime.now());
     }
 }

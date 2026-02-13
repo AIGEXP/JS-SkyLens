@@ -1,5 +1,7 @@
 package com.jumia.skylens.http.in.fakers;
 
+import com.jumia.skylens.http.in.model.AlertLevelRequest;
+import com.jumia.skylens.http.in.model.AlertLevelResponse;
 import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
@@ -53,5 +55,19 @@ public class RestFaker extends Faker {
         return ThresholdResponse.builder()
                 .targetRate(BigDecimal.valueOf(number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP))
                 .updatedAt(OffsetDateTime.now(ZoneOffset.UTC));
+    }
+
+    public AlertLevelRequest.Builder alertLevelRequest() {
+
+        return AlertLevelRequest.builder()
+                .warningValue(number().randomDouble(2, 0, 0))
+                .criticalValue(number().randomDouble(2, 0, 0));
+    }
+
+    public AlertLevelResponse.Builder alertLevelResponse() {
+
+        return AlertLevelResponse.builder()
+                .warningValue(number().randomDouble(2, 0, 0))
+                .criticalValue(number().randomDouble(2, 0, 0));
     }
 }

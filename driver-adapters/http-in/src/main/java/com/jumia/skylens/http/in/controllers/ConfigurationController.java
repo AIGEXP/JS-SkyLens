@@ -2,6 +2,8 @@ package com.jumia.skylens.http.in.controllers;
 
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.resources.ApplicationResource;
+import com.jumia.skylens.http.in.model.AlertLevelRequest;
+import com.jumia.skylens.http.in.model.AlertLevelResponse;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
 import com.jumia.skylens.http.in.model.ThresholdResponse;
@@ -24,5 +26,16 @@ public class ConfigurationController implements ConfigurationApi {
         authToken.checkPermission(ApplicationResource.ADMIN);
 
         return configurationService.setThresholdTarget(country, reportType, request);
+    }
+
+    @Override
+    public AlertLevelResponse setMetricAlertLevels(final String country,
+                                                   final ReportType reportType,
+                                                   final AlertLevelRequest alertLevelRequest,
+                                                   final AuthToken authToken) {
+
+        authToken.checkPermission(ApplicationResource.ADMIN);
+
+        return configurationService.setAlertLevel(country, reportType, alertLevelRequest);
     }
 }
