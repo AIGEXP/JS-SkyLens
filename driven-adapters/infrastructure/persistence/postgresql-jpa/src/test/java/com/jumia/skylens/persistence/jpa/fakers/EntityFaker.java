@@ -1,10 +1,15 @@
 package com.jumia.skylens.persistence.jpa.fakers;
 
+import com.jumia.skylens.persistence.jpa.entities.BoundaryEntity;
+import com.jumia.skylens.persistence.jpa.entities.BoundaryEntityId;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,5 +39,23 @@ public class EntityFaker {
                 .packagesNoAttemptsTwoDays(faker.number().randomDigitNotZero())
                 .packagesNoAttemptsThreeDays(faker.number().randomDigitNotZero())
                 .packagesNoAttemptsOverThreeDays(faker.number().randomDigitNotZero());
+    }
+
+    public BoundaryEntityId.Builder boundaryEntityId() {
+
+        return BoundaryEntityId.builder()
+                .country(faker.country().countryCode2())
+                .reportType(faker.options().option(BoundaryEntityId.ReportType.class));
+    }
+
+    public BoundaryEntity.Builder boundaryEntity() {
+
+        return BoundaryEntity.builder()
+                .id(boundaryEntityId().build())
+                .warning(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0))
+                                 .setScale(2, RoundingMode.HALF_UP))
+                .critical(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0))
+                                  .setScale(2, RoundingMode.HALF_UP))
+                .updatedAt(LocalDateTime.now());
     }
 }

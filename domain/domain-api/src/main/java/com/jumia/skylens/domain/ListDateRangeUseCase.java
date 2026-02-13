@@ -4,6 +4,7 @@ import com.jumia.skylens.domain.catalog.DateRange;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface ListDateRangeUseCase {
 
     List<DateRange> run();
