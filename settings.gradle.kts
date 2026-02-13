@@ -21,6 +21,7 @@ include(":driven-adapters:infrastructure:persistence:postgresql-jpa")
 include(":driven-adapters:micrometer")
 
 include(":driver-adapters")
+include(":driver-adapters:cli-in")
 include(":driver-adapters:http-in")
 include(":driver-adapters:http-in:acl")
 include(":driver-adapters:kafka-in")
