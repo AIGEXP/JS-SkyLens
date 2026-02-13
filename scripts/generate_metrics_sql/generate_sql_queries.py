@@ -6,15 +6,15 @@ import uuid
 def generate_sql_queries(csv_file_path, output_file_path):
     """
     Generate SQL INSERT queries from CSV file for hub_daily_metrics table.
-    Splits output into multiple files with 1000 queries each.
+    Splits output into separate files by country.
     
     Args:
         csv_file_path: Path to the input CSV file
-        output_file_path: Base path for the output SQL files (will add numbering)
+        output_file_path: Base path for the output SQL files (will add country)
     """
     
-    queries = []
-    file_counter = 1
+    # Dictionary to store queries by country
+    country_queries = {}
     
     try:
         # Read and process CSV
@@ -23,6 +23,13 @@ def generate_sql_queries(csv_file_path, output_file_path):
             
             for row_num, row in enumerate(reader, 1):
                 try:
+                    # Get country for this row
+                    country = row['Country'].strip() if 'Country' in row and row['Country'].strip() else 'UNKNOWN'
+                    
+                    # Initialize country data structures if not exists
+                    if country not in country_queries:
+                        country_queries[country] = []
+                    
                     # Parse date - handle both separate Day/Month/Year and combined date formats
                     print(f"Row {row_num} keys: {list(row.keys())}")
                     if 'Day' in row and len(row['Day'].strip()) == 8:  # Format: YYYYMMDD
@@ -78,13 +85,7 @@ def generate_sql_queries(csv_file_path, output_file_path):
 ) ON CONFLICT (service_provider_sid, hub_sid, day, payment_type, movement_type) 
 DO NOTHING;"""
                     
-                    queries.append(query)
-                    
-                    # Write to file when we reach 1000 queries
-                    if len(queries) >= 1000:
-                        write_queries_to_file(queries, f"{output_file_path}_{file_counter}.sql", csv_file_path, file_counter * 1000 - 999, file_counter * 1000)
-                        queries = []
-                        file_counter += 1
+                    country_queries[country].append(query)
                     
                     if row_num % 1000 == 0:
                         print(f"Processed {row_num} rows...")
@@ -93,22 +94,25 @@ DO NOTHING;"""
                     print(f"Error processing row {row_num}: {e}")
                     continue
         
-        # Write remaining queries to final file
-        if queries:
-            write_queries_to_file(queries, f"{output_file_path}_{file_counter}.sql", csv_file_path, (file_counter - 1) * 1000 + 1, (file_counter - 1) * 1000 + len(queries))
+        # Write queries to files for each country
+        total_files = 0
+        for country, queries in country_queries.items():
+            if queries:
+                write_queries_to_file(queries, f"{output_file_path}_{country}.sql", csv_file_path, country)
+                total_files += 1
         
-        print(f"Successfully generated {file_counter} SQL files from {csv_file_path}")
+        print(f"Successfully generated {total_files} SQL files from {csv_file_path}, split by country")
         
     except Exception as e:
         print(f"Error: {e}")
         raise
 
-def write_queries_to_file(queries, filename, csv_file_path, start_row, end_row):
+def write_queries_to_file(queries, filename, csv_file_path, country):
     """Write queries to a single SQL file"""
     with open(filename, 'w', encoding='utf-8') as output_file:
         output_file.write(f"-- Generated SQL queries for hub_daily_metrics table\n")
         output_file.write(f"-- Generated from: {csv_file_path}\n")
-        output_file.write(f"-- Rows {start_row}-{end_row}\n")
+        output_file.write(f"-- Country: {country}\n")
         output_file.write(f"-- Total queries in this file: {len(queries)}\n")
         output_file.write("\n")
         
@@ -117,7 +121,7 @@ def write_queries_to_file(queries, filename, csv_file_path, start_row, end_row):
             output_file.write(query)
             output_file.write("\n\n")
     
-    print(f"Created {filename} with {len(queries)} queries")
+    print(f"Created {filename} with {len(queries)} queries for country {country}")
 
 if __name__ == "__main__":
     # Input and output file paths
