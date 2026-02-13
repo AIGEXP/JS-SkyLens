@@ -6,13 +6,16 @@ import com.jumia.skylens.domain.ListDateRangeUseCase;
 import com.jumia.skylens.domain.ListMovementTypeUseCase;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
+import com.jumia.skylens.domain.UpsertNetworkThresholdUseCase;
 import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListDateRangeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListMovementTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListPaymentTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.SaveHubDailyMetricUseCaseImpl;
+import com.jumia.skylens.domain.impl.UpsertNetworkThresholdUseCaseImpl;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
+import com.jumia.skylens.persistence.api.NetworkThresholdDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -53,5 +56,11 @@ public class UseCaseConfiguration {
     public ListMovementTypeUseCase listMovementTypeUseCase() {
 
         return new ListMovementTypeUseCaseImpl();
+    }
+
+    @Bean
+    public UpsertNetworkThresholdUseCase saveNetworkThresholdUseCase(final NetworkThresholdDAO networkThresholdDAO) {
+
+        return new UpsertNetworkThresholdUseCaseImpl(networkThresholdDAO);
     }
 }
