@@ -1,5 +1,6 @@
 package com.jumia.skylens.http.in.services;
 
+import com.jumia.skylens.domain.GetCountryThresholdUseCase;
 import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
 import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.http.in.converters.CountryThresholdConverter;
@@ -22,6 +23,9 @@ import static org.mockito.Mockito.when;
 class ConfigurationServiceTest {
 
     @Mock
+    private GetCountryThresholdUseCase getCountryThresholdUseCase;
+
+    @Mock
     private UpsertCountryThresholdUseCase upsertCountryThresholdUseCase;
 
     @Mock
@@ -32,6 +36,31 @@ class ConfigurationServiceTest {
 
     @InjectMocks
     private ConfigurationService subject;
+
+    @Test
+    void getThresholdTarget_whenCalled_thenCallUseCase() {
+
+        // Given
+        final String country = "CI";
+        final ReportType reportType = ReportType.SUCCESS_RATE;
+        final var domainReportType = com.jumia.skylens.domain.catalog.ReportType.SUCCESS_RATE;
+        final CountryThreshold countryThreshold = mock(CountryThreshold.class);
+        final ThresholdResponse thresholdResponse = mock(ThresholdResponse.class);
+
+        when(countryThresholdConverter.convertReportType(reportType)).thenReturn(domainReportType);
+        when(getCountryThresholdUseCase.run(country, domainReportType)).thenReturn(countryThreshold);
+        when(thresholdResponseConverter.convert(countryThreshold)).thenReturn(thresholdResponse);
+
+        // When
+        final ThresholdResponse result = subject.getThresholdTarget(country, reportType);
+
+        // Then
+        assertThat(result).isEqualTo(thresholdResponse);
+
+        verify(countryThresholdConverter).convertReportType(reportType);
+        verify(getCountryThresholdUseCase).run(country, domainReportType);
+        verify(thresholdResponseConverter).convert(countryThreshold);
+    }
 
     @Test
     void setThresholdTarget_whenCalled_thenCallUseCase() {

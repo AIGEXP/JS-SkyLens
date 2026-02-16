@@ -2,6 +2,7 @@ package com.jumia.skylens.persistence.jpa.converters;
 
 import com.jumia.skylens.commons.converters.Converter;
 import com.jumia.skylens.domain.catalog.CountryThreshold;
+import com.jumia.skylens.domain.catalog.ReportType;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
 import org.mapstruct.Mapper;
@@ -21,4 +22,12 @@ public interface CountryThresholdEntityConverter extends Converter<CountryThresh
     CountryThreshold convert(CountryThresholdEntity source);
 
     CountryThresholdEntityId toEntityId(CountryThreshold source);
+
+    default CountryThresholdEntityId toEntityId(String country, ReportType reportType) {
+
+        return CountryThresholdEntityId.builder()
+                .country(country)
+                .reportType(CountryThresholdEntityId.ReportType.valueOf(reportType.name()))
+                .build();
+    }
 }

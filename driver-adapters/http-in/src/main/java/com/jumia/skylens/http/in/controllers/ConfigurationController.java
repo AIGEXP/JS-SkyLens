@@ -16,6 +16,14 @@ public class ConfigurationController implements ConfigurationApi {
     private final ConfigurationService configurationService;
 
     @Override
+    public ThresholdResponse getThresholdTarget(final String country,
+                                                final ReportType reportType,
+                                                final AuthToken authToken) {
+
+        return configurationService.getThresholdTarget(country, reportType);
+    }
+
+    @Override
     public ThresholdResponse setThresholdTarget(final String country,
                                                 final ReportType reportType,
                                                 final ThresholdRequest request,
