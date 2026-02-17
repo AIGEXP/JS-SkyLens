@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,8 +59,14 @@ class GetPackageMetricsUseCaseImplTest {
                                    .packagesClosed(packageStatistics.packagesClosed())
                                    .packagesReceived(packageStatistics.packagesReceived())
                                    .packagesLostAtHub(packageStatistics.packagesLostAtHub())
-                                   .successRate((double) packageStatistics.packagesDelivered() / packageStatistics.packagesClosed())
-                                   .lossRate((double) packageStatistics.packagesLostAtHub() / packageStatistics.packagesReceived())
+                                   .successRate(BigDecimal.valueOf(packageStatistics.packagesDelivered())
+                                                        .divide(BigDecimal.valueOf(packageStatistics.packagesClosed()),
+                                                                4,
+                                                                RoundingMode.HALF_UP))
+                                   .lossRate(BigDecimal.valueOf(packageStatistics.packagesLostAtHub())
+                                                     .divide(BigDecimal.valueOf(packageStatistics.packagesReceived()),
+                                                             4,
+                                                             RoundingMode.HALF_UP))
                                    .build());
 
         verify(hubDailyMetricDAO).getPackageStatistics(metricsFilter.serviceProviderSid(),

@@ -7,6 +7,8 @@ import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,13 +34,27 @@ public class GetPackageMetricsUseCaseImpl implements GetPackageMetricsUseCase {
                         .packagesClosed(packageStatistics.packagesClosed())
                         .packagesReceived(packageStatistics.packagesReceived())
                         .packagesLostAtHub(packageStatistics.packagesLostAtHub())
-                        .successRate(packageStatistics.packagesClosed() > 0
-                                             ? (double) packageStatistics.packagesDelivered() / packageStatistics.packagesClosed()
-                                             : null)
-                        .lossRate(packageStatistics.packagesReceived() > 0
-                                          ? (double) packageStatistics.packagesLostAtHub() / packageStatistics.packagesReceived()
-                                          : null)
+                        .successRate(calculateSuccessRate(packageStatistics.packagesDelivered(), packageStatistics.packagesClosed()))
+                        .lossRate(calculateLossRate(packageStatistics.packagesLostAtHub(), packageStatistics.packagesReceived()))
                         .build())
                 .toList();
+    }
+
+    private BigDecimal calculateSuccessRate(int packagesDelivered, int packagesClosed) {
+
+        if (packagesClosed == 0) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(packagesDelivered).divide(BigDecimal.valueOf(packagesClosed), 4, RoundingMode.HALF_UP);
+    }
+
+    private BigDecimal calculateLossRate(int packagesLostAtHub, int packagesReceived) {
+
+        if (packagesReceived == 0) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(packagesLostAtHub).divide(BigDecimal.valueOf(packagesReceived), 4, RoundingMode.HALF_UP);
     }
 }
