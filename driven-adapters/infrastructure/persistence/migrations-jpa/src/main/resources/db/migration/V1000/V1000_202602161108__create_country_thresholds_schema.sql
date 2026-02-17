@@ -1,6 +1,5 @@
 CREATE TYPE REPORT_TYPE AS ENUM (
-    'SUCCESS_RATE',
-    'LOSS_RATE'
+    'SUCCESS_RATE'
     );
 
 CREATE TABLE country_thresholds (
