@@ -1,10 +1,10 @@
 package com.jumia.skylens.test.fakers;
 
+import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.domain.catalog.MovementType;
-import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.domain.catalog.ReportType;

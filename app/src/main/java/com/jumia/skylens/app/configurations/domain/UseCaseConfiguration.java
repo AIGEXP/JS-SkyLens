@@ -14,8 +14,8 @@ import com.jumia.skylens.domain.impl.ListMovementTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListPaymentTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.SaveHubDailyMetricUseCaseImpl;
 import com.jumia.skylens.domain.impl.UpsertCountryThresholdUseCaseImpl;
-import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import com.jumia.skylens.persistence.api.CountryThresholdDAO;
+import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,9 +1,9 @@
 package com.jumia.skylens.persistence.jpa.fakers;
 
-import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
-import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
+import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
