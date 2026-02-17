@@ -7,7 +7,7 @@ import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
-import com.jumia.skylens.http.in.converters.MovementTypeConverter;
+import com.jumia.skylens.http.in.converters.MovementTypeOptionConverter;
 import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
 import com.jumia.skylens.http.in.model.DateRangeOption;
 import com.jumia.skylens.http.in.model.MovementTypeOption;
@@ -31,7 +31,7 @@ public class ReferenceDataService {
 
     private final PaymentTypeConverter paymentTypeConverter;
 
-    private final MovementTypeConverter movementTypeConverter;
+    private final MovementTypeOptionConverter movementTypeOptionConverter;
 
     public List<DateRangeOption> listDateRanges() {
 
@@ -53,7 +53,7 @@ public class ReferenceDataService {
         final List<MovementType> movementTypes = listMovementTypeUseCase.run();
 
         return movementTypes.stream()
-                .map(movementTypeConverter::convert)
+                .map(movementTypeOptionConverter::convert)
                 .toList();
     }
 }

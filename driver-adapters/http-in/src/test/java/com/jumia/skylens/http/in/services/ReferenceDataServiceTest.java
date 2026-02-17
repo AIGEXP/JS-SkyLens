@@ -7,7 +7,7 @@ import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.http.in.converters.ListDateRangeConverter;
-import com.jumia.skylens.http.in.converters.MovementTypeConverter;
+import com.jumia.skylens.http.in.converters.MovementTypeOptionConverter;
 import com.jumia.skylens.http.in.converters.PaymentTypeConverter;
 import com.jumia.skylens.http.in.model.DateRangeOption;
 import com.jumia.skylens.http.in.model.MovementTypeOption;
@@ -50,7 +50,7 @@ class ReferenceDataServiceTest {
     private PaymentTypeConverter paymentTypeConverter;
 
     @Mock
-    private MovementTypeConverter movementTypeConverter;
+    private MovementTypeOptionConverter movementTypeOptionConverter;
 
     @InjectMocks
     private ReferenceDataService subject;
@@ -106,8 +106,8 @@ class ReferenceDataServiceTest {
 
         // When
         when(listMovementTypeUseCase.run()).thenReturn(movementTypes);
-        when(movementTypeConverter.convert(MovementType.DOOR)).thenReturn(doorOption);
-        when(movementTypeConverter.convert(MovementType.PUS)).thenReturn(pusOption);
+        when(movementTypeOptionConverter.convert(MovementType.DOOR)).thenReturn(doorOption);
+        when(movementTypeOptionConverter.convert(MovementType.PUS)).thenReturn(pusOption);
 
         final List<MovementTypeOption> actualMovementTypes = subject.listMovementTypes();
 
