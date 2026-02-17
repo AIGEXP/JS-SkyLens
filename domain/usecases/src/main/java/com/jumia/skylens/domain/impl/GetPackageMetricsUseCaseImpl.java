@@ -14,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetPackageMetricsUseCaseImpl implements GetPackageMetricsUseCase {
 
+    private static final int SCALE = 4;
+
     private final HubDailyMetricDAO hubDailyMetricDAO;
 
     @Override
@@ -46,7 +48,7 @@ public class GetPackageMetricsUseCaseImpl implements GetPackageMetricsUseCase {
             return null;
         }
 
-        return BigDecimal.valueOf(packagesDelivered).divide(BigDecimal.valueOf(packagesClosed), 4, RoundingMode.HALF_UP);
+        return BigDecimal.valueOf(packagesDelivered).divide(BigDecimal.valueOf(packagesClosed), SCALE, RoundingMode.HALF_UP);
     }
 
     private BigDecimal calculateLossRate(int packagesLostAtHub, int packagesReceived) {
@@ -55,6 +57,6 @@ public class GetPackageMetricsUseCaseImpl implements GetPackageMetricsUseCase {
             return null;
         }
 
-        return BigDecimal.valueOf(packagesLostAtHub).divide(BigDecimal.valueOf(packagesReceived), 4, RoundingMode.HALF_UP);
+        return BigDecimal.valueOf(packagesLostAtHub).divide(BigDecimal.valueOf(packagesReceived), SCALE, RoundingMode.HALF_UP);
     }
 }
