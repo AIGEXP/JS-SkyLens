@@ -1,8 +1,8 @@
 package com.jumia.skylens.http.in.services;
 
-import com.jumia.skylens.domain.UpsertNetworkThresholdUseCase;
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
-import com.jumia.skylens.http.in.converters.NetworkThresholdConverter;
+import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
+import com.jumia.skylens.http.in.converters.CountryThresholdConverter;
 import com.jumia.skylens.http.in.converters.ThresholdResponseConverter;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
@@ -14,18 +14,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ConfigurationService {
 
-    private final UpsertNetworkThresholdUseCase upsertNetworkThresholdUseCase;
+    private final UpsertCountryThresholdUseCase upsertCountryThresholdUseCase;
 
-    private final NetworkThresholdConverter networkThresholdConverter;
+    private final CountryThresholdConverter countryThresholdConverter;
 
     private final ThresholdResponseConverter thresholdResponseConverter;
 
     public ThresholdResponse setThresholdTarget(final String country, final ReportType reportType, final ThresholdRequest request) {
 
-        final NetworkThreshold networkThreshold = networkThresholdConverter.convert(country, reportType, request);
+        final CountryThreshold countryThreshold = countryThresholdConverter.convert(country, reportType, request);
 
-        final NetworkThreshold savedNetworkThreshold = upsertNetworkThresholdUseCase.run(networkThreshold);
+        final CountryThreshold savedCountryThreshold = upsertCountryThresholdUseCase.run(countryThreshold);
 
-        return thresholdResponseConverter.convert(savedNetworkThreshold);
+        return thresholdResponseConverter.convert(savedCountryThreshold);
     }
 }

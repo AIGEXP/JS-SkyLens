@@ -1,8 +1,8 @@
 package com.jumia.skylens.http.in.services;
 
-import com.jumia.skylens.domain.UpsertNetworkThresholdUseCase;
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
-import com.jumia.skylens.http.in.converters.NetworkThresholdConverter;
+import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
+import com.jumia.skylens.http.in.converters.CountryThresholdConverter;
 import com.jumia.skylens.http.in.converters.ThresholdResponseConverter;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 class ConfigurationServiceTest {
 
     @Mock
-    private UpsertNetworkThresholdUseCase upsertNetworkThresholdUseCase;
+    private UpsertCountryThresholdUseCase upsertCountryThresholdUseCase;
 
     @Mock
-    private NetworkThresholdConverter networkThresholdConverter;
+    private CountryThresholdConverter countryThresholdConverter;
 
     @Mock
     private ThresholdResponseConverter thresholdResponseConverter;
@@ -40,13 +40,13 @@ class ConfigurationServiceTest {
         final String country = "CI";
         final ReportType reportType = ReportType.SUCCESS_RATE;
         final ThresholdRequest request = mock(ThresholdRequest.class);
-        final NetworkThreshold networkThreshold = mock(NetworkThreshold.class);
-        final NetworkThreshold savedNetworkThreshold = mock(NetworkThreshold.class);
+        final CountryThreshold countryThreshold = mock(CountryThreshold.class);
+        final CountryThreshold savedCountryThreshold = mock(CountryThreshold.class);
         final ThresholdResponse thresholdResponse = mock(ThresholdResponse.class);
 
-        when(networkThresholdConverter.convert(country, reportType, request)).thenReturn(networkThreshold);
-        when(upsertNetworkThresholdUseCase.run(networkThreshold)).thenReturn(savedNetworkThreshold);
-        when(thresholdResponseConverter.convert(savedNetworkThreshold)).thenReturn(thresholdResponse);
+        when(countryThresholdConverter.convert(country, reportType, request)).thenReturn(countryThreshold);
+        when(upsertCountryThresholdUseCase.run(countryThreshold)).thenReturn(savedCountryThreshold);
+        when(thresholdResponseConverter.convert(savedCountryThreshold)).thenReturn(thresholdResponse);
 
         // When
         final ThresholdResponse result = subject.setThresholdTarget(country, reportType, request);
@@ -54,8 +54,8 @@ class ConfigurationServiceTest {
         // Then
         assertThat(result).isEqualTo(thresholdResponse);
 
-        verify(networkThresholdConverter).convert(country, reportType, request);
-        verify(upsertNetworkThresholdUseCase).run(networkThreshold);
-        verify(thresholdResponseConverter).convert(savedNetworkThreshold);
+        verify(countryThresholdConverter).convert(country, reportType, request);
+        verify(upsertCountryThresholdUseCase).run(countryThreshold);
+        verify(thresholdResponseConverter).convert(savedCountryThreshold);
     }
 }

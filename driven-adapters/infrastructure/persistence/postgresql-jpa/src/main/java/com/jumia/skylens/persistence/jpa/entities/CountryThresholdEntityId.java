@@ -22,7 +22,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class NetworkThresholdEntityId implements Serializable {
+public class CountryThresholdEntityId implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
@@ -30,7 +30,7 @@ public class NetworkThresholdEntityId implements Serializable {
     private ReportType reportType;
 
     @Column(nullable = false)
-    private String network;
+    private String country;
 
     public enum ReportType {
         SUCCESS_RATE,

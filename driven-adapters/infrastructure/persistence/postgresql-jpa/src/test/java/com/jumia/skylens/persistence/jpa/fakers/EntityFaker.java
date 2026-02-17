@@ -2,8 +2,8 @@ package com.jumia.skylens.persistence.jpa.fakers;
 
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntity;
 import com.jumia.skylens.persistence.jpa.entities.HubDailyMetricEntityId;
-import com.jumia.skylens.persistence.jpa.entities.NetworkThresholdEntity;
-import com.jumia.skylens.persistence.jpa.entities.NetworkThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
+import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -40,17 +40,17 @@ public class EntityFaker {
                 .packagesNoAttemptsOverThreeDays(faker.number().randomDigitNotZero());
     }
 
-    public NetworkThresholdEntityId.Builder networkThresholdEntityId() {
+    public CountryThresholdEntityId.Builder countryThresholdEntityId() {
 
-        return NetworkThresholdEntityId.builder()
-                .reportType(faker.options().option(NetworkThresholdEntityId.ReportType.class))
-                .network(faker.country().countryCode2());
+        return CountryThresholdEntityId.builder()
+                .reportType(faker.options().option(CountryThresholdEntityId.ReportType.class))
+                .country(faker.country().countryCode2());
     }
 
-    public NetworkThresholdEntity.Builder networkThresholdEntity() {
+    public CountryThresholdEntity.Builder countryThresholdEntity() {
 
-        return NetworkThresholdEntity.builder()
-                .id(networkThresholdEntityId().build())
+        return CountryThresholdEntity.builder()
+                .id(countryThresholdEntityId().build())
                 .value(BigDecimal.valueOf(faker.number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP));
     }
 }

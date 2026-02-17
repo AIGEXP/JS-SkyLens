@@ -1,10 +1,10 @@
 package com.jumia.skylens.persistence.jpa.impl;
 
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.ReportType;
 import com.jumia.skylens.persistence.jpa.configuration.BaseTestIT;
-import com.jumia.skylens.persistence.jpa.entities.NetworkThresholdEntity;
-import com.jumia.skylens.persistence.jpa.entities.NetworkThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
+import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NetworkThresholdDAOImplTestIT extends BaseTestIT {
+class CountryThresholdDAOImplTestIT extends BaseTestIT {
 
     @Autowired
-    private NetworkThresholdDAOImpl subject;
+    private CountryThresholdDAOImpl subject;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,47 +26,47 @@ class NetworkThresholdDAOImplTestIT extends BaseTestIT {
     void save_whenSaving_thenSaveItSuccessfully() {
 
         // Given
-        final NetworkThreshold networkThreshold = faker.domain.networkThreshold();
+        final CountryThreshold countryThreshold = faker.domain.countryThreshold();
 
         // When
-        subject.save(networkThreshold);
+        subject.save(countryThreshold);
 
         // Then
         itPersister.flushAndClear1LevelCache();
 
-        final NetworkThresholdEntityId entityId = NetworkThresholdEntityId.builder()
-                .reportType(NetworkThresholdEntityId.ReportType.valueOf(networkThreshold.reportType().name()))
-                .network(networkThreshold.network())
+        final CountryThresholdEntityId entityId = CountryThresholdEntityId.builder()
+                .reportType(CountryThresholdEntityId.ReportType.valueOf(countryThreshold.reportType().name()))
+                .country(countryThreshold.country())
                 .build();
 
-        final NetworkThresholdEntity entity = entityManager.find(NetworkThresholdEntity.class, entityId);
+        final CountryThresholdEntity entity = entityManager.find(CountryThresholdEntity.class, entityId);
 
         assertThat(entity).isNotNull();
-        assertThat(entity.getValue()).isEqualByComparingTo(networkThreshold.value());
+        assertThat(entity.getValue()).isEqualByComparingTo(countryThreshold.value());
     }
 
     @Test
     void save_whenSavingWithSameKey_thenUpdateThreshold() {
 
         // Given
-        final NetworkThresholdEntity existingEntity = itPersister.save(faker.entity.networkThresholdEntity().build());
+        final CountryThresholdEntity existingEntity = itPersister.save(faker.entity.countryThresholdEntity().build());
 
         itPersister.flushAndClear1LevelCache();
 
         final BigDecimal newValue = BigDecimal.valueOf(0.85);
-        final NetworkThreshold updatedNetworkThreshold = NetworkThreshold.builder()
+        final CountryThreshold updatedCountryThreshold = CountryThreshold.builder()
                 .reportType(ReportType.valueOf(existingEntity.getId().getReportType().name()))
-                .network(existingEntity.getId().getNetwork())
+                .country(existingEntity.getId().getCountry())
                 .value(newValue)
                 .build();
 
         // When
-        subject.save(updatedNetworkThreshold);
+        subject.save(updatedCountryThreshold);
 
         // Then
         itPersister.flushAndClear1LevelCache();
 
-        final NetworkThresholdEntity entity = entityManager.find(NetworkThresholdEntity.class, existingEntity.getId());
+        final CountryThresholdEntity entity = entityManager.find(CountryThresholdEntity.class, existingEntity.getId());
 
         assertThat(entity).isNotNull();
         assertThat(entity.getValue()).isEqualByComparingTo(newValue);

@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-public record NetworkThreshold(ReportType reportType,
-                               String network,
+public record CountryThreshold(ReportType reportType,
+                               String country,
                                BigDecimal value,
                                LocalDateTime updatedAt) {
 

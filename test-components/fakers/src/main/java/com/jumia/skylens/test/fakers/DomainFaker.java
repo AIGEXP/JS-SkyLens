@@ -4,7 +4,7 @@ import com.jumia.skylens.domain.catalog.DateRange;
 import com.jumia.skylens.domain.catalog.HubDailyMetric;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.domain.catalog.MovementType;
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.domain.catalog.ReportType;
@@ -55,11 +55,11 @@ public class DomainFaker extends Faker {
                 .packagesLostAtHub(number().randomDigitNotZero());
     }
 
-    public NetworkThreshold networkThreshold() {
+    public CountryThreshold countryThreshold() {
 
-        return NetworkThreshold.builder()
+        return CountryThreshold.builder()
                 .reportType(options().option(ReportType.class))
-                .network(country().countryCode2())
+                .country(country().countryCode2())
                 .value(BigDecimal.valueOf(number().randomDouble(2, 0, 0)).setScale(2, RoundingMode.HALF_UP))
                 .build();
     }

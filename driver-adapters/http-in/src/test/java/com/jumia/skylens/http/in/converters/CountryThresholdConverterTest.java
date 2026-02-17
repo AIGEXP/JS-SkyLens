@@ -1,6 +1,6 @@
 package com.jumia.skylens.http.in.converters;
 
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NetworkThresholdConverterTest {
+class CountryThresholdConverterTest {
 
-    private final NetworkThresholdConverter subject = new NetworkThresholdConverterImpl();
+    private final CountryThresholdConverter subject = new CountryThresholdConverterImpl();
 
     @Test
     void convert_whenCalled_convertSuccessfully() {
@@ -22,14 +22,14 @@ class NetworkThresholdConverterTest {
         final ThresholdRequest request = new ThresholdRequest(BigDecimal.valueOf(0.85));
 
         // When
-        final NetworkThreshold result = subject.convert(country, reportType, request);
+        final CountryThreshold result = subject.convert(country, reportType, request);
 
         // Then
         assertThat(result)
                 .usingRecursiveComparison()
-                .isEqualTo(NetworkThreshold.builder()
+                .isEqualTo(CountryThreshold.builder()
                                    .reportType(com.jumia.skylens.domain.catalog.ReportType.SUCCESS_RATE)
-                                   .network(country)
+                                   .country(country)
                                    .value(BigDecimal.valueOf(0.85))
                                    .build());
     }

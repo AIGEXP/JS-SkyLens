@@ -1,19 +1,19 @@
 package com.jumia.skylens.http.in.converters;
 
-import com.jumia.skylens.domain.catalog.NetworkThreshold;
+import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface NetworkThresholdConverter {
+public interface CountryThresholdConverter {
 
-    default NetworkThreshold convert(String country, ReportType reportType, ThresholdRequest request) {
+    default CountryThreshold convert(String country, ReportType reportType, ThresholdRequest request) {
 
-        return NetworkThreshold.builder()
+        return CountryThreshold.builder()
                 .reportType(convertReportType(reportType))
-                .network(country)
+                .country(country)
                 .value(request.getTargetRate())
                 .build();
     }

@@ -15,16 +15,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "network_thresholds")
+@Table(name = "country_thresholds")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NetworkThresholdEntity {
+public class CountryThresholdEntity {
 
     @EmbeddedId
-    private NetworkThresholdEntityId id;
+    private CountryThresholdEntityId id;
 
     @Column(nullable = false)
     private BigDecimal value;
