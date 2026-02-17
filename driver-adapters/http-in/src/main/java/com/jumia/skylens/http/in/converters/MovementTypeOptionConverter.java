@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface MovementTypeConverter extends Converter<MovementType, MovementTypeOption> {
+public interface MovementTypeOptionConverter extends Converter<MovementType, MovementTypeOption> {
 
     @Override
     @Mapping(target = "value", expression = "java(com.jumia.skylens.http.in.model.MovementType.fromValue(source.name()))")

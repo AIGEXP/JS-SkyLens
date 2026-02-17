@@ -33,6 +33,7 @@ dependencies {
     implementation(project(":driven-adapters:infrastructure:persistence:postgresql-jpa"))
     implementation(project(":driven-adapters:micrometer"))
 
+    implementation(project(":driver-adapters:cli-in"))
     implementation(project(":driver-adapters:http-in"))
     implementation(project(":driver-adapters:http-in:acl"))
     implementation(project(":driver-adapters:kafka-in"))

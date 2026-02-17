@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: job
+  main:
+    web-application-type: none
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.kafka.autoconfigure.KafkaAutoConfiguration
+  flyway:
+    enabled: false
+
+management:
+  server:
+    port: -1
+
+app:
+  acl-service:
+    enabled: false
+  job:
+    page-size: ${JOB_PAGE_SIZE:1000}
+    source-db:
+      url: ${JOB_SOURCE_DB_URL:jdbc:sqlserver://localhost:1433;databaseName=sourcedb;encrypt=true;trustServerCertificate=true}
+      username: ${JOB_SOURCE_DB_USERNAME:sa}
+      password: ${JOB_SOURCE_DB_PASSWORD:password}
