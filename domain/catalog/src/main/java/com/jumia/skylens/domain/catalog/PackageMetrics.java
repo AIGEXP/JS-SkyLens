@@ -2,6 +2,7 @@ package com.jumia.skylens.domain.catalog;
 
 import lombok.Builder;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder
@@ -10,7 +11,7 @@ public record PackageMetrics(LocalDate date,
                              int packagesClosed,
                              int packagesReceived,
                              int packagesLostAtHub,
-                             Double successRate,
-                             Double lossRate) {
+                             BigDecimal successRate,
+                             BigDecimal lossRate) {
 
 }
