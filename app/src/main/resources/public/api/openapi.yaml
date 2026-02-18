@@ -15,7 +15,7 @@ tags:
   - name: Metrics
     description: Service provider level metrics
   - name: Configuration
-    description: Thresholds and boundaries management
+    description: Thresholds and alert levels management
   - name: Reference Data
     description: Endpoints for static or reference data
 
@@ -180,21 +180,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /api/v1/countries/{country}/boundaries/success-rate:
+  /api/v1/countries/{country}/alert-levels/{reportType}:
     get:
       tags:
         - Configuration
-      summary: Get success rate boundaries
-      operationId: getMetricBoundaries
+      summary: Get metric alert levels
+      operationId: getMetricAlertLevels
       parameters:
         - $ref: '#/components/parameters/countryPath'
+        - $ref: '#/components/parameters/reportTypePath'
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessRateBoundary'
+                $ref: '#/components/schemas/AlertLevelResponse'
         '404':
           description: Not Found
           content:
@@ -205,23 +206,25 @@ paths:
     put:
       tags:
         - Configuration
-      summary: Update success rate boundaries
-      operationId: setMetricBoundaries
+      summary: Update metric alert levels
+      operationId: setMetricAlertLevels
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
         - $ref: '#/components/parameters/countryPath'
+        - $ref: '#/components/parameters/reportTypePath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SuccessRateBoundaryRequest'
+              $ref: '#/components/schemas/AlertLevelRequest'
       responses:
         '200':
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessRateBoundary'
+                $ref: '#/components/schemas/AlertLevelResponse'
         '400':
           description: Bad Request
           content:
@@ -487,46 +490,42 @@ components:
           maximum: 1
           example: 0.85
 
-    SuccessRateBoundary:
+    AlertLevelResponse:
       type: object
       required:
-        - metricType
-        - warningThreshold
-        - criticalThreshold
-        - updatedAt
+        - warningValue
+        - criticalValue
       properties:
-        warningThreshold:
+        warningValue:
           type: number
           format: double
           minimum: 0
           maximum: 1
-        criticalThreshold:
+        criticalValue:
           type: number
           format: double
           minimum: 0
           maximum: 1
-        updatedAt:
-          type: string
-          format: date-time
 
-    SuccessRateBoundaryRequest:
+    AlertLevelRequest:
       type: object
       required:
-        - warningThreshold
-        - criticalThreshold
+        - warningValue
+        - criticalValue
       properties:
-        warningThreshold:
+        warningValue:
           type: number
           format: double
           minimum: 0
           maximum: 1
           example: 0.90
-        criticalThreshold:
+        criticalValue:
           type: number
           format: double
           minimum: 0
           maximum: 1
           example: 0.80
+
     DateRangeOption:
       type: object
       required:
@@ -574,14 +573,14 @@ components:
         description: Post Paid
 
     PaymentTypesResponse:
-        type: array
-        items:
-            $ref: '#/components/schemas/PaymentTypeOption'
-        example:
-          - value: PRE
-            description: Pre Paid
-          - value: POST
-            description: Post Paid
+      type: array
+      items:
+        $ref: '#/components/schemas/PaymentTypeOption'
+      example:
+        - value: PRE
+          description: Pre Paid
+        - value: POST
+          description: Post Paid
 
     MovementTypeOption:
       type: object

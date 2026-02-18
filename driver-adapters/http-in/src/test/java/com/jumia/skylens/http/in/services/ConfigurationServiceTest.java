@@ -1,9 +1,15 @@
 package com.jumia.skylens.http.in.services;
 
+import com.jumia.skylens.domain.SaveAlertLevelUseCase;
 import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
+import com.jumia.skylens.domain.catalog.AlertLevel;
 import com.jumia.skylens.domain.catalog.CountryThreshold;
+import com.jumia.skylens.http.in.converters.AlertLevelConverter;
+import com.jumia.skylens.http.in.converters.AlertLevelResponseConverter;
 import com.jumia.skylens.http.in.converters.CountryThresholdConverter;
 import com.jumia.skylens.http.in.converters.ThresholdResponseConverter;
+import com.jumia.skylens.http.in.model.AlertLevelRequest;
+import com.jumia.skylens.http.in.model.AlertLevelResponse;
 import com.jumia.skylens.http.in.model.ReportType;
 import com.jumia.skylens.http.in.model.ThresholdRequest;
 import com.jumia.skylens.http.in.model.ThresholdResponse;
@@ -25,10 +31,19 @@ class ConfigurationServiceTest {
     private UpsertCountryThresholdUseCase upsertCountryThresholdUseCase;
 
     @Mock
+    private SaveAlertLevelUseCase saveAlertLevelUseCase;
+
+    @Mock
     private CountryThresholdConverter countryThresholdConverter;
 
     @Mock
     private ThresholdResponseConverter thresholdResponseConverter;
+
+    @Mock
+    private AlertLevelConverter alertLevelConverter;
+
+    @Mock
+    private AlertLevelResponseConverter alertLevelResponseConverter;
 
     @InjectMocks
     private ConfigurationService subject;
@@ -57,5 +72,31 @@ class ConfigurationServiceTest {
         verify(countryThresholdConverter).convert(country, reportType, request);
         verify(upsertCountryThresholdUseCase).run(countryThreshold);
         verify(thresholdResponseConverter).convert(savedCountryThreshold);
+    }
+
+    @Test
+    void setAlertLevel_whenCalled_thenConvertAndSaveAndReturnResponse() {
+
+        // Given
+        final String country = "CI";
+        final ReportType reportType = ReportType.SUCCESS_RATE;
+        final AlertLevelRequest alertLevelRequest = mock(AlertLevelRequest.class);
+        final AlertLevel alertLevel = mock(AlertLevel.class);
+        final AlertLevel saved = mock(AlertLevel.class);
+        final AlertLevelResponse alertLevelResponse = mock(AlertLevelResponse.class);
+
+        when(alertLevelConverter.convert(alertLevelRequest, country, reportType)).thenReturn(alertLevel);
+        when(saveAlertLevelUseCase.run(alertLevel)).thenReturn(saved);
+        when(alertLevelResponseConverter.convert(saved)).thenReturn(alertLevelResponse);
+
+        // When
+        final AlertLevelResponse result = subject.setAlertLevel(country, reportType, alertLevelRequest);
+
+        // Then
+        assertThat(result).isEqualTo(alertLevelResponse);
+
+        verify(alertLevelConverter).convert(alertLevelRequest, country, reportType);
+        verify(saveAlertLevelUseCase).run(alertLevel);
+        verify(alertLevelResponseConverter).convert(saved);
     }
 }

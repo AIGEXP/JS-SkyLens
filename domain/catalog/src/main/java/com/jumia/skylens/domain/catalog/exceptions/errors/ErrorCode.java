@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum ErrorCode implements ErrorCoded {
-    NETWORK_NOT_FOUND(0);
+    INVALID_ALERT_LEVEL(0);
 
     private final int code;
 
