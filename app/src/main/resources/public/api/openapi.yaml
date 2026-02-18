@@ -52,9 +52,38 @@ paths:
       tags:
         - Metrics
       summary: Get success rate metrics
+      operationId: getSuccessRateDeprecated
+      deprecated: true
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
+      parameters:
+        - $ref: '#/components/parameters/serviceProviderSidPath'
+        - $ref: '#/components/parameters/hubSid'
+        - $ref: '#/components/parameters/dateRange'
+        - $ref: '#/components/parameters/paymentType'
+        - $ref: '#/components/parameters/movementType'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessRateMetricsResponseDeprecated'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/countries/{country}/service-providers/{serviceProviderSid}/metrics/success-rate:
+    get:
+      tags:
+        - Metrics
+      summary: Get success rate metrics
       operationId: getSuccessRate
       x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
       parameters:
+        - $ref: '#/components/parameters/countryPath'
         - $ref: '#/components/parameters/serviceProviderSidPath'
         - $ref: '#/components/parameters/hubSid'
         - $ref: '#/components/parameters/dateRange'
@@ -400,8 +429,9 @@ components:
           packagesDelivered:
             type: integer
 
-    SuccessRateMetricsResponse:
+    SuccessRateMetricsResponseDeprecated:
       type: array
+      deprecated: true
       items:
         type: object
         required:
@@ -420,6 +450,33 @@ components:
             type: number
             format: double
             nullable: true
+
+    SuccessRateMetricsResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - packagesDelivered
+          - packagesClosed
+          - isWarning
+          - isCritical
+        properties:
+          date:
+            type: string
+            format: date
+          packagesDelivered:
+            type: integer
+          packagesClosed:
+            type: integer
+          successRate:
+            type: number
+            format: double
+            nullable: true
+          isWarning:
+            type: boolean
+          isCritical:
+            type: boolean
 
     LossRateMetricsResponse:
       type: array

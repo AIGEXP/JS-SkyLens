@@ -5,6 +5,7 @@ import com.jumia.skylens.domain.catalog.ReportType;
 import com.jumia.skylens.persistence.jpa.configuration.BaseTestIT;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.enums.ReportTypeEnum;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class CountryThresholdDAOImplTestIT extends BaseTestIT {
         itPersister.flushAndClear1LevelCache();
 
         final CountryThresholdEntityId entityId = CountryThresholdEntityId.builder()
-                .reportType(CountryThresholdEntityId.ReportType.valueOf(countryThreshold.reportType().name()))
+                .reportType(ReportTypeEnum.valueOf(countryThreshold.reportType().name()))
                 .country(countryThreshold.country())
                 .build();
 
