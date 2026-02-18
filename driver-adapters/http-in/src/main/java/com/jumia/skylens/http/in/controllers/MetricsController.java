@@ -8,7 +8,6 @@ import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.MovementType;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
 import com.jumia.skylens.http.in.model.PaymentType;
-import com.jumia.skylens.http.in.model.SuccessRateMetricsResponse;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseDeprecatedInner;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseInner;
 import com.jumia.skylens.http.in.services.MetricsService;
