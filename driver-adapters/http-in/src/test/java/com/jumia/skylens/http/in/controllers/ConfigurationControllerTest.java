@@ -10,12 +10,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static com.jumia.skylens.http.in.controllers.ConfigurationApi.PATH_GET_THRESHOLD_TARGET;
 import static com.jumia.skylens.http.in.controllers.ConfigurationApi.PATH_SET_METRIC_ALERT_LEVELS;
 import static com.jumia.skylens.http.in.controllers.ConfigurationApi.PATH_SET_THRESHOLD_TARGET;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +27,29 @@ class ConfigurationControllerTest extends BaseControllerTest {
 
     @MockitoBean
     private ConfigurationService configurationService;
+
+    @Test
+    void getThresholdTarget_whenCalled_thenReturn200() throws Exception {
+
+        // Given
+        final String country = "CI";
+        final ReportType reportType = ReportType.SUCCESS_RATE;
+        final ThresholdResponse thresholdResponse = restFaker.thresholdResponse().build();
+
+        when(configurationService.getThresholdTarget(any(), any())).thenReturn(thresholdResponse);
+
+        // When
+        final ResultActions resultActions = mvc.perform(get(PATH_GET_THRESHOLD_TARGET, country, reportType));
+
+        // Then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.targetRate").value(thresholdResponse.getTargetRate().doubleValue()))
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty());
+
+        verify(configurationService).getThresholdTarget(any(), any());
+    }
 
     @Test
     void setThresholdTarget_whenCalled_thenReturn200() throws Exception {
