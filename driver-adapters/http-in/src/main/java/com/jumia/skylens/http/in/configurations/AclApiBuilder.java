@@ -11,7 +11,7 @@ import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclConnectApiClientBuilder;
 import pt.jumia.services.acl.lib.CacheStrategy;
 import pt.jumia.services.acl.lib.cache.InMemoryCacheStrategy;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -26,13 +26,13 @@ public class AclApiBuilder {
 
     private final AclCacheProperties aclCacheProperties;
 
-    public AclConnectApiClient<HierarchicalAuthorizationClient> buildAclConnectApiClient(final String applicationCode) {
+    public AclConnectApiClient<DefaultAuthorizationClient> buildAclConnectApiClient(final String applicationCode) {
 
         final AclConnectApiClientBuilder aclConnectApiClientBuilder = getAclConnectApiClientBuilder(applicationCode);
 
         addAclInstances(aclConnectApiClientBuilder);
 
-        return aclConnectApiClientBuilder.buildAsHierarchicalAuthClient();
+        return aclConnectApiClientBuilder.buildAsDefaultAuthClient();
     }
 
     private void addAclInstances(AclConnectApiClientBuilder aclConnectApiClientBuilder) {

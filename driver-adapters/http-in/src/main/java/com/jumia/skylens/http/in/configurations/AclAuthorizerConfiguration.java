@@ -3,7 +3,6 @@ package com.jumia.skylens.http.in.configurations;
 import com.jumia.skylens.http.in.acl.authentication.checkers.impl.BasicAuthorizerImpl;
 import com.jumia.skylens.http.in.acl.authentication.checkers.impl.BearerAuthorizerImpl;
 import com.jumia.skylens.http.in.acl.credentials.CredentialBuilder;
-import com.jumia.skylens.http.in.acl.permissions.AclTargetPathBuilder;
 import com.jumia.skylens.http.in.acl.permissions.checkers.impl.PermissionBasicCheckerImpl;
 import com.jumia.skylens.http.in.acl.permissions.checkers.impl.PermissionBearerCheckerImpl;
 import com.jumia.skylens.http.in.acl.tokens.factories.AuthTokenFactory;
@@ -14,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.List;
 
@@ -28,26 +27,26 @@ public class AclAuthorizerConfiguration {
 
     @Bean
     @Primary
-    AclConnectApiClient<HierarchicalAuthorizationClient> logisticPartnersConnectApiClient(AclApiBuilder aclApiBuilder) {
+    AclConnectApiClient<DefaultAuthorizationClient> logisticPartnersConnectApiClient(AclApiBuilder aclApiBuilder) {
 
         return aclApiBuilder.buildAclConnectApiClient(LOGISTIC_PARTNERS_APPLICATION_CODE);
     }
 
     @Bean
-    AclConnectApiClient<HierarchicalAuthorizationClient> hmtConnectApiClient(AclApiBuilder aclApiBuilder) {
+    AclConnectApiClient<DefaultAuthorizationClient> hmtConnectApiClient(AclApiBuilder aclApiBuilder) {
 
         return aclApiBuilder.buildAclConnectApiClient(HMT_CODE);
     }
 
     @Bean
     BasicAuthorizerImpl authBasicChecker(CredentialBuilder credentialBuilder,
-                                         AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient) {
+                                         AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient) {
 
         return new BasicAuthorizerImpl(credentialBuilder, aclConnectApiClient);
     }
 
     @Bean
-    BearerAuthorizerImpl authBearerChecker(AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient) {
+    BearerAuthorizerImpl authBearerChecker(AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient) {
 
         return new BearerAuthorizerImpl(aclConnectApiClient);
     }
@@ -67,23 +66,15 @@ public class AclAuthorizerConfiguration {
     }
 
     @Bean
-    AclTargetPathBuilder aclTargetPathBuilder() {
-
-        return new AclTargetPathBuilder();
-    }
-
-    @Bean
-    PermissionBasicCheckerImpl permissionBasicChecker(List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients,
-                                                      AclTargetPathBuilder aclTargetPathBuilder,
+    PermissionBasicCheckerImpl permissionBasicChecker(List<AclConnectApiClient<DefaultAuthorizationClient>> aclConnectApiClients,
                                                       CredentialBuilder credentialBuilder) {
 
-        return new PermissionBasicCheckerImpl(aclConnectApiClients, aclTargetPathBuilder, credentialBuilder);
+        return new PermissionBasicCheckerImpl(aclConnectApiClients, credentialBuilder);
     }
 
     @Bean
-    PermissionBearerCheckerImpl permissionBearerChecker(List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients,
-                                                        AclTargetPathBuilder aclTargetPathBuilder) {
+    PermissionBearerCheckerImpl permissionBearerChecker(List<AclConnectApiClient<DefaultAuthorizationClient>> aclConnectApiClients) {
 
-        return new PermissionBearerCheckerImpl(aclConnectApiClients, aclTargetPathBuilder);
+        return new PermissionBearerCheckerImpl(aclConnectApiClients);
     }
 }

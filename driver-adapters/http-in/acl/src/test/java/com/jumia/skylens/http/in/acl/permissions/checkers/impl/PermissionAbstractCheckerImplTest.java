@@ -4,7 +4,6 @@ import com.jumia.skylens.http.in.acl.AclFaker;
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.exceptions.AclInternalErrorException;
 import com.jumia.skylens.http.in.acl.exceptions.ForbiddenException;
-import com.jumia.skylens.http.in.acl.permissions.AclTargetPathBuilder;
 import com.jumia.skylens.http.in.acl.permissions.ApplicationPermission;
 import com.jumia.skylens.http.in.acl.permissions.PartnerPermission;
 import com.jumia.skylens.http.in.acl.permissions.Permission;
@@ -17,13 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
 import pt.jumia.services.acl.lib.RequestUser;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
-import pt.jumia.services.acl.lib.client.authorization.Path;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +28,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -42,10 +38,7 @@ import static org.mockito.Mockito.mock;
 class PermissionAbstractCheckerImplTest {
 
     @Mock
-    private AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
-
-    @Mock
-    private AclTargetPathBuilder aclTargetPathBuilder;
+    private AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     @Mock
     private AuthToken authToken;
@@ -60,26 +53,18 @@ class PermissionAbstractCheckerImplTest {
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path adminPermissionPath = Path.fromTargetsHierarchyAsString(adminPermission.target());
-        final Path partnerPermissionPath = Path.fromTargetsHierarchyAsString(partnerPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        Mockito.lenient().doReturn(partnerPermissionPath)
-                .when(aclTargetPathBuilder)
-                .buildPath(partnerPermission);
-        Mockito.lenient().doReturn(adminPermissionPath)
-                .when(aclTargetPathBuilder)
-                .buildPath(adminPermission);
 
         doThrow(AclErrorException.build(0))
                 .when(authorizationClient)
                 .hasPermission(eq(requestUser),
                                eq(requestUser.getUsername()),
                                argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                               argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
+                               argThat(_ -> false));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
@@ -97,7 +82,7 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
@@ -120,26 +105,18 @@ class PermissionAbstractCheckerImplTest {
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path partnerPermissionPath = Path.fromTargetsHierarchyAsString(partnerPermission.target());
-        final Path adminPermissionPath = Path.fromTargetsHierarchyAsString(adminPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        Mockito.lenient().doReturn(partnerPermissionPath)
-                .when(aclTargetPathBuilder)
-                .buildPath(partnerPermission);
-        Mockito.lenient().doReturn(adminPermissionPath)
-                .when(aclTargetPathBuilder)
-                .buildPath(adminPermission);
 
         doReturn(true)
                 .when(authorizationClient)
                 .hasPermission(eq(requestUser),
                                eq(requestUser.getUsername()),
                                argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                               argThat(a -> a.equals(adminPermissionPath) || a.equals(partnerPermissionPath)));
+                               argThat(_ -> false));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
@@ -157,18 +134,14 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        doReturn(path)
-                .when(aclTargetPathBuilder)
-                .buildPath(any());
         doReturn(true)
                 .when(authorizationClient)
-                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), path);
+                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), partnerPermission.target());
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkPermission(authToken, partnerPermission);
@@ -184,18 +157,14 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        doReturn(path)
-                .when(aclTargetPathBuilder)
-                .buildPath(any());
         doReturn(false)
                 .when(authorizationClient)
-                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), path);
+                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), partnerPermission.target());
 
         // When
         final boolean result = subject.hasPermission(authToken, partnerPermission);
@@ -210,18 +179,14 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission partnerPermission = PartnerPermission.of(UUID.randomUUID(), PartnerResource.DASHBOARD_READ);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path path = Path.fromTargetsHierarchyAsString(partnerPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        doReturn(path)
-                .when(aclTargetPathBuilder)
-                .buildPath(any());
         doReturn(true)
                 .when(authorizationClient)
-                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), path);
+                .hasPermission(requestUser, requestUser.getUsername(), partnerPermission.resource(), partnerPermission.target());
 
         // When
         final boolean result = subject.hasPermission(authToken, partnerPermission);
@@ -236,18 +201,14 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path path = Path.fromTargetsHierarchyAsString(adminPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        doReturn(path)
-                .when(aclTargetPathBuilder)
-                .buildPath(any());
         doReturn(false)
                 .when(authorizationClient)
-                .hasPermission(requestUser, requestUser.getUsername(), adminPermission.resource(), path);
+                .hasPermission(requestUser, requestUser.getUsername(), adminPermission.resource(), adminPermission.target());
 
         // When
         final boolean result = subject.isAdmin(authToken);
@@ -262,18 +223,14 @@ class PermissionAbstractCheckerImplTest {
         // Given
         final RequestUser requestUser = subject.getRequestUser();
         final Permission adminPermission = ApplicationPermission.of(ApplicationResource.ADMIN);
-        final HierarchicalAuthorizationClient authorizationClient = mock(HierarchicalAuthorizationClient.class);
-        final Path path = Path.fromTargetsHierarchyAsString(adminPermission.target());
+        final DefaultAuthorizationClient authorizationClient = mock(DefaultAuthorizationClient.class);
 
         doReturn(authorizationClient)
                 .when(aclConnectApiClient)
                 .authorization();
-        doReturn(path)
-                .when(aclTargetPathBuilder)
-                .buildPath(any());
         doReturn(true)
                 .when(authorizationClient)
-                .hasPermission(requestUser, requestUser.getUsername(), adminPermission.resource(), path);
+                .hasPermission(requestUser, requestUser.getUsername(), adminPermission.resource(), adminPermission.target());
 
         // When
         final boolean result = subject.isAdmin(authToken);
@@ -288,10 +245,9 @@ class PermissionAbstractCheckerImplTest {
 
         RequestUser requestUser = new AclFaker().requestUser().build();
 
-        TestPermissionChecker(AclTargetPathBuilder aclTargetPathBuilder,
-                              AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient) {
+        TestPermissionChecker(AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient) {
 
-            super(List.of(aclConnectApiClient), aclTargetPathBuilder);
+            super(List.of(aclConnectApiClient));
         }
 
         @Override

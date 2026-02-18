@@ -12,10 +12,9 @@ import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
 import pt.jumia.services.acl.lib.RequestUser;
 import pt.jumia.services.acl.lib.client.authentication.AuthenticationClient;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -27,7 +26,7 @@ class LogoutExecutorImplTest {
     private final AclFaker aclFaker = new AclFaker();
 
     @Mock
-    private AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     @InjectMocks
     private LogoutExecutorImpl subject;
@@ -51,14 +50,14 @@ class LogoutExecutorImplTest {
 
         doReturn(requestUser)
                 .when(authenticationClient)
-                .decodeTokenFromHeader(eq(tokenValue));
+                .decodeTokenFromHeader(tokenValue);
 
         // When
         subject.logout(authToken);
 
         // Then
         verify(authenticationClient)
-                .logout(eq(requestUser));
+                .logout(requestUser);
     }
 
     @Test
@@ -79,7 +78,7 @@ class LogoutExecutorImplTest {
 
         doThrow(AclErrorException.build("Error"))
                 .when(authenticationClient)
-                .decodeTokenFromHeader(eq(tokenValue));
+                .decodeTokenFromHeader(tokenValue);
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.logout(authToken);

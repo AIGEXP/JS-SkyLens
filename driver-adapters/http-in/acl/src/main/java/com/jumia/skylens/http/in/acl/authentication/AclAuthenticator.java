@@ -5,12 +5,12 @@ import com.jumia.skylens.http.in.acl.exceptions.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 @RequiredArgsConstructor
 public class AclAuthenticator implements Authenticator {
 
-    private final AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private final AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     private final AuthInstances authInstances;
 

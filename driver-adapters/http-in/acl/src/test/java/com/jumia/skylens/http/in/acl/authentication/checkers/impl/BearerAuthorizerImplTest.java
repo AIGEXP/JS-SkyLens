@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
 import pt.jumia.services.acl.lib.client.authentication.AuthenticationClient;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -28,7 +28,7 @@ class BearerAuthorizerImplTest {
     private final DomainFaker domainFaker = new DomainFaker();
 
     @Mock
-    private AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     @InjectMocks
     private BearerAuthorizerImpl subject;
