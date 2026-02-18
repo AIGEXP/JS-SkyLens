@@ -64,7 +64,7 @@ class PermissionAbstractCheckerImplTest {
                 .hasPermission(eq(requestUser),
                                eq(requestUser.getUsername()),
                                argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                               argThat(_ -> false));
+                               argThat(a -> a.equals(adminPermission.target()) || a.equals(partnerPermission.target())));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
@@ -116,7 +116,7 @@ class PermissionAbstractCheckerImplTest {
                 .hasPermission(eq(requestUser),
                                eq(requestUser.getUsername()),
                                argThat(a -> a.equals(adminPermission.resource()) || a.equals(partnerPermission.resource())),
-                               argThat(_ -> false));
+                               argThat(a -> a.equals(adminPermission.target()) || a.equals(partnerPermission.target())));
 
         // When
         final ThrowableAssert.ThrowingCallable callable = () -> subject.checkAnyPermission(authToken,
