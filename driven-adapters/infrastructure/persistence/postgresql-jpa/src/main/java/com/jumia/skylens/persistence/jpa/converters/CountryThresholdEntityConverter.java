@@ -5,6 +5,7 @@ import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.domain.catalog.ReportType;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.enums.ReportTypeEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -27,7 +28,7 @@ public interface CountryThresholdEntityConverter extends Converter<CountryThresh
 
         return CountryThresholdEntityId.builder()
                 .country(country)
-                .reportType(CountryThresholdEntityId.ReportType.valueOf(reportType.name()))
+                .reportType(ReportTypeEnum.valueOf(reportType.name()))
                 .build();
     }
 }
