@@ -3,7 +3,7 @@ spring-boot = "4.0.3"
 
 commons-collections4 = "4.5.0"
 commons-text = "1.15.0"
-cucumber = "7.33.0"
+cucumber = "7.34.2"
 datafaker = "2.5.4"
 hypersistence-utils = "3.15.2"
 mapstruct = "1.6.3"
@@ -15,8 +15,8 @@ logging-context = "1.0.5-RELEASE"
 
 spotbugs-gradle-plugin = "6.4.8"
 flyway-plugin = "11.19.0"
-gradle-git-properties = "2.5.4"
-openapi-generator = "7.19.0"
+gradle-git-properties = "2.5.7"
+openapi-generator = "7.20.0"
 
 [libraries]
 spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot-devtools" }
