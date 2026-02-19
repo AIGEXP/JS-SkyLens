@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.RequestUser;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.doReturn;
 class PermissionBasicCheckerImplTest {
 
     @Mock
-    private AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     @Mock
     private CredentialBuilder credentialBuilder;
