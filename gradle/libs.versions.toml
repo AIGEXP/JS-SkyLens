@@ -61,7 +61,6 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-platform-suite = { group = "org.junit.platform", name = "junit-platform-suite" }
 lombok = { group = "org.projectlombok", name = "lombok" }
-spotbugs-gradle-plugin = { group = "com.github.spotbugs.snom", name = "spotbugs-gradle-plugin", version.ref = "spotbugs-gradle-plugin" }
 mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
 micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
@@ -73,6 +72,7 @@ querydsl-apt = { group = "com.querydsl", name = "querydsl-apt" }
 querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api" }
 spotbugs-annotations = { group = "com.github.spotbugs", name = "spotbugs-annotations", version.ref = "spotbugs" }
+spotbugs-gradle-plugin = { group = "com.github.spotbugs.snom", name = "spotbugs-gradle-plugin", version.ref = "spotbugs-gradle-plugin" }
 springdoc-openapi-starter-webmvc-api = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 testcontainers-junit-jupiter = { group = "org.testcontainers", name = "testcontainers-junit-jupiter" }
 testcontainers-mockserver = { group = "org.testcontainers", name = "testcontainers-mockserver" }
