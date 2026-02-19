@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class AclConfiguration {
 
     @Bean
-    Authenticator aclAuthenticator(AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient, AuthInstances authInstances) {
+    Authenticator aclAuthenticator(AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient, AuthInstances authInstances) {
 
         return new AclAuthenticator(aclConnectApiClient, authInstances);
     }
@@ -47,7 +47,7 @@ public class AclConfiguration {
     }
 
     @Bean
-    LogoutExecutor logoutExecutor(AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient) {
+    LogoutExecutor logoutExecutor(AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient) {
 
         return new LogoutExecutorImpl(aclConnectApiClient);
     }

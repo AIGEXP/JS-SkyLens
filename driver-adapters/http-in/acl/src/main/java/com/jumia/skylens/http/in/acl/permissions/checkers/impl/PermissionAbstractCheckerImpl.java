@@ -3,7 +3,6 @@ package com.jumia.skylens.http.in.acl.permissions.checkers.impl;
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.exceptions.AclInternalErrorException;
 import com.jumia.skylens.http.in.acl.exceptions.ForbiddenException;
-import com.jumia.skylens.http.in.acl.permissions.AclTargetPathBuilder;
 import com.jumia.skylens.http.in.acl.permissions.ApplicationPermission;
 import com.jumia.skylens.http.in.acl.permissions.Permission;
 import com.jumia.skylens.http.in.acl.permissions.checkers.PermissionChecker;
@@ -14,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
 import pt.jumia.services.acl.lib.RequestUser;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
-import pt.jumia.services.acl.lib.client.authorization.Path;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.List;
 import java.util.Set;
@@ -25,9 +23,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 abstract class PermissionAbstractCheckerImpl implements PermissionChecker {
 
-    private final List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients;
-
-    private final AclTargetPathBuilder aclTargetPathBuilder;
+    private final List<AclConnectApiClient<DefaultAuthorizationClient>> aclConnectApiClients;
 
     @Override
     public void checkAnyPermission(AuthToken authorization, Permission... permissions) {
@@ -71,11 +67,9 @@ abstract class PermissionAbstractCheckerImpl implements PermissionChecker {
     private boolean hasPermission(RequestUser requestUser, Permission permission) {
 
         try {
-            final Path targetPath = aclTargetPathBuilder.buildPath(permission);
-
             return aclConnectApiClients.stream()
                     .anyMatch(aclConnectApiClient -> aclConnectApiClient.authorization()
-                            .hasPermission(requestUser, requestUser.getUsername(), permission.resource(), targetPath));
+                            .hasPermission(requestUser, requestUser.getUsername(), permission.resource(), permission.target()));
         } catch (AclErrorException aclErrorException) {
 
             log.error("ACL internal error", aclErrorException);

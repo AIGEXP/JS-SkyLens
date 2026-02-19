@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.RequestUser;
 import pt.jumia.services.acl.lib.client.authentication.AuthenticationClient;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +25,11 @@ import static org.mockito.Mockito.mock;
 class PermissionBearerCheckerImplTest {
 
     @SuppressWarnings("unchecked")
-    final AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient = mock(AclConnectApiClient.class);
+    final AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient = mock(AclConnectApiClient.class);
 
     @Spy
     @SuppressWarnings("unused")
-    private List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients = new ArrayList<>(List.of(aclConnectApiClient));
+    private List<AclConnectApiClient<DefaultAuthorizationClient>> aclConnectApiClients = new ArrayList<>(List.of(aclConnectApiClient));
 
     @Mock
     private AuthToken authToken;

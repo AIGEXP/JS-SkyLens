@@ -6,12 +6,12 @@ import lombok.RequiredArgsConstructor;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.AclErrorException;
 import pt.jumia.services.acl.lib.RequestUser;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 @RequiredArgsConstructor
 public class LogoutExecutorImpl implements LogoutExecutor {
 
-    private final AclConnectApiClient<HierarchicalAuthorizationClient> aclConnectApiClient;
+    private final AclConnectApiClient<DefaultAuthorizationClient> aclConnectApiClient;
 
     @Override
     public void logout(AuthToken authToken) {
@@ -19,7 +19,7 @@ public class LogoutExecutorImpl implements LogoutExecutor {
         try {
             final RequestUser requestUser = aclConnectApiClient.authentication().decodeTokenFromHeader(authToken.getToken());
             aclConnectApiClient.authentication().logout(requestUser);
-        } catch (AclErrorException ex) {
+        } catch (AclErrorException _) {
             throw new UnauthorizedException();
         }
     }

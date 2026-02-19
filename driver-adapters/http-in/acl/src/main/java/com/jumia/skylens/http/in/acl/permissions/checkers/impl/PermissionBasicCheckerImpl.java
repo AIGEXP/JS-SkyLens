@@ -3,11 +3,10 @@ package com.jumia.skylens.http.in.acl.permissions.checkers.impl;
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.credentials.BasicCredential;
 import com.jumia.skylens.http.in.acl.credentials.CredentialBuilder;
-import com.jumia.skylens.http.in.acl.permissions.AclTargetPathBuilder;
 import com.jumia.skylens.http.in.acl.permissions.checkers.BasicPermissionChecker;
 import pt.jumia.services.acl.lib.AclConnectApiClient;
 import pt.jumia.services.acl.lib.RequestUser;
-import pt.jumia.services.acl.lib.client.authorization.HierarchicalAuthorizationClient;
+import pt.jumia.services.acl.lib.client.authorization.DefaultAuthorizationClient;
 
 import java.util.List;
 
@@ -15,11 +14,10 @@ public class PermissionBasicCheckerImpl extends PermissionAbstractCheckerImpl im
 
     private final CredentialBuilder credentialBuilder;
 
-    public PermissionBasicCheckerImpl(List<AclConnectApiClient<HierarchicalAuthorizationClient>> aclConnectApiClients,
-                                      AclTargetPathBuilder aclTargetPathBuilder,
+    public PermissionBasicCheckerImpl(List<AclConnectApiClient<DefaultAuthorizationClient>> aclConnectApiClients,
                                       CredentialBuilder credentialBuilder) {
 
-        super(aclConnectApiClients, aclTargetPathBuilder);
+        super(aclConnectApiClients);
         this.credentialBuilder = credentialBuilder;
     }
 
