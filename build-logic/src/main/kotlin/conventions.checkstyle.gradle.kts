@@ -5,7 +5,7 @@ plugins {
 
 checkstyle {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
-    toolVersion = "13.0.0"
+    toolVersion = "13.2.0"
     configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
     isShowViolations = true
     isIgnoreFailures = false
