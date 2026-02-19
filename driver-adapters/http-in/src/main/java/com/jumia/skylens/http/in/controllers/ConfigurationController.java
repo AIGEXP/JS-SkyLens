@@ -2,6 +2,7 @@ package com.jumia.skylens.http.in.controllers;
 
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.resources.ApplicationResource;
+import com.jumia.skylens.http.in.acl.resources.CountryResource;
 import com.jumia.skylens.http.in.model.AlertLevelRequest;
 import com.jumia.skylens.http.in.model.AlertLevelResponse;
 import com.jumia.skylens.http.in.model.ReportType;
@@ -16,6 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConfigurationController implements ConfigurationApi {
 
     private final ConfigurationService configurationService;
+
+    @Override
+    public ThresholdResponse getThresholdTarget(final String country,
+                                                final ReportType reportType,
+                                                final AuthToken authToken) {
+
+        authToken.checkPermission(country, CountryResource.THRESHOLD_READ);
+
+        return configurationService.getThresholdTarget(country, reportType);
+    }
 
     @Override
     public ThresholdResponse setThresholdTarget(final String country,

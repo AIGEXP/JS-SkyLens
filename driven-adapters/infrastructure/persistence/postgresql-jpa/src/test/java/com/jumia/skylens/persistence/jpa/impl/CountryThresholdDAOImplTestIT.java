@@ -71,4 +71,35 @@ class CountryThresholdDAOImplTestIT extends BaseTestIT {
         assertThat(entity).isNotNull();
         assertThat(entity.getValue()).isEqualByComparingTo(newValue);
     }
+
+    @Test
+    void findByCountryAndReportType_whenExists_thenReturnCountryThreshold() {
+
+        // Given
+        final CountryThresholdEntity existingEntity = itPersister.save(faker.entity.countryThresholdEntity().build());
+
+        itPersister.flushAndClear1LevelCache();
+
+        final String country = existingEntity.getId().getCountry();
+        final ReportType reportType = ReportType.valueOf(existingEntity.getId().getReportType().name());
+
+        // When
+        final CountryThreshold result = subject.findByCountryAndReportType(country, reportType);
+
+        // Then
+        assertThat(result).isNotNull();
+        assertThat(result.country()).isEqualTo(country);
+        assertThat(result.reportType()).isEqualTo(reportType);
+        assertThat(result.value()).isEqualByComparingTo(existingEntity.getValue());
+    }
+
+    @Test
+    void findByCountryAndReportType_whenNotExists_thenReturnNull() {
+
+        // When
+        final CountryThreshold result = subject.findByCountryAndReportType("ZZ", ReportType.SUCCESS_RATE);
+
+        // Then
+        assertThat(result).isNull();
+    }
 }

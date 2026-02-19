@@ -2,10 +2,12 @@ package com.jumia.skylens.http.in.acl.tokens;
 
 import com.jumia.skylens.http.in.acl.authentication.AuthToken;
 import com.jumia.skylens.http.in.acl.permissions.ApplicationPermission;
+import com.jumia.skylens.http.in.acl.permissions.CountryPermission;
 import com.jumia.skylens.http.in.acl.permissions.PartnerPermission;
 import com.jumia.skylens.http.in.acl.permissions.checkers.Authorizer;
 import com.jumia.skylens.http.in.acl.permissions.checkers.PermissionChecker;
 import com.jumia.skylens.http.in.acl.resources.ApplicationResource;
+import com.jumia.skylens.http.in.acl.resources.CountryResource;
 import com.jumia.skylens.http.in.acl.resources.PartnerResource;
 import lombok.Getter;
 
@@ -38,6 +40,12 @@ public abstract class AbstractAuthToken implements AuthToken {
     public void checkPermission(UUID partnerTarget, PartnerResource partnerResource, boolean allowAdmin) {
 
         permissionChecker.checkAnyPermission(this, PartnerPermission.of(allowAdmin, partnerTarget, partnerResource));
+    }
+
+    @Override
+    public void checkPermission(String networkTarget, CountryResource countryResource, boolean allowAdmin) {
+
+        permissionChecker.checkAnyPermission(this, CountryPermission.of(allowAdmin, networkTarget, countryResource));
     }
 
     @Override
