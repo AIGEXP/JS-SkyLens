@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor
-public enum PartnerResource {
-    DASHBOARD_READ("lpmt_performance_dashboard_read");
+public enum CountryResource {
+    THRESHOLD_READ("lpmt_threshold_read");
 
-    private static final Map<String, PartnerResource> RESOURCES = Arrays.stream(values())
-            .collect(Collectors.toMap(partnerResource -> partnerResource.getValue().toLowerCase(), Function.identity()));
+    private static final Map<String, CountryResource> RESOURCES = Arrays.stream(values())
+            .collect(Collectors.toMap(countryResource -> countryResource.getValue().toLowerCase(), Function.identity()));
 
     private final String value;
 
-    public static Optional<PartnerResource> of(String resourceString) {
+    public static Optional<CountryResource> of(String resourceString) {
 
         return Optional.ofNullable(RESOURCES.get(resourceString.toLowerCase()));
     }
