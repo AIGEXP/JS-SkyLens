@@ -21,12 +21,14 @@
     <suppress checks="CyclomaticComplexity" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
     <suppress checks="ParameterNumber" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
     <suppress checks="MethodLength" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
+    <suppress checks="ClassFanOutComplexity" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
 
     <suppress checks="MagicNumber" files="DateRange.java"/>
 
     <suppress checks="LineLength" files="AclTokens.java"/>
 
     <suppress checks="ClassFanOutComplexity" files="UseCaseConfiguration.java"/>
+    <suppress checks="ClassDataAbstractionCoupling" files="UseCaseConfiguration.java"/>
 
     <suppress files=".*[\\/]http-in[\\/]build[\\/]generated[\\/].*" checks="[a-zA-Z0-9]*"/>
 </suppressions>

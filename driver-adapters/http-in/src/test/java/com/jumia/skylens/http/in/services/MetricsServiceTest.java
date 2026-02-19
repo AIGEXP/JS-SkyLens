@@ -2,20 +2,26 @@ package com.jumia.skylens.http.in.services;
 
 import com.jumia.skylens.domain.GetCurrentPackageAttemptsMetricsUseCase;
 import com.jumia.skylens.domain.GetPackageMetricsUseCase;
+import com.jumia.skylens.domain.GetSuccessRateMetricsUseCase;
 import com.jumia.skylens.domain.catalog.MetricsFilter;
 import com.jumia.skylens.domain.catalog.PackageMetrics;
 import com.jumia.skylens.domain.catalog.PackageNoAttemptsStatistics;
+import com.jumia.skylens.domain.catalog.SuccessRateMetrics;
+import com.jumia.skylens.domain.catalog.SuccessRateMetricsFilter;
 import com.jumia.skylens.http.in.converters.DeliveryMetricResponseConverter;
 import com.jumia.skylens.http.in.converters.LossRateMetricResponseConverter;
 import com.jumia.skylens.http.in.converters.MetricsFilterConverter;
 import com.jumia.skylens.http.in.converters.NoAttemptsMetricResponseConverter;
 import com.jumia.skylens.http.in.converters.SuccessRateMetricResponseConverter;
+import com.jumia.skylens.http.in.converters.SuccessRateMetricResponseDeprecatedConverter;
+import com.jumia.skylens.http.in.converters.SuccessRateMetricsFilterConverter;
 import com.jumia.skylens.http.in.model.DateRange;
 import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.MovementType;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
 import com.jumia.skylens.http.in.model.PaymentType;
+import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseDeprecatedInner;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseInner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,13 +45,22 @@ class MetricsServiceTest {
     private GetPackageMetricsUseCase getPackageMetricsUseCase;
 
     @Mock
+    private GetSuccessRateMetricsUseCase getSuccessRateMetricsUseCase;
+
+    @Mock
     private GetCurrentPackageAttemptsMetricsUseCase getCurrentPackageAttemptsMetricsUseCase;
 
     @Mock
     private MetricsFilterConverter metricsFilterConverter;
 
     @Mock
+    private SuccessRateMetricsFilterConverter successRateMetricsFilterConverter;
+
+    @Mock
     private DeliveryMetricResponseConverter deliveryMetricResponseConverter;
+
+    @Mock
+    private SuccessRateMetricResponseDeprecatedConverter successRateMetricResponseDeprecatedConverter;
 
     @Mock
     private SuccessRateMetricResponseConverter successRateMetricResponseConverter;
@@ -93,7 +108,7 @@ class MetricsServiceTest {
     }
 
     @Test
-    void getSuccessRate_whenCalled_thenCallUseCase() {
+    void getSuccessRateDeprecated_whenCalled_thenCallUseCase() {
 
         // Given
         final UUID serviceProviderSid = UUID.randomUUID();
@@ -103,14 +118,49 @@ class MetricsServiceTest {
         final MovementType movementType = MovementType.DOOR;
         final MetricsFilter metricsFilter = mock(MetricsFilter.class);
         final PackageMetrics packageMetrics = mock(PackageMetrics.class);
-        final SuccessRateMetricsResponseInner successRate = mock(SuccessRateMetricsResponseInner.class);
+        final SuccessRateMetricsResponseDeprecatedInner successRate = mock(SuccessRateMetricsResponseDeprecatedInner.class);
 
         when(metricsFilterConverter.convert(any(), any(), any(), any(), any())).thenReturn(metricsFilter);
         when(getPackageMetricsUseCase.run(any())).thenReturn(List.of(packageMetrics));
+        when(successRateMetricResponseDeprecatedConverter.convert(any())).thenReturn(successRate);
+
+        // When
+        final List<SuccessRateMetricsResponseDeprecatedInner> successRates = subject.getSuccessRateDeprecated(serviceProviderSid,
+                                                                                                              dateRange,
+                                                                                                              hubSid,
+                                                                                                              paymentType,
+                                                                                                              movementType);
+
+        // Then
+        assertThat(successRates)
+                .containsExactly(successRate);
+
+        verify(metricsFilterConverter).convert(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
+        verify(getPackageMetricsUseCase).run(metricsFilter);
+        verify(successRateMetricResponseDeprecatedConverter).convert(packageMetrics);
+    }
+
+    @Test
+    void getSuccessRate_whenCalled_thenCallUseCase() {
+
+        // Given
+        final String country = "CI";
+        final UUID serviceProviderSid = UUID.randomUUID();
+        final DateRange dateRange = DateRange.CURRENT_WEEK;
+        final UUID hubSid = UUID.randomUUID();
+        final PaymentType paymentType = PaymentType.PRE;
+        final MovementType movementType = MovementType.DOOR;
+        final SuccessRateMetricsFilter successRateMetricsFilter = mock(SuccessRateMetricsFilter.class);
+        final SuccessRateMetrics successRateMetrics = mock(SuccessRateMetrics.class);
+        final SuccessRateMetricsResponseInner successRate = mock(SuccessRateMetricsResponseInner.class);
+
+        when(successRateMetricsFilterConverter.convert(any(), any(), any(), any(), any(), any())).thenReturn(successRateMetricsFilter);
+        when(getSuccessRateMetricsUseCase.run(any())).thenReturn(List.of(successRateMetrics));
         when(successRateMetricResponseConverter.convert(any())).thenReturn(successRate);
 
         // When
-        final List<SuccessRateMetricsResponseInner> successRates = subject.getSuccessRate(serviceProviderSid,
+        final List<SuccessRateMetricsResponseInner> successRates = subject.getSuccessRate(country,
+                                                                                          serviceProviderSid,
                                                                                           dateRange,
                                                                                           hubSid,
                                                                                           paymentType,
@@ -120,9 +170,9 @@ class MetricsServiceTest {
         assertThat(successRates)
                 .containsExactly(successRate);
 
-        verify(metricsFilterConverter).convert(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
-        verify(getPackageMetricsUseCase).run(metricsFilter);
-        verify(successRateMetricResponseConverter).convert(packageMetrics);
+        verify(successRateMetricsFilterConverter).convert(country, serviceProviderSid, dateRange, hubSid, paymentType, movementType);
+        verify(getSuccessRateMetricsUseCase).run(successRateMetricsFilter);
+        verify(successRateMetricResponseConverter).convert(successRateMetrics);
     }
 
     @Test

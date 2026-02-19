@@ -1,5 +1,6 @@
 package com.jumia.skylens.persistence.jpa.entities;
 
+import com.jumia.skylens.persistence.jpa.entities.enums.ReportTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
@@ -30,10 +31,5 @@ public class AlertLevelEntityId implements Serializable {
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(updatable = false, nullable = false)
-    private ReportType reportType;
-
-    public enum ReportType {
-        SUCCESS_RATE,
-        LOSS_RATE
-    }
+    private ReportTypeEnum reportType;
 }

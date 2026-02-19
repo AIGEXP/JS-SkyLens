@@ -3,6 +3,7 @@ package com.jumia.skylens.app.configurations.domain;
 import com.jumia.skylens.domain.GetCountryThresholdUseCase;
 import com.jumia.skylens.domain.GetCurrentPackageAttemptsMetricsUseCase;
 import com.jumia.skylens.domain.GetPackageMetricsUseCase;
+import com.jumia.skylens.domain.GetSuccessRateMetricsUseCase;
 import com.jumia.skylens.domain.ListDateRangeUseCase;
 import com.jumia.skylens.domain.ListMovementTypeUseCase;
 import com.jumia.skylens.domain.ListPaymentTypeUseCase;
@@ -12,6 +13,7 @@ import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
 import com.jumia.skylens.domain.impl.GetCountryThresholdUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
+import com.jumia.skylens.domain.impl.GetSuccessRateMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListDateRangeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListMovementTypeUseCaseImpl;
 import com.jumia.skylens.domain.impl.ListPaymentTypeUseCaseImpl;
@@ -43,6 +45,13 @@ public class UseCaseConfiguration {
     public GetPackageMetricsUseCase getPackageStatisticsUseCase(final HubDailyMetricDAO hubDailyMetricDAO) {
 
         return new GetPackageMetricsUseCaseImpl(hubDailyMetricDAO);
+    }
+
+    @Bean
+    public GetSuccessRateMetricsUseCase getSuccessRateMetricsUseCase(final HubDailyMetricDAO hubDailyMetricDAO,
+                                                                     final AlertLevelDAO alertLevelDAO) {
+
+        return new GetSuccessRateMetricsUseCaseImpl(hubDailyMetricDAO, alertLevelDAO);
     }
 
     @Bean

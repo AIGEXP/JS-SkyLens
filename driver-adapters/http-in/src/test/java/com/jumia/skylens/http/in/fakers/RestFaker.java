@@ -5,6 +5,7 @@ import com.jumia.skylens.http.in.model.AlertLevelResponse;
 import com.jumia.skylens.http.in.model.DeliveryMetricsResponseInner;
 import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
+import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseDeprecatedInner;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.ThresholdResponse;
 import net.datafaker.Faker;
@@ -23,13 +24,24 @@ public class RestFaker extends Faker {
                 .packagesDelivered(number().randomDigit());
     }
 
+    public SuccessRateMetricsResponseDeprecatedInner.Builder successRateMetricsResponseDeprecated() {
+
+        return SuccessRateMetricsResponseDeprecatedInner.builder()
+                .date(timeAndDate().birthday())
+                .packagesDelivered(number().randomDigit())
+                .packagesClosed(number().randomDigit())
+                .successRate(number().randomDouble(2, 0, 100));
+    }
+
     public SuccessRateMetricsResponseInner.Builder successRateMetricsResponse() {
 
         return SuccessRateMetricsResponseInner.builder()
                 .date(timeAndDate().birthday())
                 .packagesDelivered(number().randomDigit())
                 .packagesClosed(number().randomDigit())
-                .successRate(number().randomDouble(2, 0, 100));
+                .successRate(number().randomDouble(2, 0, 100))
+                .isWarning(bool().bool())
+                .isCritical(bool().bool());
     }
 
     public LossRateMetricsResponseInner.Builder lossRateMetricsResponse() {
