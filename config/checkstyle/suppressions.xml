@@ -28,6 +28,7 @@
     <suppress checks="LineLength" files="AclTokens.java"/>
 
     <suppress checks="ClassFanOutComplexity" files="UseCaseConfiguration.java"/>
+    <suppress checks="ClassDataAbstractionCoupling" files="UseCaseConfiguration.java"/>
 
     <suppress files=".*[\\/]http-in[\\/]build[\\/]generated[\\/].*" checks="[a-zA-Z0-9]*"/>
 </suppressions>
