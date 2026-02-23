@@ -1,5 +1,7 @@
 package com.jumia.skylens.app.configurations.domain;
 
+import com.jumia.skylens.domain.ClearCacheUseCase;
+import com.jumia.skylens.domain.GetCacheUseCase;
 import com.jumia.skylens.domain.GetCountryThresholdUseCase;
 import com.jumia.skylens.domain.GetCurrentPackageAttemptsMetricsUseCase;
 import com.jumia.skylens.domain.GetPackageMetricsUseCase;
@@ -9,6 +11,8 @@ import com.jumia.skylens.domain.ListPaymentTypeUseCase;
 import com.jumia.skylens.domain.SaveAlertLevelUseCase;
 import com.jumia.skylens.domain.SaveHubDailyMetricUseCase;
 import com.jumia.skylens.domain.UpsertCountryThresholdUseCase;
+import com.jumia.skylens.domain.impl.ClearCacheUseCaseImpl;
+import com.jumia.skylens.domain.impl.GetCacheUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetCountryThresholdUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetCurrentPackageAttemptsMetricsUseCaseImpl;
 import com.jumia.skylens.domain.impl.GetPackageMetricsUseCaseImpl;
@@ -21,6 +25,7 @@ import com.jumia.skylens.domain.impl.UpsertCountryThresholdUseCaseImpl;
 import com.jumia.skylens.persistence.api.AlertLevelDAO;
 import com.jumia.skylens.persistence.api.CountryThresholdDAO;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
+import com.jumia.skylens.ports.http.out.api.cache.CountryCacheManagement;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,7 +57,7 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    ListDateRangeUseCase listDateRangeUseCase() {
+    public ListDateRangeUseCase listDateRangeUseCase() {
 
         return new ListDateRangeUseCaseImpl();
     }
@@ -76,8 +81,20 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    GetCountryThresholdUseCase getCountryThresholdUseCase(final CountryThresholdDAO countryThresholdDAO) {
+    public GetCountryThresholdUseCase getCountryThresholdUseCase(final CountryThresholdDAO countryThresholdDAO) {
 
         return new GetCountryThresholdUseCaseImpl(countryThresholdDAO);
+    }
+
+    @Bean
+    public GetCacheUseCase getCacheUseCase(final CountryCacheManagement countryCacheManagement) {
+
+        return new GetCacheUseCaseImpl(countryCacheManagement);
+    }
+
+    @Bean
+    public ClearCacheUseCase clearCacheUseCase(final CountryCacheManagement countryCacheManagement) {
+
+        return new ClearCacheUseCaseImpl(countryCacheManagement);
     }
 }

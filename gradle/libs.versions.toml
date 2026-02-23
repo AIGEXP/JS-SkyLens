@@ -23,6 +23,7 @@ spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot
 spring-boot-gradle-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter" }
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
+spring-boot-starter-cache = { group = "org.springframework.boot", name = "spring-boot-starter-cache" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
 spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-jdbc" }
 spring-boot-starter-flyway = { group = "org.springframework.boot", name = "spring-boot-starter-flyway" }
@@ -40,6 +41,7 @@ spring-web = { group = "org.springframework", name = "spring-web" }
 
 assertj = { group = "org.assertj", name = "assertj-core" }
 awaitility = { group = "org.awaitility", name = "awaitility" }
+caffeine = { group = "com.github.ben-manes.caffeine", name = "caffeine" }
 commons-collections4 = { group = "org.apache.commons", name = "commons-collections4", version.ref = "commons-collections4" }
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3" }
 commons-text = { group = "org.apache.commons", name = "commons-text", version.ref = "commons-text" }

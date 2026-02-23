@@ -10,6 +10,7 @@ dependencies {
     implementation(project(":domain:domain-api"))
     implementation(project(":domain:catalog"))
 
+    implementation(project(":domain:ports:http-out-api"))
     implementation(project(":domain:ports:persistence-api"))
 
     implementation(libs.commons.lang3)

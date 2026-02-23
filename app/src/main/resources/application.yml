@@ -91,6 +91,14 @@ app:
     cache:
       expire-duration: PT100H
 
+  http:
+    out:
+      skynet:
+        cache:
+          enabled: true
+          expiration: PT72H
+          max-size: 2000
+
   kafka:
     in:
       topic: services_all_skylens_topic_bi-reports

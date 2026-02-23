@@ -95,6 +95,7 @@ tasks.jacocoTestCoverageVerification {
                 "com.jumia.skylens.http.in.handlers.RestErrorHandler",
                 "com.jumia.skylens.http.in.management.responses.*",
                 "com.jumia.skylens.http.in.controllers.ApiUtil",
+                "com.jumia.skylens.http.in.controllers.CacheManagementApi",
                 "com.jumia.skylens.http.in.controllers.ConfigurationApi",
                 "com.jumia.skylens.http.in.controllers.MetricsApi",
                 "com.jumia.skylens.http.in.controllers.ReferenceDataApi",
