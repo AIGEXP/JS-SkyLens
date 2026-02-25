@@ -636,11 +636,11 @@ components:
 
     CacheResponse:
       type: array
-      required:
-        - key
-        - value
       items:
         type: object
+        required:
+          - key
+          - value
         properties:
           key:
               type: string

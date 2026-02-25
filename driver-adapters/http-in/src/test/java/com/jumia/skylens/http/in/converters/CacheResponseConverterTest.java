@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CacheResponseConverterTest {
 
-    private final CacheResponseConverter subject = new CacheResponseConverterImpl();
+    private final CacheResponseConverter subject = new CacheResponseConverter();
 
     @Test
     void convert_whenCacheHasEntries_thenConvertSuccessfully() {

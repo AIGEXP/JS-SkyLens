@@ -36,7 +36,6 @@ tasks.jacocoTestCoverageVerification {
                 minimum = 1.0.toBigDecimal()
             }
             excludes = listOf(
-                "com.jumia.skylens.http.out.configuration.*",
                 "com.jumia.skylens.cache.country.configuration.*",
             )
         }
