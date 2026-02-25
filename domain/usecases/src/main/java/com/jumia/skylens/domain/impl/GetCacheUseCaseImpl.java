@@ -1,7 +1,7 @@
 package com.jumia.skylens.domain.impl;
 
 import com.jumia.skylens.domain.GetCacheUseCase;
-import com.jumia.skylens.ports.http.out.api.cache.CountryCacheManagement;
+import com.jumia.skylens.ports.cache.api.CountryCacheManagement;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;

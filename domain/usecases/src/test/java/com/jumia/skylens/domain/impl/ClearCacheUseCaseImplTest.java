@@ -1,6 +1,6 @@
 package com.jumia.skylens.domain.impl;
 
-import com.jumia.skylens.ports.http.out.api.cache.CountryCacheManagement;
+import com.jumia.skylens.ports.cache.api.CountryCacheManagement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

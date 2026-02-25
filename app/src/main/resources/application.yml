@@ -91,13 +91,11 @@ app:
     cache:
       expire-duration: PT100H
 
-  http:
-    out:
-      skynet:
-        cache:
-          enabled: true
-          expiration: PT72H
-          max-size: 2000
+  cache:
+    country:
+      enabled: true
+      expiration: PT72H
+      max-size: 200
 
   kafka:
     in:

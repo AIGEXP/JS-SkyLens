@@ -25,7 +25,7 @@ import com.jumia.skylens.domain.impl.UpsertCountryThresholdUseCaseImpl;
 import com.jumia.skylens.persistence.api.AlertLevelDAO;
 import com.jumia.skylens.persistence.api.CountryThresholdDAO;
 import com.jumia.skylens.persistence.api.HubDailyMetricDAO;
-import com.jumia.skylens.ports.http.out.api.cache.CountryCacheManagement;
+import com.jumia.skylens.ports.cache.api.CountryCacheManagement;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

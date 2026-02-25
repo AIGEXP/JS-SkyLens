@@ -2,7 +2,6 @@ package com.jumia.skylens.app.configurations.properties;
 
 import com.jumia.skylens.commons.configurations.CacheProperties;
 import com.jumia.skylens.http.in.configurations.PaginationConfiguration;
-import com.jumia.skylens.http.out.skynet.configuration.SkyNetProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,13 +17,13 @@ import java.util.List;
 @ConfigurationProperties("app")
 public class AppProperties {
 
-    HttpProperties http;
-
     PaginationProperties pagination;
 
     AclServiceProperties aclService;
 
     CorsProperties cors;
+
+    CacheConfigProperties cache;
 
     @Value
     @RequiredArgsConstructor(onConstructor = @__({@ConstructorBinding}))
@@ -73,24 +72,13 @@ public class AppProperties {
 
     @Value
     @RequiredArgsConstructor(onConstructor = @__({@ConstructorBinding}))
-    public static class HttpProperties {
+    public static class CacheConfigProperties {
 
-        HttpOutProperties out;
-
-        @Value
-        @RequiredArgsConstructor(onConstructor = @__({@ConstructorBinding}))
-        public static class HttpOutProperties {
-
-            SkyNetPropertiesImpl skynet;
-
-            @ConfigurationProperties("app.http.out.skynet")
-            public record SkyNetPropertiesImpl(CachePropertiesImpl cache) implements SkyNetProperties {
-
-            }
-        }
+        CountryCachePropertiesImpl country;
     }
 
-    public record CachePropertiesImpl(boolean enabled, Duration expiration, int maxSize) implements CacheProperties {
+    @ConfigurationProperties("app.cache.country")
+    public record CountryCachePropertiesImpl(boolean enabled, Duration expiration, int maxSize) implements CacheProperties {
 
     }
 }

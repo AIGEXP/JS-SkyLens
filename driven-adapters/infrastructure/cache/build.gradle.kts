@@ -6,9 +6,10 @@ dependencies {
 
     // Internal dependencies
     implementation(project(":commons"))
-    implementation(project(":domain:ports:http-out-api"))
+    implementation(project(":domain:ports:cache-api"))
 
     implementation(libs.spring.boot.starter.cache)
+    implementation(libs.caffeine)
 
     implementation(libs.slf4j.api)
 
@@ -37,6 +38,7 @@ tasks.jacocoTestCoverageVerification {
             }
             excludes = listOf(
                 "com.jumia.skylens.http.out.configuration.*",
+                "com.jumia.skylens.cache.country.configuration.*",
             )
         }
     }
