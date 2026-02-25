@@ -21,7 +21,7 @@ public class CountryCacheManagementImpl implements CountryCacheManagement {
 
     public CountryCacheManagementImpl(final CountryCacheProperties countryCacheProperties, final CacheManager cacheManager) {
 
-        this.enabled = countryCacheProperties.cache().enabled();
+        this.enabled = countryCacheProperties.enabled();
         this.cacheManager = cacheManager;
     }
 

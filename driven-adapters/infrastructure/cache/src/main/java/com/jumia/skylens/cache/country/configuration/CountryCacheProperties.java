@@ -1,8 +1,12 @@
 package com.jumia.skylens.cache.country.configuration;
 
-import com.jumia.skylens.commons.configurations.CacheProperties;
+import java.time.Duration;
 
 public interface CountryCacheProperties {
 
-    CacheProperties cache();
+    boolean enabled();
+
+    Duration expiration();
+
+    int maxSize();
 }

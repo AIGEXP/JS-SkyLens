@@ -5,7 +5,6 @@ plugins {
 dependencies {
 
     // Internal dependencies
-    implementation(project(":commons"))
     implementation(project(":domain:ports:cache-api"))
 
     implementation(libs.spring.boot.starter.cache)

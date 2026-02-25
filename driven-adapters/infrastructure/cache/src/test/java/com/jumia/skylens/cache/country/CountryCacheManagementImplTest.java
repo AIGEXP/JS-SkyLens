@@ -4,7 +4,6 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.jumia.skylens.cache.country.configuration.CountryCacheProperties;
 import com.jumia.skylens.cache.country.util.Constants;
-import com.jumia.skylens.commons.configurations.CacheProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,9 +26,6 @@ class CountryCacheManagementImplTest {
     private CountryCacheProperties countryCacheProperties;
 
     @Mock
-    private CacheProperties cacheProperties;
-
-    @Mock
     private CacheManager cacheManager;
 
     private CountryCacheManagementImpl subject;
@@ -37,8 +33,7 @@ class CountryCacheManagementImplTest {
     @BeforeEach
     void setUp() {
 
-        when(countryCacheProperties.cache()).thenReturn(cacheProperties);
-        when(cacheProperties.enabled()).thenReturn(true);
+        when(countryCacheProperties.enabled()).thenReturn(true);
         subject = new CountryCacheManagementImpl(countryCacheProperties, cacheManager);
     }
 
@@ -53,7 +48,7 @@ class CountryCacheManagementImplTest {
     void isEnabled_whenCacheIsDisabled_returnsFalse() {
 
         // Given
-        when(cacheProperties.enabled()).thenReturn(false);
+        when(countryCacheProperties.enabled()).thenReturn(false);
         subject = new CountryCacheManagementImpl(countryCacheProperties, cacheManager);
 
         // Then
