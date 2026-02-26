@@ -3,6 +3,7 @@ package com.jumia.skylens.persistence.jpa.converters;
 import com.jumia.skylens.domain.catalog.CountryThreshold;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntity;
 import com.jumia.skylens.persistence.jpa.entities.CountryThresholdEntityId;
+import com.jumia.skylens.persistence.jpa.entities.enums.ReportTypeEnum;
 import com.jumia.skylens.persistence.jpa.fakers.Faker;
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +29,7 @@ class CountryThresholdEntityConverterTest {
                 .usingRecursiveComparison()
                 .isEqualTo(CountryThresholdEntity.builder()
                                    .id(CountryThresholdEntityId.builder()
-                                               .reportType(CountryThresholdEntityId.ReportType
-                                                                   .valueOf(countryThreshold.reportType().name()))
+                                               .reportType(ReportTypeEnum.valueOf(countryThreshold.reportType().name()))
                                                .country(countryThreshold.country())
                                                .build())
                                    .value(countryThreshold.value())

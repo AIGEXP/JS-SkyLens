@@ -9,6 +9,7 @@ import com.jumia.skylens.domain.catalog.MovementType;
 import com.jumia.skylens.domain.catalog.PackageStatistics;
 import com.jumia.skylens.domain.catalog.PaymentType;
 import com.jumia.skylens.domain.catalog.ReportType;
+import com.jumia.skylens.domain.catalog.SuccessRateMetricsFilter;
 import net.datafaker.Faker;
 
 import java.math.BigDecimal;
@@ -39,6 +40,17 @@ public class DomainFaker extends Faker {
     public MetricsFilter.Builder metricsFilter() {
 
         return MetricsFilter.builder()
+                .serviceProviderSid(UUID.randomUUID())
+                .hubSid(UUID.randomUUID())
+                .dateRange(options().option(DateRange.class))
+                .paymentType(options().option(PaymentType.class))
+                .movementType(options().option(MovementType.class));
+    }
+
+    public SuccessRateMetricsFilter.Builder successRateMetricsFilter() {
+
+        return SuccessRateMetricsFilter.builder()
+                .country(country().countryCode2())
                 .serviceProviderSid(UUID.randomUUID())
                 .hubSid(UUID.randomUUID())
                 .dateRange(options().option(DateRange.class))

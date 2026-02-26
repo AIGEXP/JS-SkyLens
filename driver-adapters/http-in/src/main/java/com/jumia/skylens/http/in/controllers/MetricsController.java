@@ -8,6 +8,7 @@ import com.jumia.skylens.http.in.model.LossRateMetricsResponseInner;
 import com.jumia.skylens.http.in.model.MovementType;
 import com.jumia.skylens.http.in.model.NoAttemptsMetricsResponse;
 import com.jumia.skylens.http.in.model.PaymentType;
+import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseDeprecatedInner;
 import com.jumia.skylens.http.in.model.SuccessRateMetricsResponseInner;
 import com.jumia.skylens.http.in.services.MetricsService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,21 @@ public class MetricsController implements MetricsApi {
     }
 
     @Override
-    public List<SuccessRateMetricsResponseInner> getSuccessRate(final UUID serviceProviderSid,
+    public List<SuccessRateMetricsResponseDeprecatedInner> getSuccessRateDeprecated(final UUID serviceProviderSid,
+                                                                                    final DateRange dateRange,
+                                                                                    final UUID hubSid,
+                                                                                    final PaymentType paymentType,
+                                                                                    final MovementType movementType,
+                                                                                    final AuthToken authToken) {
+
+        authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
+
+        return metricsService.getSuccessRateDeprecated(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
+    }
+
+    @Override
+    public List<SuccessRateMetricsResponseInner> getSuccessRate(final String country,
+                                                                final UUID serviceProviderSid,
                                                                 final DateRange dateRange,
                                                                 final UUID hubSid,
                                                                 final PaymentType paymentType,
@@ -45,7 +60,7 @@ public class MetricsController implements MetricsApi {
 
         authToken.checkPermission(serviceProviderSid, PartnerResource.DASHBOARD_READ);
 
-        return metricsService.getSuccessRate(serviceProviderSid, dateRange, hubSid, paymentType, movementType);
+        return metricsService.getSuccessRate(country, serviceProviderSid, dateRange, hubSid, paymentType, movementType);
     }
 
     @Override

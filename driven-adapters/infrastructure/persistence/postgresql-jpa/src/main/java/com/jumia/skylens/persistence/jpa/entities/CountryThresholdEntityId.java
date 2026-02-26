@@ -1,5 +1,6 @@
 package com.jumia.skylens.persistence.jpa.entities;
 
+import com.jumia.skylens.persistence.jpa.entities.enums.ReportTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
@@ -27,13 +28,8 @@ public class CountryThresholdEntityId implements Serializable {
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(nullable = false)
-    private ReportType reportType;
+    private ReportTypeEnum reportType;
 
     @Column(nullable = false)
     private String country;
-
-    public enum ReportType {
-        SUCCESS_RATE,
-        LOSS_RATE
-    }
 }
