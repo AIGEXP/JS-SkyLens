@@ -1,5 +1,6 @@
 package com.jumia.skylens.app.configurations.properties;
 
+import com.jumia.skylens.cache.country.configuration.CountryCacheProperties;
 import com.jumia.skylens.http.in.configurations.PaginationConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -21,6 +22,8 @@ public class AppProperties {
     AclServiceProperties aclService;
 
     CorsProperties cors;
+
+    CacheConfigProperties cache;
 
     @Value
     @RequiredArgsConstructor(onConstructor = @__({@ConstructorBinding}))
@@ -65,5 +68,17 @@ public class AppProperties {
         AclPropertiesImpl internal;
 
         AclCachePropertiesImpl cache;
+    }
+
+    @Value
+    @RequiredArgsConstructor(onConstructor = @__({@ConstructorBinding}))
+    public static class CacheConfigProperties {
+
+        CountryCachePropertiesImpl country;
+    }
+
+    @ConfigurationProperties("app.cache.country")
+    public record CountryCachePropertiesImpl(boolean enabled, Duration expiration, int maxSize) implements CountryCacheProperties {
+
     }
 }

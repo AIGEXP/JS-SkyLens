@@ -12,10 +12,12 @@ include(":domain:domain-api")
 include(":domain:catalog")
 
 include(":domain:ports")
+include(":domain:ports:cache-api")
 include(":domain:ports:telemetry-api")
 include(":domain:ports:persistence-api")
 
 include(":driven-adapters")
+include(":driven-adapters:infrastructure:cache")
 include(":driven-adapters:infrastructure:persistence:migrations-jpa")
 include(":driven-adapters:infrastructure:persistence:postgresql-jpa")
 include(":driven-adapters:micrometer")

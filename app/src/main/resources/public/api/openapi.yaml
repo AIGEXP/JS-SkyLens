@@ -18,6 +18,8 @@ tags:
     description: Thresholds and alert levels management
   - name: Reference Data
     description: Endpoints for static or reference data
+  - name: Cache Management
+    description: Cache observability and eviction operations
 
 paths:
   /api/v1/service-providers/{serviceProviderSid}/metrics/deliveries:
@@ -273,6 +275,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MovementTypesResponse'
+  /api/v1/cache:
+    delete:
+      tags:
+        - Cache Management
+      summary: Clear all entries from cache
+      operationId: clearCache
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
+      responses:
+        '204':
+          description: Cache cleared successfully
+    get:
+      tags:
+        - Cache Management
+      summary: List cache content
+      operationId: listCache
+      x-spring-provide-args: [ '@com.jumia.skylens.http.in.headers.AuthorizationHeader com.jumia.skylens.http.in.acl.authentication.AuthToken authToken' ]
+      responses:
+        '200':
+          description: Cache content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheResponse'
 
 components:
   parameters:
@@ -608,6 +633,19 @@ components:
           description: Door Delivery
         - value: PUS
           description: Pick Up Delivery
+
+    CacheResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - key
+          - value
+        properties:
+          key:
+              type: string
+          value:
+              type: string
 
     Error:
       type: object

@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":domain:catalog"))
 
     implementation(project(":domain:ports:persistence-api"))
+    implementation(project(":domain:ports:cache-api"))
 
     implementation(libs.commons.lang3)
     implementation(libs.slf4j.api)

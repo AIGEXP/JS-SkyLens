@@ -27,9 +27,11 @@ dependencies {
     implementation(project(":commons"))
     implementation(project(":commons:persistence-commons"))
 
+    implementation(project(":domain:ports:cache-api"))
     implementation(project(":domain:ports:persistence-api"))
     implementation(project(":domain:ports:telemetry-api"))
 
+    implementation(project(":driven-adapters:infrastructure:cache"))
     implementation(project(":driven-adapters:infrastructure:persistence:postgresql-jpa"))
     implementation(project(":driven-adapters:micrometer"))
 
