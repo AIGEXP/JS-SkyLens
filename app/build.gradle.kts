@@ -10,7 +10,7 @@ tasks.bootJar {
     manifest {
         attributes(
             mapOf(
-                "Implementation-Title" to "HMT Stops",
+                "Implementation-Title" to "Skylens",
                 "Implementation-Version" to rootProject.version
             )
         )
@@ -33,6 +33,7 @@ dependencies {
 
     implementation(project(":driven-adapters:infrastructure:cache"))
     implementation(project(":driven-adapters:infrastructure:persistence:postgresql-jpa"))
+    implementation(project(":driven-adapters:http-out"))
     implementation(project(":driven-adapters:micrometer"))
 
     implementation(project(":driver-adapters:cli-in"))
