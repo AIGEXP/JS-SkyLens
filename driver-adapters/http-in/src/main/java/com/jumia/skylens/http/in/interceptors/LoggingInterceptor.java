@@ -14,6 +14,7 @@ import pt.aig.aigx.loggingcontext.enums.CommunicationTypeEnum;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,9 @@ import java.util.stream.Collectors;
 @Order(Ordered.LOWEST_PRECEDENCE - 1)
 public class LoggingInterceptor implements HandlerInterceptor {
 
-    private static final String DEFAULT_TENANT = "all";
+    private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
+
+    private static final String REQUEST_ID_HEADER = "X-Request-ID";
 
     private final WebHeadersLogContext webHeadersLogContext;
 
@@ -36,13 +39,22 @@ public class LoggingInterceptor implements HandlerInterceptor {
                 .filter(headerNotNull.and(headerValueNotNull))
                 .collect(Collectors.toMap(webHeadersLogContext::buildContextName, req::getHeader));
 
-        LoggingUtils.setLogContext(LogContext.of(
-                "api",
-                null,
-                CommunicationTypeEnum.HTTP_IN.getCommunicationTypeValue(),
-                extraHeaders));
+        final String correlationId = extractOrGenerateCorrelationId(req);
+
+        LoggingUtils.setLogContext(LogContext.of("api",
+                                                 null,
+                                                 CommunicationTypeEnum.HTTP_IN.getCommunicationTypeValue(),
+                                                 correlationId,
+                                                 extraHeaders));
 
         return true;
+    }
+
+    private String extractOrGenerateCorrelationId(HttpServletRequest request) {
+
+        return Optional.ofNullable(request.getHeader(CORRELATION_ID_HEADER))
+                .or(() -> Optional.ofNullable(request.getHeader(REQUEST_ID_HEADER)))
+                .orElseGet(LoggingUtils::generateCorrelationId);
     }
 
     @Override

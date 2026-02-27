@@ -1,12 +1,14 @@
 [versions]
-spring-boot = "4.0.2"
+spring-boot = "4.0.3"
 
 commons-collections4 = "4.5.0"
 commons-text = "1.15.0"
-cucumber = "7.33.0"
+cucumber = "7.34.2"
 datafaker = "2.5.4"
 hypersistence-utils = "3.15.2"
 mapstruct = "1.6.3"
+mockserver = "5.15.0"
+resilience4j = "2.3.0"
 spotbugs = "4.9.8"
 springdoc = "3.0.1"
 
@@ -14,9 +16,10 @@ acl-lib = "2.9.1-RELEASE"
 logging-context = "1.0.5-RELEASE"
 
 spotbugs-gradle-plugin = "6.4.8"
-flyway-plugin = "11.19.0"
-gradle-git-properties = "2.5.4"
-openapi-generator = "7.19.0"
+flyway-plugin = "12.0.2"
+gradle-git-properties = "2.5.7"
+openapi-generator = "7.20.0"
+versions = "0.53.0"
 
 [libraries]
 spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot-devtools" }
@@ -29,6 +32,8 @@ spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-
 spring-boot-starter-flyway = { group = "org.springframework.boot", name = "spring-boot-starter-flyway" }
 spring-boot-starter-json = { group = "org.springframework.boot", name = "spring-boot-starter-json" }
 spring-boot-starter-kafka = { group = "org.springframework.boot", name = "spring-boot-starter-kafka" }
+spring-boot-starter-restclient = { group = "org.springframework.boot", name = "spring-boot-starter-restclient" }
+spring-boot-starter-restclient-test = { group = "org.springframework.boot", name = "spring-boot-starter-restclient-test" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
@@ -39,6 +44,7 @@ spring-test = { group = "org.springframework", name = "spring-test" }
 spring-tx = { group = "org.springframework", name = "spring-tx" }
 spring-web = { group = "org.springframework", name = "spring-web" }
 
+apache-http-client = { group = "org.apache.httpcomponents.client5", name = "httpclient5" }
 assertj = { group = "org.assertj", name = "assertj-core" }
 awaitility = { group = "org.awaitility", name = "awaitility" }
 caffeine = { group = "com.github.ben-manes.caffeine", name = "caffeine" }
@@ -69,10 +75,13 @@ mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", v
 micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
 mockito = { group = "org.mockito", name = "mockito-core" }
 mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter" }
+mockserver-client-java = { group = "org.mock-server", name = "mockserver-client-java", version.ref = "mockserver" }
 mssql-jdbc = { group = "com.microsoft.sqlserver", name = "mssql-jdbc" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
 querydsl-apt = { group = "com.querydsl", name = "querydsl-apt" }
 querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa" }
+resilience4j = { group = "io.github.resilience4j", name = "resilience4j-all", version.ref = "resilience4j" }
+resilience4j-micrometer = { group = "io.github.resilience4j", name = "resilience4j-micrometer", version.ref = "resilience4j" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api" }
 spotbugs-annotations = { group = "com.github.spotbugs", name = "spotbugs-annotations", version.ref = "spotbugs" }
 springdoc-openapi-starter-webmvc-api = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
@@ -91,3 +100,4 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 flyway = { id = "org.flywaydb.flyway", version.ref = "flyway-plugin" }
 gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version.ref = "gradle-git-properties" }
 openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }

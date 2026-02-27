@@ -7,6 +7,7 @@ import org.slf4j.MDC;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
@@ -21,6 +22,8 @@ public final class LoggingUtils {
     public static final String NETWORK_CONTEXT_KEY = "network";
 
     public static final String COMMUNICATION_TYPE_CONTEXT_KEY = "communicationType";
+
+    public static final String CORRELATION_ID_KEY = "correlationId";
 
     private static final String LOG_CONTEXT = "logContext";
 
@@ -53,6 +56,16 @@ public final class LoggingUtils {
         final Map<String, String> contextMap = buildContextMap(system, network, communicationType, logContext, headers);
 
         setLogContext(contextMap);
+    }
+
+    public static String getCorrelationId() {
+
+        return MDC.get(CORRELATION_ID_KEY);
+    }
+
+    public static String generateCorrelationId() {
+
+        return UUID.randomUUID().toString();
     }
 
     private static Map<String, String> buildContextMap(String system,

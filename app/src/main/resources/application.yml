@@ -90,12 +90,31 @@ app:
       default-instance: true
     cache:
       expire-duration: PT100H
-
   cache:
     country:
       enabled: true
       expiration: PT72H
       max-size: 200
+  http:
+    out:
+      skynet:
+        read-timeout: ${HTTP_OUT_SKYNET_READ_TIMEOUT:2000}
+        connection-timeout: ${HTTP_OUT_SKYNET_CONNECTION_TIMEOUT:60000}
+        max-idle-connections: ${HTTP_OUT_SKYNET_MAX_IDLE_CONNECTIONS:10}
+        keep-alive: ${HTTP_OUT_SKYNET_KEEP_ALIVE:300000}
+        authorization-token: ${HTTP_OUT_SKYNET_AUTH:token}
+        host: ${HTTP_OUT_SKYNET_HOST:http://localhost:8083/}
+        circuit-breaker:
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 50
+          wait-duration-in-open-state: 20s
+        retry:
+          backoff:
+            initial-interval: 5s
+            multiplier: 1.5
+            max-interval: 20s
+          max-attempts: 3
 
   kafka:
     in:
